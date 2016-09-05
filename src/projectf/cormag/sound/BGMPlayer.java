@@ -27,8 +27,6 @@ public class BGMPlayer {
 	private InputStream is;
 	private Handler handler;
 	private String lastClip;
-//	private static ArrayList<String> allBGMNamesList;
-//	private static String[] allBGMNames;
 	public static final String FILE_EXTENSION = ".pfsf";
 	
 	
@@ -36,20 +34,6 @@ public class BGMPlayer {
 	public BGMPlayer(Handler handler) {
 		
 		this.handler = handler;
-		
-//		allBGMNamesList = new ArrayList<>();
-//		
-//		allBGMNamesList.add("AsnardTheme");
-//		allBGMNamesList.add("GameOver");
-//		allBGMNamesList.add("GourmetRace");
-//		allBGMNamesList.add("Intro");
-//		allBGMNamesList.add("Let Me Hear");
-//		allBGMNamesList.add("Scatman");
-//		allBGMNamesList.add("Town");
-//		allBGMNamesList.add("Otherworld(WIP)");
-//		
-//		allBGMNames = new String[allBGMNamesList.size()];
-//		allBGMNames = allBGMNamesList.toArray(allBGMNames);
 		
 	}
 	
@@ -140,18 +124,6 @@ public class BGMPlayer {
 		return gainControl.getValue();
 
 	}
-	
-//	public static ArrayList<String> getAllBGMs(){
-//
-//		return allBGMNamesList;	
-//		
-//	}
-//	
-//	public static String[] getAllBGMsArray(){
-//
-//		return allBGMNames;
-//		
-//	}
 	
 	public static String[] getAllBGMs(){
 		

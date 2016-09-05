@@ -18,7 +18,6 @@ import javax.swing.event.ListSelectionListener;
 import projectf.cormag.main.Game;
 import projectf.cormag.sound.BGMPlayer;
  
-/* ListDemo.java requires no other files. */
 public class MusicList extends JPanel
                       implements ListSelectionListener {
 

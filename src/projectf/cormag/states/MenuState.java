@@ -121,18 +121,6 @@ public class MenuState extends State {
 				g.drawString("Press C for Controls", 330, 600);
 
 				g.setColor(Color.white);
-
-				if (tx > 40) {
-
-					g.setFont(new Font(Font.SANS_SERIF, 2, tx));
-					g.drawString("アティベロクソの遺産", 280, 260);
-
-				} else {
-
-					g.setFont(new Font(Font.SANS_SERIF, 2, 40));
-					g.drawString("アティベロクソの遺産", 280, 260);
-
-				}
 			}
 
 			tx -= 5;
