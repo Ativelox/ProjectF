@@ -7,12 +7,15 @@ import projectf.cormag.entities.creatures.humans.Player;
 import projectf.cormag.gfx.Animation;
 import projectf.cormag.gfx.Assets;
 import projectf.cormag.main.Handler;
+import projectf.cormag.states.hud.BossHealthBar;
 
 public class DemonBoss extends Boss implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final int DEFAULT_DEMON_BOSS_WIDTH = 96, DEFAULT_DEMON_BOSS_HEIGHT = 48;
+	
+	private BossHealthBar bossHealthBar;
 
 	public DemonBoss(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_DEMON_BOSS_WIDTH * 2 + 40, DEFAULT_CREATURE_HEIGHT * 2);
@@ -24,10 +27,10 @@ public class DemonBoss extends Boss implements Serializable {
 		attackValue = 2;
 
 		awardedExp = 20;
-		
-		name = "n00b";
 
 		sprinting = false;
+		
+		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 
@@ -61,6 +64,12 @@ public class DemonBoss extends Boss implements Serializable {
 
 		steadyAnimation = Assets.demonBoss_down[1];
 
+	}
+
+	@Override
+	public BossHealthBar getBossHealthBar() {
+		
+		return bossHealthBar;
 	}
 
 }

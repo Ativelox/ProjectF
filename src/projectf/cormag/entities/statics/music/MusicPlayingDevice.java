@@ -9,6 +9,7 @@ import projectf.cormag.main.Handler;
 import projectf.cormag.sound.BGMPlayer;
 import projectf.cormag.sound.ICanPlayMusic;
 import projectf.cormag.sound.SelectionMusicBehavior;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public abstract class MusicPlayingDevice extends StaticEntity implements ICanPlayMusic{
 
@@ -106,6 +107,12 @@ public abstract class MusicPlayingDevice extends StaticEntity implements ICanPla
 	public void renderPlayNotification(Graphics g) {
 		
 		selectionMusicBehavior.renderPlayNotification(g);
+		
+	}
+	
+	@Override
+	public void recoverLastMusic(MusicWorld world) {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -7,18 +7,21 @@ import projectf.cormag.entities.creatures.humans.Player;
 import projectf.cormag.gfx.Animation;
 import projectf.cormag.gfx.Assets;
 import projectf.cormag.main.Handler;
+import projectf.cormag.states.hud.BossHealthBar;
 
 public class KingBoss extends BossWithMusic implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private static final int KING_WIDTH = 70, KING_HEIGHT = 75;
+	
+	private BossHealthBar bossHealthBar;
 
 	public KingBoss(Handler handler, float x, float y) {
-		super(handler, x, y, KING_WIDTH, KING_HEIGHT, "Let Me Hear.pfsf");
+		super(handler, x, y, KING_WIDTH, KING_HEIGHT, "boss/Let Me Hear.pfsf");
 		
 		this.handler = handler;
-		this.health = 100;
+		this.health = 10;
 		maxHealth = this.health;
 		damaged = false;
 		attackValue = 1;
@@ -26,10 +29,10 @@ public class KingBoss extends BossWithMusic implements Serializable{
 		speed = Player.DEFAULT_SPEED / 2;
 
 		awardedExp = 1000;
-		
-		name = "mad bitch";
 
 		sprinting = false;
+		
+		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 		
@@ -56,5 +59,11 @@ public class KingBoss extends BossWithMusic implements Serializable{
 		walkingAnimRight = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.king_right);
 
 		steadyAnimation = Assets.king_down[1];
+	}
+
+	@Override
+	public BossHealthBar getBossHealthBar() {
+		
+		return bossHealthBar;
 	}
 }

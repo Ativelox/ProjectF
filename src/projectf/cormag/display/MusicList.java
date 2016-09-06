@@ -35,7 +35,9 @@ public class MusicList extends JPanel
         
         for(int i = 0; i < BGMPlayer.getAllBGMs().length; i++){
         	
-        	listModel.addElement(BGMPlayer.getAllBGMs()[i]);
+        	String soundFile = BGMPlayer.getMusicFile(BGMPlayer.getAllBGMs()[i]);
+        	
+        		listModel.addElement(soundFile.substring(0, soundFile.length() - BGMPlayer.FILE_EXTENSION.length()));
         	
         }
 

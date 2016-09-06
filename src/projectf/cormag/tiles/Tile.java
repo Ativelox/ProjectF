@@ -3,13 +3,15 @@ package projectf.cormag.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import projectf.cormag.tiles.blank.BlackBlankTile;
+import projectf.cormag.tiles.blank.WhiteBlankTile;
 import projectf.cormag.tiles.teleport.SandTeleport;
 
 public class Tile {
 
 	// STATIC STUFF HERE
 
-	public static Tile[] tiles = new Tile[256];
+	public static Tile[] tiles = new Tile[1000];
 	public static Tile grassTile = new GrassTile(0);
 	public static Tile dirtTile = new DirtTile(1);
 	public static Tile rockTile = new RockTile(2);
@@ -36,6 +38,9 @@ public class Tile {
 	public static Tile iceStone = new IceStone(23);
 	public static Tile iceFrozenStone = new IceFrozenStone(24);
 	
+	public static Tile blackBlankTile = new BlackBlankTile(100);
+	public static Tile whiteBlankTile = new WhiteBlankTile(101);
+	
 	public static Tile sandTeleport = new SandTeleport(200);
 
 	// CLASS
@@ -43,7 +48,9 @@ public class Tile {
 	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 
 	protected BufferedImage texture;
+	public boolean isOnScreen;
 	protected final int id;
+	
 
 	public Tile(BufferedImage texture, int id) {
 		this.texture = texture;
@@ -54,15 +61,25 @@ public class Tile {
 
 	public void tick() {
 		
-		
 	}
 
 	public void render(Graphics g, int x, int y) {
 		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 	}
+	
+	public void setOnScreen(boolean onScreen){
+		
+		isOnScreen = onScreen;
+		
+	}
 
 	public boolean isSolid() {
 		return false;
+	}
+	
+	public boolean isBlank(){
+		return false;
+		
 	}
 
 	public int getId() {

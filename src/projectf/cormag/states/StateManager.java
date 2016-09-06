@@ -87,8 +87,6 @@ public class StateManager {
 		this.gameState = null;
 
 		stateStack.clear();
-		
-		System.out.println("got called");
 
 	}
 

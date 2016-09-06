@@ -193,22 +193,6 @@ public class Player extends Human implements Serializable {
 
 			g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(25f));
 
-			if (fadeIn >= 255) {
-
-				g.setColor(new Color(255, 255, 255, (int) Math.floor(fadeOut)));
-				fadeOut -= 4.25;
-
-			} else if (fadeOut <= 0) {
-
-				g.setColor(Color.white);
-
-			} else {
-
-				g.setColor(new Color(255, 255, 255, (int) Math.ceil(fadeIn)));
-				fadeIn += 4.25;
-
-			}
-
 			g.drawString("Level Up!", (int) (x - xOffset) - 15, (int) (y - yOffset) - 20);
 
 			Timer timer = new Timer();

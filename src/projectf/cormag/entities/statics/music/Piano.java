@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import projectf.cormag.gfx.Assets;
 import projectf.cormag.main.Handler;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public class Piano extends MusicPlayingDevice{
 
@@ -49,6 +50,8 @@ public class Piano extends MusicPlayingDevice{
 		super.render(g);
 		
 	}
+
+
 
 	
 

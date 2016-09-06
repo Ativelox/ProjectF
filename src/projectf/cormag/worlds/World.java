@@ -13,6 +13,7 @@ import projectf.cormag.entities.statics.weapons.IronSword;
 import projectf.cormag.main.Game;
 import projectf.cormag.main.Handler;
 import projectf.cormag.tiles.Tile;
+import projectf.cormag.tiles.blank.BlankTile;
 import projectf.cormag.tiles.teleport.SandTeleport;
 import projectf.cormag.tiles.teleport.TeleportTile;
 import projectf.cormag.utils.Utils;
@@ -29,16 +30,11 @@ public abstract class World implements Serializable {
 	public boolean debug, debugActive;
 	protected int[][] tiles;
 	protected String path;
-	
-	protected boolean isRunning;
-	
-	protected boolean canChangeWorld;
 
 	public World() {
 
 		debugActive = false;
 		debug = false;
-		canChangeWorld = true;
 		
 
 	}
@@ -69,6 +65,26 @@ public abstract class World implements Serializable {
 			}
 		}
 	}
+	
+//	public void checkTilesOnScreen(){
+//		
+//		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
+//		int xEnd = (int) Math.min(width,
+//				(handler.getGameCamera().getxOffset() + Game.WIDTH) / Tile.TILEWIDTH + 1);
+//		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
+//		int yEnd = (int) Math.min(height,
+//				(handler.getGameCamera().getyOffset() + Game.HEIGHT) / Tile.TILEHEIGHT + 1);
+//
+//		for(int y = 0; y < height; y++){
+//			for(int x = 0; x < width; x++){
+//				if((x >= xStart && x <= xEnd) && (y >= yStart && y <= yEnd)){
+//					getTile(x, y).setOnScreen(true);		
+//				}else{
+//					getTile(x, y).setOnScreen(false);	
+//				}
+//			}
+//		}
+//	}
 
 	public void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
@@ -122,37 +138,19 @@ public abstract class World implements Serializable {
 		return null;
 	}
 	
-	public void goToTutorialDesert(){
+	protected void changeWorldIfDemanded(World world, Point newWorldSpawn){
 		
-		if(getCorrespondingTeleportTile() instanceof SandTeleport){
+		if(getCorrespondingTeleportTile() instanceof TeleportTile){
 			
-			isRunning = false;
-			
-			handler.setWorld(new LoadingScreen(handler.getTutorialDesert(), handler, 
-					handler.getTutorialDesert().getComingFromFields().x, handler.getTutorialDesert().getComingFromFields().y, handler.getBGMPlayer()));
+			handler.getBGMPlayer().setLastMusicInWorld(handler.getBGMPlayer().getClip(), handler.getWorld());
+		
+			handler.setWorld(new LoadingScreen(world, handler, newWorldSpawn.x, newWorldSpawn.y, handler.getBGMPlayer()));
 			
 		}
 		
 	}
 	
-	public void goToTutorialFields(){
-		
-		if(getCorrespondingTeleportTile() instanceof SandTeleport){
-			
-			isRunning = false;
-			
-			handler.setWorld(new LoadingScreen(handler.getTutorialFields(), handler, 
-					handler.getTutorialFields().getComingFromDesert().x, handler.getTutorialFields().getComingFromDesert().y, handler.getBGMPlayer()));
-			
-		}
-		
-	}
-
-	public void tick(){
-		
-		
-
-	}
+	public void tick(){};
 
 	public void render(Graphics g){
 		
@@ -174,18 +172,6 @@ public abstract class World implements Serializable {
 		return entityManager;
 	}
 
-	public boolean getCanChangeWorld() {
-
-		return canChangeWorld;
-
-	}
-
-	public void setCanChangeWorld(boolean canChangeWorld) {
-
-		this.canChangeWorld = canChangeWorld;
-
-	}
-
 	public void setHandler(Handler handler) {
 
 		this.handler = handler;
@@ -197,12 +183,6 @@ public abstract class World implements Serializable {
 		return new Point((int) ((player.getX() + Creature.DEFAULT_CREATURE_WIDTH / 2)),
 				(int) ((player.getY() + Creature.DEFAULT_CREATURE_HEIGHT / 2)));
 
-	}
-	
-	public boolean getIsRunning(){
-		
-		return isRunning;
-		
 	}
 	
 	public void applyResources(){

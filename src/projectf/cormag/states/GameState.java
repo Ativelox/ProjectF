@@ -9,10 +9,10 @@ import java.util.List;
 import projectf.cormag.main.Handler;
 import projectf.cormag.saves.SavedGame;
 import projectf.cormag.states.hud.HUDState;
-import projectf.cormag.worlds.TutorialDesert;
-import projectf.cormag.worlds.TutorialFields;
-import projectf.cormag.worlds.DefaultHouse;
 import projectf.cormag.worlds.World;
+import projectf.cormag.worlds.buildings.DefaultHouse;
+import projectf.cormag.worlds.music.TutorialDesert;
+import projectf.cormag.worlds.music.TutorialFields;
 
 public class GameState extends State implements Serializable {
 

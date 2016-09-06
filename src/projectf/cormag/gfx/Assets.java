@@ -19,9 +19,9 @@ public class Assets {
 	private static final int DEFAULT_TILE_WIDTH = 128, DEFAULT_TILE_HEIGHT = 128;
 	private static final int TILE_PADDING_WIDTH = 16, TILE_PADDING_HEIGHT = 17;
 
-	public static BufferedImage dirt, grass, stone, tree, rock, water, woodenPlankets, gravel, mediumWoodenGround, sand,
+	public static BufferedImage dirt, grass, stone, tree, grassBushSmale, grassBushMedium, grassBushLarge, rock, water, woodenPlankets, gravel, mediumWoodenGround, sand,
 			solidSandStone, sandStone, smoothSandStone, darkWoodenWall, grassDirt, grassSand, grassStone, hardSand, sandGrass, sandWithStone,
-			dirtGrass, dirtSand, dirtStone, ice, iceFrozenStone, iceHoled, iceStone;
+			dirtGrass, dirtSand, dirtStone, ice, iceFrozenStone, iceHoled, iceStone, blackBlankTile, whiteBlankTile;
 	
 	public static BufferedImage background;
 	public static BufferedImage female_NPC;
@@ -375,11 +375,14 @@ public class Assets {
 		iceHoled = terrain_celianna.crop(64, 64*3, 64, 64);
 		
 		iceStone = terrain_celianna.crop(64 * 2, 64*3, 64, 64);
+	
+		blackBlankTile = terrain_celianna.crop(0, 64 * 4, 64, 64);
+		
+		whiteBlankTile = terrain_celianna.crop(64, 64 * 4, 64, 64);
+		
 		
 		stoneHouseSemiFlat = house_sheet.crop(11, 22, 86, 112);
-		
 		stoneHouseSharp = house_sheet.crop(123, 7, 86, 127);
-		
 		stoneHouseFlat = house_sheet.crop(238, 38, 80, 96);
 		
 		piano = modernage.crop(384, 169, 64, 75);
@@ -390,6 +393,11 @@ public class Assets {
 		classic_house = classic_house_sprite.crop(0, 0, 128, 128);
 		hiFiSystem = hiFiSystem_sheet.crop(0, 0, 99, 56);
 		iron_sword = sword_sprite.crop(0, 0, WIDTH, HEIGHT);
+		
+		grassBushSmale = terrain_celianna.crop(64 * 4, 0, 32, 32);
+		grassBushMedium = terrain_celianna.crop(64 * 4 + 32, 0, 32, 32);
+		grassBushLarge = terrain_celianna.crop(64 * 4, 32, 64, 64);
+
 
 		avatar_crazy_mouth_open = avatar_sprite.crop(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT);
 		avatar_depressed = avatar_sprite.crop(AVATAR_WIDTH, 0, AVATAR_WIDTH, AVATAR_HEIGHT);

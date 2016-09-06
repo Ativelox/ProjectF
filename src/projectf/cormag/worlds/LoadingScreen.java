@@ -5,8 +5,11 @@ import java.awt.Graphics;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.sound.sampled.Clip;
+
 import projectf.cormag.main.Handler;
 import projectf.cormag.sound.BGMPlayer;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public class LoadingScreen extends World{
 
@@ -75,9 +78,32 @@ public class LoadingScreen extends World{
 
 			@Override
 			public void run() {
+				
+				if(queuedWorld instanceof MusicWorld){
+					
+					handler.setWorld(queuedWorld);
+					
+					World[] worlds = bgmPlayer.getVisitedMusicWorlds();
+					Clip[] clips = bgmPlayer.getVisitedMusicWorldsClip();
+					
+					if(worlds != null && clips != null){
 
-				handler.setWorld(queuedWorld);
+						for(int j = 0; j < worlds.length; j++){
+							
+							if(worlds[j] != null && worlds[j].equals(queuedWorld)){
+			
+								
+								bgmPlayer.setClip(clips[j]);
+							}
+							
+							
+						}
 
+					}
+				}else{
+					handler.setWorld(queuedWorld);
+				
+				}
 			}
 
 		}, 1000);

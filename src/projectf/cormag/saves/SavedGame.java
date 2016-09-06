@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import projectf.cormag.main.Game;
 import projectf.cormag.main.Handler;
-import projectf.cormag.worlds.TutorialDesert;
-import projectf.cormag.worlds.TutorialFields;
-import projectf.cormag.worlds.DefaultHouse;
 import projectf.cormag.worlds.World;
+import projectf.cormag.worlds.buildings.DefaultHouse;
+import projectf.cormag.worlds.music.TutorialDesert;
+import projectf.cormag.worlds.music.TutorialFields;
 
 public class SavedGame implements Serializable {
 

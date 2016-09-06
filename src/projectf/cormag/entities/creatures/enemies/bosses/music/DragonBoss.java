@@ -7,6 +7,7 @@ import projectf.cormag.entities.creatures.humans.Player;
 import projectf.cormag.gfx.Animation;
 import projectf.cormag.gfx.Assets;
 import projectf.cormag.main.Handler;
+import projectf.cormag.states.hud.BossHealthBar;
 
 public class DragonBoss extends BossWithMusic implements Serializable {
 
@@ -14,12 +15,13 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 	public static final int DEFAULT_DRAGON_BOSS_WIDTH = 250, DEFAULT_DRAGON_BOSS_HEIGHT = 250;
 
+	private BossHealthBar bossHealthBar;
 
 	public DragonBoss(Handler handler, float x, float y) {
-		super(handler, x, y, DEFAULT_DRAGON_BOSS_WIDTH, DEFAULT_DRAGON_BOSS_HEIGHT, "Otherworld(WIP).pfsf");
+		super(handler, x, y, DEFAULT_DRAGON_BOSS_WIDTH, DEFAULT_DRAGON_BOSS_HEIGHT, "boss/Otherworld(WIP).pfsf");
 
 		this.handler = handler;
-		this.health = 800;
+		this.health = 20;
 		maxHealth = this.health;
 		damaged = false;
 		attackValue = 20;
@@ -28,9 +30,9 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 		awardedExp = 1000;
 		
-		name = "Lul";
-
 		sprinting = false;
+		
+		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 
@@ -59,6 +61,12 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 		steadyAnimation = Assets.dragonBoss_down[2];
 
+	}
+
+	@Override
+	public BossHealthBar getBossHealthBar() {
+		
+		return bossHealthBar;
 	}
 
 

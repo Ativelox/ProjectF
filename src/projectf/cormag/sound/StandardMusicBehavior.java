@@ -2,6 +2,8 @@ package projectf.cormag.sound;
 
 import java.awt.Graphics;
 
+import projectf.cormag.worlds.music.MusicWorld;
+
 public class StandardMusicBehavior extends MusicBehavior{
 	
 	private BGMPlayer soundPlayer;
@@ -63,6 +65,13 @@ public class StandardMusicBehavior extends MusicBehavior{
 	@Override
 	public void renderMusicChooseArea(String[] paths) {
 	
+		
+	}
+
+	@Override
+	public void recoverLastMusic(MusicWorld world) {
+		
+		soundPlayer.recoverLastSound(world);
 		
 	}
 

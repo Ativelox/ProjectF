@@ -6,12 +6,15 @@ import projectf.cormag.entities.creatures.humans.Player;
 import projectf.cormag.gfx.Animation;
 import projectf.cormag.gfx.Assets;
 import projectf.cormag.main.Handler;
+import projectf.cormag.states.hud.BossHealthBar;
 
 public class VikingBoss extends Boss {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final int DEFAULT_MATTI_BOSS_WIDTH = 62, DEFAULT_MATTI_BOSS_HEIGHT = 75;
+	
+	private BossHealthBar bossHealthBar;
 
 	public VikingBoss(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_MATTI_BOSS_WIDTH, DEFAULT_MATTI_BOSS_HEIGHT);
@@ -24,13 +27,13 @@ public class VikingBoss extends Boss {
 
 		awardedExp = 100;
 
-		name = "Banboozler";
-
 		sprinting = false;
 		seenPlayer = false;
 		damagedOnce = false;
 
 		speed = 2;
+		
+		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 
@@ -61,6 +64,12 @@ public class VikingBoss extends Boss {
 		
 		steadyAnimation = Assets.mattiBoss_down[1];
 
+	}
+
+	@Override
+	public BossHealthBar getBossHealthBar() {
+		
+		return bossHealthBar;
 	}
 
 }

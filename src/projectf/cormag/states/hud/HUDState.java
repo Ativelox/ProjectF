@@ -68,5 +68,11 @@ public class HUDState extends State {
 		return hudElements.remove(hudElementToRemove);
 
 	}
+	
+	public boolean containsHUDElement(HUDElement hudElementToCheck){
+		
+		return hudElements.contains(hudElementToCheck);
+		
+	}
 
 }

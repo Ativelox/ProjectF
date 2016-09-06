@@ -6,6 +6,7 @@ import projectf.cormag.entities.creatures.enemies.bosses.Boss;
 import projectf.cormag.main.Handler;
 import projectf.cormag.sound.ICanPlayMusic;
 import projectf.cormag.sound.StandardMusicBehavior;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public abstract class BossWithMusic extends Boss implements ICanPlayMusic{
 	
@@ -34,8 +35,8 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic{
 		}
 
 		if (this.health <= 0) {
-			
-			stopBGM();
+	
+			recoverLastMusic((MusicWorld) handler.getWorld());
 
 		}
 		
@@ -60,6 +61,14 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic{
 	public void tickBGM(){
 		
 		standardMusicBehavior.tickBGM();
+		
+	}
+	
+	@Override
+	public void recoverLastMusic(MusicWorld world){
+		
+		stopBGM();
+		standardMusicBehavior.recoverLastMusic(world);
 		
 	}
 

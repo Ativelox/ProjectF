@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import projectf.cormag.main.Handler;
 import projectf.cormag.utils.Utils;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public class SelectionMusicBehavior extends MusicBehavior{
 	
@@ -87,6 +88,13 @@ public class SelectionMusicBehavior extends MusicBehavior{
 	@Override
 	public void playBGM(String path) {
 		
+		
+	}
+
+
+	@Override
+	public void recoverLastMusic(MusicWorld world) {
+		// TODO Auto-generated method stub
 		
 	}
 

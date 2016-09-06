@@ -14,7 +14,6 @@ public class MenuState extends State {
 	private static final long serialVersionUID = 1L;
 
 	private int x;
-	private int tx;
 
 	private boolean mainMenu, options, controls;
 	
@@ -24,7 +23,6 @@ public class MenuState extends State {
 	public MenuState(Handler handler) {
 		super(handler);
 		x = 0;
-		tx = 400;
 		mainMenu = true;
 		controls = false;
 		options = false;
@@ -122,8 +120,6 @@ public class MenuState extends State {
 
 				g.setColor(Color.white);
 			}
-
-			tx -= 5;
 
 		} else if (controls) {
 

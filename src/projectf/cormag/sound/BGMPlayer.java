@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -17,6 +18,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 import projectf.cormag.main.Handler;
+import projectf.cormag.worlds.World;
+import projectf.cormag.worlds.music.MusicWorld;
 
 public class BGMPlayer {
 
@@ -27,6 +30,8 @@ public class BGMPlayer {
 	private InputStream is;
 	private Handler handler;
 	private String lastClip;
+	private World[] worlds;
+	private Clip[] clips;
 	public static final String FILE_EXTENSION = ".pfsf";
 	
 	
@@ -53,7 +58,6 @@ public class BGMPlayer {
 	
 	public void setSound(String name){
 
-		
 		if(!name.equals(lastClip)){
 
 			if(audioInputStream != null){
@@ -74,6 +78,7 @@ public class BGMPlayer {
 				clip.open(audioInputStream);
 				gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(-10f);
+				
 			} catch (Exception e) {
 	
 				e.printStackTrace();
@@ -82,6 +87,24 @@ public class BGMPlayer {
 			lastClip = name;
 		}
 		
+		
+	}
+	
+	public void setClip(Clip clip){
+		
+		if(audioInputStream != null){
+			
+			try {
+				audioInputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			this.clip.stop();
+		}
+		
+		this.clip = clip;
+		
+		playSound();
 		
 		
 	}
@@ -98,6 +121,13 @@ public class BGMPlayer {
 
 		return clip;
 
+	}
+	
+	public void recoverLastSound(MusicWorld world){
+		
+		setSound(world.getDefaultSoundtrack());
+		playSound();
+		
 	}
 
 	public void stopCurrentSound() {
@@ -127,9 +157,11 @@ public class BGMPlayer {
 	
 	public static String[] getAllBGMs(){
 		
+		//TODO: adjust the new res subfolder "boss" in "music" so that the game wont crash when starting it by using a .jar!
+		
 		ArrayList<String> allBGMNamesList = new ArrayList<>();
 		
-		final String path = "music";
+		String path = "music";
 		
 		final File jarFile = new File(BGMPlayer.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
@@ -175,7 +207,34 @@ public class BGMPlayer {
 					
 					for(File app : apps.listFiles()){
 						
-						allBGMNamesList.add(app.getName().substring(0, app.getName().length() - FILE_EXTENSION.length()));
+						if(app.getName().equals("boss")){
+							
+							path = "music/boss";
+							
+							final URL thatUrl = BGMPlayer.class.getResource("/" + path);
+							
+							if(thatUrl != null){
+								
+								try{	
+									final File thoseApps = new File(thatUrl.toURI());
+									
+									for(File thatApp : thoseApps.listFiles()){
+										
+										allBGMNamesList.add(path + "/" + thatApp.getName());
+									}
+									
+								}catch(URISyntaxException ed){
+									
+								}
+							}
+							
+							
+							
+						}else{
+						
+							allBGMNamesList.add("music" + "/" + app.getName());
+						
+						}
 
 					}
 					
@@ -195,6 +254,66 @@ public class BGMPlayer {
 		return null;
 	
 	}
+	
+	public static String getMusicFile(String path){
+			
+		return path.substring("music/".length());
+	
+			
+	}
+
+	public void setLastMusicInWorld(Clip clip, World world) {
+		
+		if(worlds == null && clips == null){
+			
+			worlds = new World[handler.getWorldList().size()];
+			clips = new Clip[handler.getWorldList().size()];
+			
+		}
+		
+		if(world instanceof MusicWorld){
+			
+			int count = 0;
+			
+			Iterator <World> worldList = handler.getWorldList().iterator();
+			
+			while(worldList.hasNext()){
+				
+				World w = worldList.next();
+				
+				if(w.equals(world)){
+					worlds[count] = world;
+					clips[count] = clip;
+					
+					
+				}
+				
+			
+				
+				count += 1;
+				
+			}
+			
+		}
+
+		
+	}
+	
+	public World[] getVisitedMusicWorlds(){
+		
+		return worlds;
+		
+	}
+	
+	public Clip[] getVisitedMusicWorldsClip(){
+		
+		return clips;
+		
+	}
+		
+	
+		
+	
 }
 	
 	
