@@ -4,6 +4,8 @@ import projectf.cormag.worlds.World;
 
 public abstract class MusicWorld extends World{
 	
+	private static final long serialVersionUID = 1L;
+	
 	protected String defaultSoundtrack;
 	protected boolean isRunning;
 
@@ -20,3 +22,4 @@ public abstract class MusicWorld extends World{
 	}
 
 }
+	

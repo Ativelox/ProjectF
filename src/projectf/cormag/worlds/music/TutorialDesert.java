@@ -11,7 +11,6 @@ import projectf.cormag.entities.statics.buildings.StoneHouseSemiFlat;
 import projectf.cormag.main.Handler;
 import projectf.cormag.sound.BGMPlayer;
 import projectf.cormag.tiles.Tile;
-import projectf.cormag.worlds.World;
 
 public class TutorialDesert extends MusicWorld implements Serializable {
 

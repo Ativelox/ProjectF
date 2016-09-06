@@ -13,8 +13,6 @@ import projectf.cormag.entities.statics.weapons.IronSword;
 import projectf.cormag.main.Game;
 import projectf.cormag.main.Handler;
 import projectf.cormag.tiles.Tile;
-import projectf.cormag.tiles.blank.BlankTile;
-import projectf.cormag.tiles.teleport.SandTeleport;
 import projectf.cormag.tiles.teleport.TeleportTile;
 import projectf.cormag.utils.Utils;
 

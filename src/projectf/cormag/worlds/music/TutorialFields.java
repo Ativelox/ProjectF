@@ -17,7 +17,6 @@ import projectf.cormag.entities.statics.buildings.StoneHouseSharp;
 import projectf.cormag.main.Handler;
 import projectf.cormag.sound.BGMPlayer;
 import projectf.cormag.tiles.Tile;
-import projectf.cormag.worlds.World;
 
 public class TutorialFields extends MusicWorld implements Serializable {
 

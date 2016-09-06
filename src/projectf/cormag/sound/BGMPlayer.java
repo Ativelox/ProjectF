@@ -157,8 +157,6 @@ public class BGMPlayer {
 	
 	public static String[] getAllBGMs(){
 		
-		//TODO: adjust the new res subfolder "boss" in "music" so that the game wont crash when starting it by using a .jar!
-		
 		ArrayList<String> allBGMNamesList = new ArrayList<>();
 		
 		String path = "music";
@@ -174,13 +172,28 @@ public class BGMPlayer {
 				while(entries.hasMoreElements()){
 					final String fullPath = entries.nextElement().getName();
 					
-					if(fullPath.startsWith(path + "/")){
+					if(fullPath.startsWith(path + "/boss/")){
 						
 						String name = fullPath.substring((path + "/").length());
 						
 						if(!(name.length() - FILE_EXTENSION.length() <= 0)){
 							
-							allBGMNamesList.add(name.substring(0 , name.length() - FILE_EXTENSION.length()));
+							allBGMNamesList.add(fullPath);
+							
+							
+						}
+						
+						
+					}
+					
+					else if(fullPath.startsWith(path + "/")){
+						
+						String name = fullPath.substring((path + "/").length());
+						
+						if(!(name.length() - FILE_EXTENSION.length() <= 0)){
+							
+							allBGMNamesList.add(fullPath);
+							
 							
 						}
 						
@@ -221,6 +234,7 @@ public class BGMPlayer {
 									for(File thatApp : thoseApps.listFiles()){
 										
 										allBGMNamesList.add(path + "/" + thatApp.getName());
+
 									}
 									
 								}catch(URISyntaxException ed){

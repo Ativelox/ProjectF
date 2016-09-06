@@ -2,10 +2,6 @@ package projectf.cormag.main;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.sound.sampled.Clip;
 
 import projectf.cormag.entities.Entity;
 import projectf.cormag.entities.creatures.enemies.bosses.Boss;
@@ -17,7 +13,6 @@ import projectf.cormag.worlds.LoadingScreen;
 import projectf.cormag.worlds.World;
 import projectf.cormag.worlds.buildings.DefaultHouse;
 import projectf.cormag.worlds.buildings.DefaultInn;
-import projectf.cormag.worlds.music.MusicWorld;
 import projectf.cormag.worlds.music.TutorialDesert;
 import projectf.cormag.worlds.music.TutorialFields;
 
@@ -110,38 +105,6 @@ public class Handler {
 		}
 
 		this.world = world;
-		
-//		if(world instanceof MusicWorld){
-//			
-//			World[] worlds = bgmPlayer.getVisitedMusicWorlds();
-//			Clip[] clips = bgmPlayer.getVisitedMusicWorldsClip();
-//			
-//			if(worlds != null && clips != null){
-//
-//				for(int j = 0; j < worlds.length; j++){
-//					
-//					if(worlds[j] != null && worlds[j].equals(world)){
-//						
-//						final int i = j;
-//						
-//						Timer timer = new Timer();
-//						timer.schedule(new TimerTask(){
-//
-//							@Override
-//							public void run() {
-//								
-//								bgmPlayer.setClip(clips[i]);
-//								
-//							}
-//			
-//						}, 50);
-//					}
-//					
-//					
-//				}
-//
-//			}
-//		}
 			
 	}
 	

@@ -41,8 +41,6 @@ public class Player extends Human implements Serializable {
 
 	private IronSword ironSword;
 
-	private float fadeIn, fadeOut;
-
 	private boolean sheathAble;
 	
 	private TalkableHuman lastEncountered;
@@ -71,9 +69,6 @@ public class Player extends Human implements Serializable {
 		sheathAble = true;
 
 		leveledUp = false;
-
-		fadeIn = 0;
-		fadeOut = 255;
 
 		applyResources();
 
@@ -202,8 +197,6 @@ public class Player extends Human implements Serializable {
 				public void run() {
 
 					leveledUp = false;
-					fadeIn = 0;
-					fadeOut = 255;
 
 				}
 			}, 2000);
