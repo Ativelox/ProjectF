@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
+import de.cormag.projectf.entities.statics.nocollision.NoCollision;
 import de.cormag.projectf.main.Handler;
 
 public abstract class Entity implements Serializable, Comparable<Entity> {
@@ -61,12 +62,14 @@ public abstract class Entity implements Serializable, Comparable<Entity> {
 	
 			while (entities.hasNext()) {
 				e = entities.next();
+				
 				if (e.equals(this))
 					continue;
 				if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
 					return true;
 			}
 			return false;
+			
 		}else{
 			
 			return false;
@@ -198,12 +201,26 @@ public abstract class Entity implements Serializable, Comparable<Entity> {
 
 	@Override
 	public int compareTo(Entity o) {
+	
+		if(this instanceof NoCollision){
+			return -1;
+			
+		}else if(o instanceof NoCollision){
+			
+			return 1;
+			
+		}
+		
 		if (this.getY() + this.getHeight() < o.getY() + o.getHeight()) {
 			return -1;
 		} else if (this.getY() + this.getHeight() == o.getY() + o.getHeight()) {
 			return 0;
-		} else {
+		} else if(this.getY() + this.getHeight() > o.getY() + o.getHeight()){
 			return 1;
+		}else{
+			
+			return -1;
 		}
 	}
+	
 }

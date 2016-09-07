@@ -3,6 +3,7 @@ package de.cormag.projectf.entities.statics.buildings;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
@@ -43,15 +44,16 @@ public abstract class EnterableBuilding extends StaticEntity{
 		
 	}
 	
-	public void render(Graphics g){
-		super.render(g);		
-		renderDoorHitbox(g);
-		
+	public void render(Graphics g, BufferedImage imageToDraw, int width, int height){
+		super.render(g, imageToDraw, width, height);	
+
 		if(checkPlayerDoorCollision()){
 			
 			Utils.openNotificationWindow(g, "Enter (E)");
 			
 		}
+		
+		renderDoorHitbox(g);
 
 	}
 
@@ -74,8 +76,6 @@ public abstract class EnterableBuilding extends StaticEntity{
 	}
 	
 	protected void enterBuildingIfEntered(){
-		
-		//TODO: add ID in constructor, switch through ID's to get the corresponding world for the ID of the house
 		
 		switch(id){
 			

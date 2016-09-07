@@ -104,18 +104,10 @@ public class EntityManager implements Serializable {
 
 		isCurrentlyTicking = true;
 
-		// List<Entity> toUpdate = new LinkedList<>();
-
 		for (Entity e : entities) {
 			e.tick();
-			// if(e.hasMoved){
-			// toUpdate.add(e);
-			// }
 		}
-		// for(Entity e : toUpdate){
-		// entities.remove(e);
-		// entities.add(e);
-		// }
+
 
 		for (Entity e : entitiesToRemove) {
 			entities.remove(e);

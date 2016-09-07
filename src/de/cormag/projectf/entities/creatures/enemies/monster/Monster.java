@@ -97,28 +97,28 @@ public abstract class Monster extends Enemy implements Serializable {
 		
 		if(this.xMove > 0){
 			
-			visionField.setBounds((int) (x - xOffset + width),(int) (y - yOffset - height / 2), height * 2, width * 2);
+			visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),(int) (y - yOffset - height / 2), height * 2, width * 2);
 			
 			lastMove = "right";
 			
 			
 		}else if(this.xMove < 0){
 			
-			visionField.setBounds((int) (x - xOffset - width * 2),(int) (y - yOffset - height / 2), height * 2, width * 2);
+			visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x),(int) (y - yOffset - height / 2), height * 2, width * 2);
 			
 			lastMove = "left";
 			
 			
 		}else if(this.yMove > 0){
 			
-			visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
+			visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
 			
 			lastMove = "down";
 			
 			
 		}else if(this.yMove < 0){
 			
-			visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2), height * 2, width * 2);
+			visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2 + getBounds().y), height * 2, width * 2);
 			
 			lastMove = "up";
 			
@@ -128,19 +128,19 @@ public abstract class Monster extends Enemy implements Serializable {
 			
 				switch(lastMove){
 				
-				case "right" : visionField.setBounds((int) (x - xOffset + width),(int) (y - yOffset - height / 2), height * 2, width * 2);
+				case "right" : visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),(int) (y - yOffset - height / 2), height * 2, width * 2);
 				break;
 				
-				case "left" : visionField.setBounds((int) (x - xOffset - width * 2),(int) (y - yOffset - height / 2), height * 2, width * 2);
+				case "left" : visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x),(int) (y - yOffset - height / 2), height * 2, width * 2);
 				break;
 				
-				case "down" : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
+				case "down" : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
 				break;
 				
-				case "up" : visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2), height * 2, width * 2);
+				case "up" : visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2 + getBounds().y), height * 2, width * 2);
 				break;
 				
-				default : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
+				default : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
 				break;
 				}
 				
@@ -157,7 +157,7 @@ public abstract class Monster extends Enemy implements Serializable {
 			
 		}
 			
-		visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
+		visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
 
 		changeVisionField();
 		

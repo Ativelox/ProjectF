@@ -9,13 +9,16 @@ public class StoneHouseSemiFlat extends EnterableBuilding{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final int width = 180, height = 230;
+	private static final int WIDTH = 180, HEIGHT = 230;
 
 	public StoneHouseSemiFlat(Handler handler, int x, int y, int id) {
-		super(handler, x, y, width, height, id);
+		super(handler, x, y, WIDTH, HEIGHT, id);
 		
-		getBounds().height = width / 2;
-		getBounds().y = height / 2;
+		this.x = x;
+		this.y = y;
+		
+		getBounds().height = WIDTH / 2;
+		getBounds().y = HEIGHT / 2;
 		
 		doorX = 40;
 		doorY = 163;
@@ -32,9 +35,8 @@ public class StoneHouseSemiFlat extends EnterableBuilding{
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.stoneHouseSemiFlat, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
+		super.render(g, Assets.stoneHouseSemiFlat, WIDTH, HEIGHT);
 		
-		super.render(g);
 	}
 
 }

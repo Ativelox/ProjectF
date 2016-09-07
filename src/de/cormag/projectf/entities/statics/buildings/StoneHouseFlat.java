@@ -9,13 +9,16 @@ public class StoneHouseFlat extends EnterableBuilding{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final int width = 170, height = 200;
-
+	private static final int WIDTH = 170, HEIGHT = 200;
+ 
 	public StoneHouseFlat(Handler handler, int x, int y, int id) {
-		super(handler, x, y, width, height, id);
+		super(handler, x, y, WIDTH, HEIGHT, id);
 		
-		getBounds().height = width / 2;
-		getBounds().y = height / 2;
+		this.x = x;
+		this.y = y;
+		
+		getBounds().height = WIDTH / 2;
+		getBounds().y = HEIGHT / 2;
 		
 		doorX = 35;
 		doorY = 135;
@@ -32,9 +35,8 @@ public class StoneHouseFlat extends EnterableBuilding{
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.stoneHouseFlat, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
-	
-		super.render(g);
+		super.render(g, Assets.stoneHouseFlat, WIDTH, HEIGHT);
+		
 	}
 
 }

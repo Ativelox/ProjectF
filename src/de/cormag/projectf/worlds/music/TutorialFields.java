@@ -10,7 +10,6 @@ import de.cormag.projectf.entities.creatures.enemies.bosses.VikingBoss;
 import de.cormag.projectf.entities.creatures.enemies.bosses.music.KingBoss;
 import de.cormag.projectf.entities.creatures.humans.talkable.Efis;
 import de.cormag.projectf.entities.creatures.humans.talkable.FemaleNPC;
-import de.cormag.projectf.entities.statics.ClassicHouse;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSemiFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSharp;
@@ -22,7 +21,6 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private EntityManager entityManager;
-	private ClassicHouse tutorialHouse;
 	private StoneHouseSemiFlat semiFlatHouse;
 	private StoneHouseSharp sharpHouse;
 	private StoneHouseFlat flatHouseOne;
@@ -49,7 +47,6 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		semiFlatHouse3 = new StoneHouseSemiFlat(handler, 297, 400, 1);
 
 		entityManager = new EntityManager(handler, player);
-		entityManager.addEntity(tutorialHouse);
 		entityManager.addEntity(semiFlatHouse);
 		entityManager.addEntity(sharpHouse);
 		entityManager.addEntity(flatHouseOne);

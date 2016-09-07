@@ -6,6 +6,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.swing.event.CellEditorListener;
+
 public class Assets {
 
 	private static final int WIDTH = 32, HEIGHT = 32;
@@ -19,7 +21,7 @@ public class Assets {
 	private static final int DEFAULT_TILE_WIDTH = 128, DEFAULT_TILE_HEIGHT = 128;
 	private static final int TILE_PADDING_WIDTH = 16, TILE_PADDING_HEIGHT = 17;
 
-	public static BufferedImage dirt, grass, stone, tree, grassBushSmale, grassBushMedium, grassBushLarge, rock, water, woodenPlankets, gravel, mediumWoodenGround, sand,
+	public static BufferedImage dirt, grass, stone, tree, grassBushSmall, grassBushMedium, grassBushLarge, rock, water, woodenPlankets, gravel, mediumWoodenGround, sand,
 			solidSandStone, sandStone, smoothSandStone, darkWoodenWall, grassDirt, grassSand, grassStone, hardSand, sandGrass, sandWithStone,
 			dirtGrass, dirtSand, dirtStone, ice, iceFrozenStone, iceHoled, iceStone, blackBlankTile, whiteBlankTile;
 	
@@ -32,6 +34,8 @@ public class Assets {
 	public static BufferedImage iron_sword;
 	public static BufferedImage menuLayerBackground;
 	public static BufferedImage avatarMenuFace;
+	
+	public static BufferedImage fenceY, fenceX;
 
 	public static Font OPTIMUS_PRINCEPS;
 
@@ -375,9 +379,12 @@ public class Assets {
 		hiFiSystem = hiFiSystem_sheet.crop(0, 0, 99, 56);
 		iron_sword = sword_sprite.crop(0, 0, WIDTH, HEIGHT);
 		
-		grassBushSmale = terrain_celianna.crop(64 * 4, 0, 32, 32);
+		grassBushSmall = terrain_celianna.crop(64 * 4, 0, 32, 32);
 		grassBushMedium = terrain_celianna.crop(64 * 4 + 32, 0, 32, 32);
 		grassBushLarge = terrain_celianna.crop(64 * 4, 32, 64, 64);
+		
+		fenceY = terrain_celianna.crop(333, 33, 5, 62);
+		fenceX = terrain_celianna.crop(333, 65, 37, 30);
 
 
 		avatar_crazy_mouth_open = avatar_sprite.crop(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT);

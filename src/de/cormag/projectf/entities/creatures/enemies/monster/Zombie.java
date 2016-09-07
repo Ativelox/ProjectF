@@ -7,6 +7,7 @@ import de.cormag.projectf.entities.creatures.humans.Player;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.tiles.Tile;
 
 public class Zombie extends Monster implements Serializable {
 
@@ -14,7 +15,7 @@ public class Zombie extends Monster implements Serializable {
 
 	public Zombie(Handler handler, float x, float y) {
 
-		super(handler, x, y, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATURE_HEIGHT);
 
 		this.handler = handler;
 		this.health = 5;

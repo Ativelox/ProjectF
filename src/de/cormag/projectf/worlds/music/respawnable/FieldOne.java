@@ -5,6 +5,9 @@ import java.awt.Point;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.enemies.monster.Zombie;
+import de.cormag.projectf.entities.statics.FenceX;
+import de.cormag.projectf.entities.statics.FenceY;
+import de.cormag.projectf.entities.statics.nocollision.GrassBushLarge;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
 
@@ -63,14 +66,52 @@ public class FieldOne extends RespawnableWorld{
 
 	@Override
 	public EntityManager getInitializedEntityManager() {
-		
-		
+
 		EntityManager initializedEntityManager = new EntityManager(handler, player);
-		for(int i = 0; i < width; i += 5){
-			initializedEntityManager.addEntity(new Zombie(handler, i * Tile.TILEWIDTH, (height - i) * Tile.TILEHEIGHT));
+		
+		for(int i = 2; i < width; i += 5){
+			initializedEntityManager.addEntity(new Zombie(handler, i, (height - i)));
 			
-			initializedEntityManager.addEntity(new Zombie(handler, i * Tile.TILEWIDTH, height / 2 * Tile.TILEHEIGHT));
+			initializedEntityManager.addEntity(new Zombie(handler, i, height / 2));
+			
+			initializedEntityManager.addEntity(new Zombie(handler, width - i, i));
 		}
+		
+		for(int i = 1; i < 14; i++){
+			
+			for(int j = 1; j < 14; j++){
+		
+				initializedEntityManager.addEntity(new GrassBushLarge(handler, i, j));
+		
+			}
+		}
+		
+		for(int i = 0; i < height; i += 2){
+		
+			initializedEntityManager.addEntity(new FenceY(handler, width, i));
+			
+			initializedEntityManager.addEntity(new FenceY(handler, 2, i));
+		
+		}
+		
+		for(int i = 1; i <= width - 4; i++){
+		
+			initializedEntityManager.addEntity(new FenceX(handler, i, 0));
+		
+		}
+		
+		for(int i = width - 3; i <= width - 2; i++){
+			
+			initializedEntityManager.addEntity(new FenceX(handler, i, -1));
+		
+		}
+		
+		for(int i = 1; i < width - 1; i++){
+			
+			initializedEntityManager.addEntity(new FenceX(handler, i, height - 1));
+			
+		}
+		
 		return initializedEntityManager;
 	}
 
