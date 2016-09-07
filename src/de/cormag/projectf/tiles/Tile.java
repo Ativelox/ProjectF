@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.tiles.blank.BlackBlankTile;
 import de.cormag.projectf.tiles.blank.WhiteBlankTile;
-import de.cormag.projectf.tiles.teleport.SandTeleport;
+import de.cormag.projectf.tiles.teleport.GrassTeleportFFieldOneTTutorialFields;
+import de.cormag.projectf.tiles.teleport.GrassTeleportFTutorialFieldsTFieldOne;
+import de.cormag.projectf.tiles.teleport.SandTeleportFTutorialDesertTTutorialFields;
+import de.cormag.projectf.tiles.teleport.SandTeleportFTutorialFieldsTTutorialDesert;
 
 public class Tile {
 
@@ -41,7 +44,10 @@ public class Tile {
 	public static Tile blackBlankTile = new BlackBlankTile(100);
 	public static Tile whiteBlankTile = new WhiteBlankTile(101);
 	
-	public static Tile sandTeleport = new SandTeleport(200);
+	public static Tile sandTeleportFTutorialFieldsTTutorialDesert = new SandTeleportFTutorialFieldsTTutorialDesert(200);
+	public static Tile sandTeleportFTutorialDesertTTutorialFields = new SandTeleportFTutorialDesertTTutorialFields(201);
+	public static Tile grassTeleportFTutorialFieldsTFieldOne = new GrassTeleportFTutorialFieldsTFieldOne(202);
+	public static Tile grassTeleportFFieldsOneTTutorialFields = new GrassTeleportFFieldOneTTutorialFields(203);
 
 	// CLASS
 

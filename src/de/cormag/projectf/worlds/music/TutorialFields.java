@@ -15,7 +15,6 @@ import de.cormag.projectf.entities.statics.buildings.StoneHouseFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSemiFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSharp;
 import de.cormag.projectf.main.Handler;
-import de.cormag.projectf.sound.BGMPlayer;
 import de.cormag.projectf.tiles.Tile;
 
 public class TutorialFields extends MusicWorld implements Serializable {
@@ -32,12 +31,10 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	private StoneHouseSemiFlat semiFlatHouse2;
 	private StoneHouseSemiFlat semiFlatHouse3;
 	
-	private Point comingFromDesert;
-
-	private BGMPlayer soundPlayer;
+	private Point comingFromDesert, comingFromFieldOne;
 
 	public TutorialFields(Handler handler, String path) {
-		super();
+		super(handler.getBGMPlayer());
 
 		this.handler = handler;
 		this.path = path;
@@ -70,11 +67,10 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		player.setX(580);
 		player.setY(450);
 		
-		soundPlayer = handler.getBGMPlayer();
-		
 		defaultSoundtrack = "Town.pfsf";
 		
-		comingFromDesert = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, handler.getPlayer().getHeight() + 1);
+		comingFromDesert = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 1);
+		comingFromFieldOne = new Point(6 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 21 * Tile.TILEHEIGHT);
 
 	}
 
@@ -82,17 +78,8 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	public void tick() {
 		super.tick();
 		
-		if(!isRunning){
-			
-			soundPlayer.setSound(getDefaultSoundtrack());
-			soundPlayer.playSound();
-			isRunning = true;
-			
-		}
-		
-		soundPlayer.tick();
-		
-		changeWorldIfDemanded(handler.getTutorialDesert(), handler.getTutorialDesert().getComingFromFields());
+		changeWorldIfDemanded(handler.getTutorialDesert().getComingFromTutorialFields(), Tile.sandTeleportFTutorialFieldsTTutorialDesert);
+		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(), Tile.grassTeleportFTutorialFieldsTFieldOne);
 
 		entityManager.tick();
 
@@ -105,15 +92,21 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		entityManager.render(g);
 
 	}
-
-	@Override
-	public EntityManager getEntityManager() {
-		return this.entityManager;
-	}
 	
 	public Point getComingFromDesert(){
 		
 		return comingFromDesert;
 		
+	}
+	
+	@Override
+	public EntityManager getEntityManager(){
+		
+		return entityManager;
+		
+	}
+
+	public Point getComingFromFieldOne() {
+		return comingFromFieldOne;
 	}
 }

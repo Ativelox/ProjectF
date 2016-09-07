@@ -88,43 +88,36 @@ public class Assets {
 		player_up = new BufferedImage[3];
 		player_left = new BufferedImage[3];
 		player_right = new BufferedImage[3];
-		player_current = new BufferedImage[3];
-		
+
 		efis_down = new BufferedImage[3];
 		efis_up = new BufferedImage[3];
 		efis_left = new BufferedImage[3];
 		efis_right = new BufferedImage[3];
-		efis_current = new BufferedImage[3];
 
 		zombie_down = new BufferedImage[3];
 		zombie_up = new BufferedImage[3];
 		zombie_left = new BufferedImage[3];
 		zombie_right = new BufferedImage[3];
-		zombie_current = new BufferedImage[3];
 
 		demonBoss_down = new BufferedImage[3];
 		demonBoss_up = new BufferedImage[3];
 		demonBoss_left = new BufferedImage[3];
 		demonBoss_right = new BufferedImage[3];
-		demonBoss_current = new BufferedImage[3];
 
 		mattiBoss_down = new BufferedImage[3];
 		mattiBoss_up = new BufferedImage[3];
 		mattiBoss_left = new BufferedImage[3];
 		mattiBoss_right = new BufferedImage[3];
-		mattiBoss_current = new BufferedImage[3];
 
 		dragonBoss_down = new BufferedImage[4];
 		dragonBoss_up = new BufferedImage[4];
 		dragonBoss_left = new BufferedImage[4];
 		dragonBoss_right = new BufferedImage[4];
-		dragonBoss_current = new BufferedImage[4];
 		
 		king_down = new BufferedImage[3];
 		king_up = new BufferedImage[3];
 		king_left = new BufferedImage[3];
 		king_right = new BufferedImage[3];
-		king_current = new BufferedImage[3];
 
 		attack_right = new BufferedImage[7];
 
@@ -149,8 +142,6 @@ public class Assets {
 		player_right[0] = anime_sprite.crop(0, HEIGHT * 2, WIDTH, HEIGHT);
 		player_right[1] = anime_sprite.crop(WIDTH, HEIGHT * 2, WIDTH, HEIGHT);
 		player_right[2] = anime_sprite.crop(WIDTH * 2, HEIGHT * 2, WIDTH, HEIGHT);
-
-		player_current[0] = anime_sprite.crop(WIDTH, 0, WIDTH, HEIGHT);
 		
 		efis_down[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
 		efis_down[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
@@ -167,8 +158,6 @@ public class Assets {
 		efis_up[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
 		efis_up[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
 		efis_up[2] = characterSprites.crop(WIDTH * 2, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
-		
-		efis_current[0] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
 
 		zombie_down[0] = enemy_sprite.crop(0, 0, WIDTH, HEIGHT);
 		zombie_down[1] = enemy_sprite.crop(WIDTH, 0, WIDTH, HEIGHT);
@@ -176,17 +165,15 @@ public class Assets {
 
 		zombie_up[0] = enemy_sprite.crop(0, HEIGHT * 3, WIDTH, HEIGHT);
 		zombie_up[1] = enemy_sprite.crop(WIDTH, HEIGHT * 3, WIDTH, HEIGHT);
-		zombie_up[2] = enemy_sprite.crop(WIDTH, HEIGHT * 3, WIDTH, HEIGHT);
+		zombie_up[2] = enemy_sprite.crop(WIDTH * 2, HEIGHT * 3, WIDTH, HEIGHT);
 
 		zombie_left[0] = enemy_sprite.crop(0, HEIGHT, WIDTH, HEIGHT);
 		zombie_left[1] = enemy_sprite.crop(WIDTH, HEIGHT, WIDTH, HEIGHT);
-		zombie_left[2] = enemy_sprite.crop(WIDTH, HEIGHT, WIDTH, HEIGHT);
+		zombie_left[2] = enemy_sprite.crop(WIDTH * 2, HEIGHT, WIDTH, HEIGHT);
 
 		zombie_right[0] = enemy_sprite.crop(0, HEIGHT * 2, WIDTH, HEIGHT);
 		zombie_right[1] = enemy_sprite.crop(WIDTH, HEIGHT * 2, WIDTH, HEIGHT);
-		zombie_right[2] = enemy_sprite.crop(HEIGHT, HEIGHT * 2, WIDTH, HEIGHT);
-
-		zombie_current[0] = enemy_sprite.crop(WIDTH, 0, WIDTH, HEIGHT);
+		zombie_right[2] = enemy_sprite.crop(WIDTH * 2, HEIGHT * 2, WIDTH, HEIGHT);
 
 		demonBoss_down[0] = examp_boss.crop(0, 0, DEMON_BOSS_WIDTH, DEMON_BOSS_HEIGHT);
 		demonBoss_down[1] = examp_boss.crop(DEMON_BOSS_WIDTH, 0, DEMON_BOSS_WIDTH, DEMON_BOSS_HEIGHT);
@@ -208,8 +195,6 @@ public class Assets {
 		demonBoss_up[2] = examp_boss.crop(DEMON_BOSS_WIDTH * 2, DEMON_BOSS_HEIGHT * 3, DEMON_BOSS_WIDTH,
 				DEMON_BOSS_HEIGHT);
 
-		demonBoss_current[0] = demonBoss_down[1];
-
 		mattiBoss_down[0] = mattiBoss_sheet.crop(1, 2, 31, 37);
 		mattiBoss_down[1] = mattiBoss_sheet.crop(33, 2, 31, 37);
 		mattiBoss_down[2] = mattiBoss_sheet.crop(65, 2, 31, 37);
@@ -225,8 +210,6 @@ public class Assets {
 		mattiBoss_up[0] = mattiBoss_sheet.crop(1, 126, 31, 38);
 		mattiBoss_up[1] = mattiBoss_sheet.crop(33, 126, 31, 38);
 		mattiBoss_up[2] = mattiBoss_sheet.crop(65, 126, 31, 38);
-
-		mattiBoss_current[0] = mattiBoss_down[1];
 
 		dragonBoss_down[0] = dragonBoss_sheet.crop(0, 2, 96, 91);
 		dragonBoss_down[1] = dragonBoss_sheet.crop(96, 2, 96, 91);
@@ -247,8 +230,6 @@ public class Assets {
 		dragonBoss_up[1] = dragonBoss_sheet.crop(98 + 3, 288, 91, 96);
 		dragonBoss_up[2] = dragonBoss_sheet.crop(191 + 3, 288, 91, 96);
 		dragonBoss_up[3] = dragonBoss_sheet.crop(286 + 3, 288, 91, 96);
-
-		dragonBoss_current[0] = dragonBoss_down[1];
 		
 		king_down[0] = king_sheet.crop(0, 1, 32, 35);
 		king_down[1] = king_sheet.crop(32, 1, 32, 35);
@@ -266,7 +247,7 @@ public class Assets {
 		king_up[1] = king_sheet.crop(32, 111, 32, 35);
 		king_up[2] = king_sheet.crop(64, 111, 32, 35);
 		
-		king_current[0] = king_down[1];
+//		king_current[0] = king_down[1];
 
 		attack_right[0] = sword_sprite.crop(TWO_TIMES_WIDTH, 0, TWO_TIMES_WIDTH, FOUR_TIMES_HEIGHT);
 		attack_right[1] = sword_sprite.crop(TWO_TIMES_WIDTH * 2, 0, TWO_TIMES_WIDTH, FOUR_TIMES_HEIGHT);

@@ -1,6 +1,7 @@
 package de.cormag.projectf.entities.creatures.enemies.bosses;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +27,8 @@ public abstract class Boss extends Enemy {
 
 	public void tick() {
 		super.tick();
+		
+		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
 
 		if ((seenPlayer || damagedOnce) && 
 				!handler.getGame().getStateManager().getGameState().getHUDState().containsHUDElement(getBossHealthBar())

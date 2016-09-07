@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import javax.sound.sampled.Clip;
 
+import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
 import de.cormag.projectf.worlds.music.MusicWorld;
@@ -134,6 +135,11 @@ public class LoadingScreen extends World{
 		
 		
 		countRenderTicks++;
+	}
+
+	@Override
+	public EntityManager getEntityManager() {
+		return null;
 	}
 
 }

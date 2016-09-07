@@ -44,15 +44,15 @@ public class BGMPlayer {
 	
 	public void tick(){
 		
-		if(handler.getKeyManager().arrowUp && gainControl.getValue() + 0.2 < gainControl.getMaximum()){
-			
-			gainControl.setValue((float) (gainControl.getValue() + 0.2));
-			
-		}else if(handler.getKeyManager().arrowDown && gainControl.getValue() - 0.2 > gainControl.getMinimum()){
-			
-			gainControl.setValue((float) (gainControl.getValue() - 0.2));
-			
-		}
+//		if(handler.getKeyManager().arrowUp && gainControl.getValue() + 0.2 < gainControl.getMaximum()){
+//			
+//			gainControl.setValue((float) (gainControl.getValue() + 0.2));
+//			
+//		}else if(handler.getKeyManager().arrowDown && gainControl.getValue() - 0.2 > gainControl.getMinimum()){
+//			
+//			gainControl.setValue((float) (gainControl.getValue() - 0.2));
+//			
+//		}
 		
 	}
 	

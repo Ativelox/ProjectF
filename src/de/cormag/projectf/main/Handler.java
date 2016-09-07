@@ -15,6 +15,8 @@ import de.cormag.projectf.worlds.buildings.DefaultHouse;
 import de.cormag.projectf.worlds.buildings.DefaultInn;
 import de.cormag.projectf.worlds.music.TutorialDesert;
 import de.cormag.projectf.worlds.music.TutorialFields;
+import de.cormag.projectf.worlds.music.respawnable.FieldOne;
+import de.cormag.projectf.worlds.music.respawnable.RespawnableWorld;
 
 public class Handler {
 
@@ -30,9 +32,9 @@ public class Handler {
 	private DefaultHouse defaultHouse;
 	private TutorialDesert tutorialDesert;
 	private DefaultInn defaultInn;
+	private FieldOne fieldOne;
 	
 	private LinkedList<World> worldList;
-	
 	
 
 	public Handler(Game game) {
@@ -49,9 +51,13 @@ public class Handler {
 		defaultHouse = new DefaultHouse(this, "defaultHouse.pflf");
 		tutorialDesert = new TutorialDesert(this, "TutorialDesert.pflf");
 		defaultInn = new DefaultInn(this, "defaultInn.pflf");
+		fieldOne = new FieldOne(this, "FieldOne.pflf");
+		
+		//TODO: need to add a world names FieldOne, has to be created new everytime u enter it for it to reload entities, solution still needs to be found
 		
 		worldList.add(tutorialFields);
 		worldList.add(tutorialDesert);
+		worldList.add(fieldOne);
 	
 	}
 	
@@ -85,6 +91,12 @@ public class Handler {
 		
 		if(!(this.world instanceof LoadingScreen)){
 			lastWorld = this.world;
+		}
+		
+		if(world instanceof RespawnableWorld){
+			
+			((RespawnableWorld) world).respawnEntities();
+			
 		}
 		
 		if(this.world != null && this.world.getEntityManager() != null){
@@ -161,6 +173,12 @@ public class Handler {
 	public DefaultInn getDefaultInn(){
 		
 		return defaultInn;
+		
+	}
+	
+	public FieldOne getFieldOne(){
+		
+		return fieldOne;
 		
 	}
 

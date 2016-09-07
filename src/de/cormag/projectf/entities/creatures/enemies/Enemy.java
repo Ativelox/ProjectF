@@ -24,6 +24,8 @@ public abstract class Enemy extends Creature {
 	protected String name;
 	protected int awardedExp;
 	protected Player player;
+	
+
 
 	public Enemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -141,7 +143,6 @@ public abstract class Enemy extends Creature {
 
 			move();
 		}
-
 	}
 
 	protected void checkIfEnemySeenPlayer() {
@@ -153,23 +154,7 @@ public abstract class Enemy extends Creature {
 		}
 
 	}
-
-	protected void renderVisionField(Graphics g, String content) {
-
-		if (!seenPlayer && !damagedOnce) {
-
-			g.setColor(Color.CYAN);
-
-			g.drawRoundRect(visionField.x, visionField.y, visionField.width, visionField.height, 20, 20);
-
-			g.setFont(new Font(Font.DIALOG_INPUT, 1, 20));
-
-			g.drawString(content, visionField.x + 5, visionField.y + 20);
-
-			g.setColor(Color.black);
-
-		}
-	}
+	
 
 	protected void renderVisionField(Graphics g) {
 
@@ -185,7 +170,7 @@ public abstract class Enemy extends Creature {
 	@Override
 	public void tick() {
 		super.tick();
-
+		
 		calculateDamageTaken(handler);
 
 		if (damaged) {
@@ -212,8 +197,6 @@ public abstract class Enemy extends Creature {
 	}
 
 	public void render(Graphics g, BufferedImage left, BufferedImage right, BufferedImage up, BufferedImage down) {
-		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2,
-				height * 2);
 
 		g.drawImage(getCurrentAnimationFrame(left, right, up, down), (int) (x - xOffset), (int) (y - yOffset), width,
 				height, null);

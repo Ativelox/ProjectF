@@ -9,7 +9,6 @@ import de.cormag.projectf.entities.creatures.enemies.bosses.music.DragonBoss;
 import de.cormag.projectf.entities.creatures.humans.talkable.FemaleNPC;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSemiFlat;
 import de.cormag.projectf.main.Handler;
-import de.cormag.projectf.sound.BGMPlayer;
 import de.cormag.projectf.tiles.Tile;
 
 public class TutorialDesert extends MusicWorld implements Serializable {
@@ -18,13 +17,12 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 
 	private EntityManager entityManager;
 	
-	private BGMPlayer soundPlayer;
 	private StoneHouseSemiFlat semiFlatHouse;
 	
-	private Point comingFromFields;
+	private Point comingFromTutorialFields;
 
 	public TutorialDesert(Handler handler, String path) {
-		super();
+		super(handler.getBGMPlayer());
 
 		this.handler = handler;
 		this.path = path;
@@ -40,13 +38,9 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 
 		loadWorld(path);
 		
-		soundPlayer = handler.getBGMPlayer();
-		
 		defaultSoundtrack = "GourmetRace.pfsf";
 		
-		isRunning = false;
-		
-		comingFromFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 14 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
+		comingFromTutorialFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 14 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
 
 	}
 
@@ -54,17 +48,7 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 	public void tick() {
 		super.tick();
 		
-		if(!isRunning){
-			
-			soundPlayer.setSound(getDefaultSoundtrack());
-			soundPlayer.playSound();
-			isRunning = true;
-			
-		}
-		
-		soundPlayer.tick();
-		
-		changeWorldIfDemanded(handler.getTutorialFields(), handler.getTutorialFields().getComingFromDesert());
+		changeWorldIfDemanded(handler.getTutorialFields().getComingFromDesert(), Tile.sandTeleportFTutorialDesertTTutorialFields);
 
 		entityManager.tick();
 
@@ -85,9 +69,9 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 
 	}
 	
-	public Point getComingFromFields(){
+	public Point getComingFromTutorialFields(){
 		
-		return comingFromFields;
+		return comingFromTutorialFields;
 		
 	}
 	

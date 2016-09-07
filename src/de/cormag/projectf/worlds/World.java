@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.Serializable;
+import java.util.Iterator;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.Creature;
@@ -19,8 +20,7 @@ import de.cormag.projectf.utils.Utils;
 public abstract class World implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	protected EntityManager entityManager;
+	
 	protected Player player;
 	protected transient Handler handler;
 	protected int width, height;
@@ -33,7 +33,6 @@ public abstract class World implements Serializable {
 
 		debugActive = false;
 		debug = false;
-		
 
 	}
 
@@ -136,16 +135,28 @@ public abstract class World implements Serializable {
 		return null;
 	}
 	
-	protected void changeWorldIfDemanded(World world, Point newWorldSpawn){
+	protected void changeWorldIfDemanded(Point newWorldSpawn, Tile tileSteppedOn){
 		
-		if(getCorrespondingTeleportTile() instanceof TeleportTile){
+		if(getCorrespondingTeleportTile() != null && getCorrespondingTeleportTile().equals(tileSteppedOn)){
 			
-			handler.getBGMPlayer().setLastMusicInWorld(handler.getBGMPlayer().getClip(), handler.getWorld());
-		
-			handler.setWorld(new LoadingScreen(world, handler, newWorldSpawn.x, newWorldSpawn.y, handler.getBGMPlayer()));
+			Iterator <World> worlds = handler.getWorldList().iterator();
+			
+			while(worlds.hasNext()){
+				World w = worlds.next();
+				
+				if(w.getPath() == ((TeleportTile)tileSteppedOn).getWorldToTeleportTo()){
+					
+					handler.getBGMPlayer().setLastMusicInWorld(handler.getBGMPlayer().getClip(), handler.getWorld());
+					
+					handler.setWorld(new LoadingScreen(w, handler, newWorldSpawn.x, newWorldSpawn.y, handler.getBGMPlayer()));
+					
+				}
+				
+				
+			}
 			
 		}
-		
+
 	}
 	
 	public void tick(){};
@@ -154,6 +165,12 @@ public abstract class World implements Serializable {
 		
 		renderWorld(g, handler);
 		renderTeleportTileHitbox(g);
+		
+	}
+	
+	public String getPath(){
+		
+		return path;
 		
 	}
 
@@ -166,9 +183,7 @@ public abstract class World implements Serializable {
 	}
 
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+	public abstract EntityManager getEntityManager();
 
 	public void setHandler(Handler handler) {
 
