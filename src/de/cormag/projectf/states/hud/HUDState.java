@@ -2,7 +2,6 @@ package de.cormag.projectf.states.hud;
 
 import java.awt.Graphics;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import de.cormag.projectf.main.Handler;

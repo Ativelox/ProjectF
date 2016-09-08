@@ -6,8 +6,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.swing.event.CellEditorListener;
-
 public class Assets {
 
 	private static final int WIDTH = 32, HEIGHT = 32;
@@ -383,7 +381,7 @@ public class Assets {
 		grassBushMedium = terrain_celianna.crop(64 * 4 + 32, 0, 32, 32);
 		grassBushLarge = terrain_celianna.crop(64 * 4, 32, 64, 64);
 		
-		fenceY = terrain_celianna.crop(333, 33, 5, 62);
+		fenceY = terrain_celianna.crop(333, 33, 5, 32);
 		fenceX = terrain_celianna.crop(333, 65, 37, 30);
 
 

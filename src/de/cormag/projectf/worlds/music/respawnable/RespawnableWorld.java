@@ -19,6 +19,13 @@ public abstract class RespawnableWorld extends MusicWorld{
 	
 	}
 	
+	@Override
+	public EntityManager getEntityManager(){
+		
+		return getInitializedEntityManager();
+		
+	}
+	
 	public abstract EntityManager getInitializedEntityManager();
 	
 	public abstract void setEntityManager(EntityManager entityManager);

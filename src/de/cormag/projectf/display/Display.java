@@ -35,17 +35,19 @@ public class Display {
 	private void createDisplay() {
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(Game.WIDTH, Game.HEIGHT);
+		frame.setSize(width, height);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		System.out.println(frame.getSize());
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setFocusable(false);
-		canvas.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
+		canvas.setBounds(0, 0, width, height);
 		
 		musicList = new MusicList();
 		musicList.setOpaque(false);
@@ -54,7 +56,7 @@ public class Display {
 		
 		layers = new JLayeredPane();
 		layers.setLayout(null);
-		layers.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
+		layers.setBounds(0, 0, width, height);
 		
 		layers.setLayer(canvas, new Integer(0));
 		layers.setLayer(musicList, new Integer(2));
@@ -97,8 +99,17 @@ public class Display {
 	}
 	
 	public JLayeredPane getLayers(){
-		
 		return layers;
+		
+	}
+	
+	public int getWidth(){
+		return frame.getWidth();
+		
+	}
+	
+	public int getHeight(){
+		return frame.getHeight() - 30;
 		
 	}
 

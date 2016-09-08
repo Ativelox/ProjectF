@@ -1,7 +1,6 @@
 package de.cormag.projectf.gfx;
 
 import de.cormag.projectf.entities.Entity;
-import de.cormag.projectf.main.Game;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
 
@@ -20,20 +19,20 @@ public class GameCamera {
 		
 		if (xOffset < 0) {
 			xOffset = 0;
-		}else if (xOffset > handler.getWorld().getWidth() * Tile.TILEWIDTH - Game.WIDTH) {
-			xOffset = handler.getWorld().getWidth() * Tile.TILEWIDTH - Game.WIDTH;
+		}else if (xOffset > handler.getWorld().getWidth() * Tile.TILEWIDTH - handler.getWidth()) {
+			xOffset = handler.getWorld().getWidth() * Tile.TILEWIDTH - handler.getWidth();
 		}
 
 		if (yOffset < 0) {
 			yOffset = 0;
-		}else if (yOffset > handler.getWorld().getHeight() * Tile.TILEHEIGHT - Game.HEIGHT) {
-			yOffset = handler.getWorld().getHeight() * Tile.TILEHEIGHT - Game.HEIGHT;
+		}else if (yOffset > handler.getWorld().getHeight() * Tile.TILEHEIGHT - handler.getHeight()) {
+			yOffset = handler.getWorld().getHeight() * Tile.TILEHEIGHT - handler.getHeight();
 		}
 	}
 
 	public void centerOnEntity(Entity e) {
-		xOffset = e.getX() - Game.WIDTH / 2 + e.getWidth() / 2;
-		yOffset = e.getY() - Game.HEIGHT / 2 + e.getHeight() / 2;
+		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		yOffset = e.getY() - handler.getHeight() / 2 + e.getHeight() / 2;
 		checkBlankSpace();
 	}
 

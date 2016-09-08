@@ -152,6 +152,16 @@ public class Handler {
 		
 	}
 	
+	public int getWidth(){
+		return game.getWidth();
+		
+	}
+	
+	public int getHeight(){
+		return game.getHeight();
+		
+	}
+	
 	public TutorialFields getTutorialFields() {
 
 		return tutorialFields;

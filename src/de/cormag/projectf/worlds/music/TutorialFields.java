@@ -66,8 +66,15 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		
 		defaultSoundtrack = "Town.pfsf";
 		
+		int[] spaces = {6, 7};
+		
+		createWorldBoundary(entityManager);
+		createAdditionalXBoundaryTopAlign(entityManager, 1, width - 1, 15, spaces);
+		createAdditionalYBoundaryLeftAlign(entityManager, 16, 21, 8, null);
+		createAdditionalYBoundaryRightAlign(entityManager, 16, 21, 5, null);
+		
 		comingFromDesert = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 1);
-		comingFromFieldOne = new Point(6 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 21 * Tile.TILEHEIGHT);
+		comingFromFieldOne = new Point(6 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 20 * Tile.TILEHEIGHT);
 
 	}
 
@@ -76,7 +83,7 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		super.tick();
 		
 		changeWorldIfDemanded(handler.getTutorialDesert().getComingFromTutorialFields(), Tile.sandTeleportFTutorialFieldsTTutorialDesert);
-		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(), Tile.grassTeleportFTutorialFieldsTFieldOne);
+		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(), Tile.dirtTeleportFTutorialFieldsTFieldOne);
 
 		entityManager.tick();
 

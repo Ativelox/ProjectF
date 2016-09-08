@@ -5,9 +5,6 @@ import java.awt.Point;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.enemies.monster.Zombie;
-import de.cormag.projectf.entities.statics.FenceX;
-import de.cormag.projectf.entities.statics.FenceY;
-import de.cormag.projectf.entities.statics.nocollision.GrassBushLarge;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
 
@@ -39,7 +36,7 @@ public class FieldOne extends RespawnableWorld{
 	public void tick() {
 		super.tick();
 		
-		changeWorldIfDemanded(handler.getTutorialFields().getComingFromFieldOne(), Tile.grassTeleportFFieldsOneTTutorialFields);
+		changeWorldIfDemanded(handler.getTutorialFields().getComingFromFieldOne(), Tile.dirtTeleportFFieldsOneTTutorialFields);
 
 		entityManager.tick();
 
@@ -69,48 +66,19 @@ public class FieldOne extends RespawnableWorld{
 
 		EntityManager initializedEntityManager = new EntityManager(handler, player);
 		
-		for(int i = 2; i < width; i += 5){
-			initializedEntityManager.addEntity(new Zombie(handler, i, (height - i)));
+		for(int i = 1; i < width - 5; i += 5){
 			
-			initializedEntityManager.addEntity(new Zombie(handler, i, height / 2));
-			
-			initializedEntityManager.addEntity(new Zombie(handler, width - i, i));
-		}
-		
-		for(int i = 1; i < 14; i++){
-			
-			for(int j = 1; j < 14; j++){
-		
-				initializedEntityManager.addEntity(new GrassBushLarge(handler, i, j));
-		
+			for(int j = 1; j < height - 1; j += 5){
+				
+				initializedEntityManager.addEntity(new Zombie(handler, i, j));
+				
 			}
-		}
-		
-		for(int i = 0; i < height; i += 2){
-		
-			initializedEntityManager.addEntity(new FenceY(handler, width, i));
-			
-			initializedEntityManager.addEntity(new FenceY(handler, 2, i));
-		
-		}
-		
-		for(int i = 1; i <= width - 4; i++){
-		
-			initializedEntityManager.addEntity(new FenceX(handler, i, 0));
-		
-		}
-		
-		for(int i = width - 3; i <= width - 2; i++){
-			
-			initializedEntityManager.addEntity(new FenceX(handler, i, -1));
-		
-		}
-		
-		for(int i = 1; i < width - 1; i++){
-			
-			initializedEntityManager.addEntity(new FenceX(handler, i, height - 1));
 			
 		}
+		
+		createGrassBushField(initializedEntityManager, 1, 1, 14, 14);
+		
+		createWorldBoundary(initializedEntityManager);
 		
 		return initializedEntityManager;
 	}

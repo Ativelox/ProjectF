@@ -231,6 +231,18 @@ public class Game implements Runnable {
 		return handler;
 		
 	}
+	
+	public int getWidth(){
+		
+		return display.getWidth();
+		
+	}
+	
+	public int getHeight(){
+		
+		return display.getHeight();
+		
+	}
 
 	public synchronized void start() {
 		if (running)

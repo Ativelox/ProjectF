@@ -38,9 +38,11 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 
 		loadWorld(path);
 		
+		createWorldBoundary(entityManager);
+		
 		defaultSoundtrack = "GourmetRace.pfsf";
 		
-		comingFromTutorialFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 14 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
+		comingFromTutorialFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 15 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
 
 	}
 
