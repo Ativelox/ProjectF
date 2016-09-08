@@ -22,7 +22,7 @@ public class LoadingScreen extends World{
 	 * @return used if change worlds
 	 */
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY) {
-		super();
+		super(null);
 		
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;
@@ -55,7 +55,7 @@ public class LoadingScreen extends World{
 	}
 	
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY, BGMPlayer bgmPlayer) {
-		super();
+		super(null);
 		
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;

@@ -14,10 +14,12 @@ import de.cormag.projectf.entities.statics.FenceXBottomAlign;
 import de.cormag.projectf.entities.statics.FenceXTopAlign;
 import de.cormag.projectf.entities.statics.FenceYLeftAlign;
 import de.cormag.projectf.entities.statics.FenceYRightAlign;
+import de.cormag.projectf.entities.statics.VerdurousGreenTree;
 import de.cormag.projectf.entities.statics.nocollision.GrassBushLarge;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.main.Game;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.states.hud.WorldName;
 import de.cormag.projectf.tiles.Tile;
 import de.cormag.projectf.tiles.teleport.TeleportTile;
 import de.cormag.projectf.utils.Utils;
@@ -33,11 +35,19 @@ public abstract class World implements Serializable {
 	public boolean debug, debugActive;
 	protected int[][] tiles;
 	protected String path;
+	protected boolean worldNameRendered;
+	private String name;
+	
+	private WorldName worldName;
 
-	public World() {
+	public World(String name) {
 
 		debugActive = false;
 		debug = false;
+		worldNameRendered = false;
+		this.name = name;
+		
+		worldName = new WorldName(name);
 
 	}
 
@@ -75,6 +85,18 @@ public abstract class World implements Serializable {
 		for(int i = xStart; i < width; i++){
 			for(int j = yStart; j < height; j++){
 				worldToCreateFieldTo.addEntity(new GrassBushLarge(handler, i, j));
+				
+			}
+		}	
+	}
+	
+	protected void createGreenWoods(EntityManager entityManager, int xStart, int yStart, int width, int height){
+		
+		EntityManager worldToCreateWoodsTo = entityManager;
+		
+		for(int i = xStart; i < width; i++){
+			for(int j = yStart; j < height; j++){
+				worldToCreateWoodsTo.addEntity(new VerdurousGreenTree(handler, i, j));
 				
 			}
 		}	
@@ -290,6 +312,14 @@ public abstract class World implements Serializable {
 		renderWorld(g, handler);
 		renderTeleportTileHitbox(g);
 		
+		if(!worldNameRendered){
+		
+			handler.getGame().getStateManager().getGameState().getHUDState().addHUDElement(worldName);
+			
+			worldNameRendered = true;
+		
+		}
+		
 	}
 	
 	public String getPath(){
@@ -320,6 +350,19 @@ public abstract class World implements Serializable {
 		return new Point((int) ((player.getX() + Creature.DEFAULT_CREATURE_WIDTH / 2)),
 				(int) ((player.getY() + Creature.DEFAULT_CREATURE_HEIGHT / 2)));
 
+	}
+	
+	public void setWorldNameRenderedFalse(){
+		
+		this.worldNameRendered = false;
+		
+	}
+	
+	public WorldName getWorldNameHUDElement(){
+		
+		
+		return worldName;
+		
 	}
 	
 	public void applyResources(){

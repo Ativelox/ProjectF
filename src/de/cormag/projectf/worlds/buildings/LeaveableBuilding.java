@@ -18,7 +18,8 @@ public abstract class LeaveableBuilding extends World{
 	protected static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
 	
 
-	public LeaveableBuilding(Handler handler, String path) {
+	public LeaveableBuilding(Handler handler, String path, String name) {
+		super(name);
 		
 		this.handler = handler;
 		

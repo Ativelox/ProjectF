@@ -22,7 +22,7 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 	private Point comingFromTutorialFields;
 
 	public TutorialDesert(Handler handler, String path) {
-		super(handler.getBGMPlayer());
+		super(handler.getBGMPlayer(), "TutorialDesert");
 
 		this.handler = handler;
 		this.path = path;

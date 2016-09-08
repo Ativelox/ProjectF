@@ -6,9 +6,11 @@ import java.awt.image.BufferedImage;
 import de.cormag.projectf.tiles.blank.BlackBlankTile;
 import de.cormag.projectf.tiles.blank.WhiteBlankTile;
 import de.cormag.projectf.tiles.teleport.DirtTeleportFFieldOneTTutorialFields;
-import de.cormag.projectf.tiles.teleport.DirtTeleportFTutorialFieldsTFieldOne;
+import de.cormag.projectf.tiles.teleport.SnowTeleportFTutorialFieldsTFieldOne;
+import de.cormag.projectf.tiles.teleport.GrassTeleportFFieldOneTWoodsOfDeception;
+import de.cormag.projectf.tiles.teleport.GrassTeleportFWoodsOfDeceptionTFieldOne;
 import de.cormag.projectf.tiles.teleport.SandTeleportFTutorialDesertTTutorialFields;
-import de.cormag.projectf.tiles.teleport.SandTeleportFTutorialFieldsTTutorialDesert;
+import de.cormag.projectf.tiles.teleport.SnowTeleportFTutorialFieldsTTutorialDesert;
 
 public class Tile {
 
@@ -44,10 +46,12 @@ public class Tile {
 	public static Tile blackBlankTile = new BlackBlankTile(100);
 	public static Tile whiteBlankTile = new WhiteBlankTile(101);
 	
-	public static Tile sandTeleportFTutorialFieldsTTutorialDesert = new SandTeleportFTutorialFieldsTTutorialDesert(200);
+	public static Tile snowTeleportFTutorialFieldsTTutorialDesert = new SnowTeleportFTutorialFieldsTTutorialDesert(200);
 	public static Tile sandTeleportFTutorialDesertTTutorialFields = new SandTeleportFTutorialDesertTTutorialFields(201);
-	public static Tile dirtTeleportFTutorialFieldsTFieldOne = new DirtTeleportFTutorialFieldsTFieldOne(202);
-	public static Tile dirtTeleportFFieldsOneTTutorialFields = new DirtTeleportFFieldOneTTutorialFields(203);
+	public static Tile snowTeleportFTutorialFieldsTFieldOne = new SnowTeleportFTutorialFieldsTFieldOne(202);
+	public static Tile dirtTeleportFFieldOneTTutorialFields = new DirtTeleportFFieldOneTTutorialFields(203);
+	public static Tile grassTeleportFFieldOneTWoodsOfDeception = new GrassTeleportFFieldOneTWoodsOfDeception(204);
+	public static Tile grassTeleportFWoodsOfDeceptionTFieldOne = new GrassTeleportFWoodsOfDeceptionTFieldOne(205);
 
 	// CLASS
 

@@ -21,7 +21,7 @@ public class Zombie extends Monster implements Serializable {
 		this.health = 5;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 1;
+		attackValue = (int) (Math.random() * 22 + 30);
 
 		speed = 3;
 

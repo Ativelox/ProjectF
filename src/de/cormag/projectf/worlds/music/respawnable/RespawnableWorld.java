@@ -8,8 +8,8 @@ public abstract class RespawnableWorld extends MusicWorld{
 
 	private static final long serialVersionUID = 1L;
 
-	public RespawnableWorld(BGMPlayer soundPlayer) {
-		super(soundPlayer);
+	public RespawnableWorld(BGMPlayer soundPlayer, String name) {
+		super(soundPlayer, name);
 		
 	}
 	

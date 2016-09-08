@@ -24,7 +24,7 @@ public class DemonBoss extends Boss implements Serializable {
 		this.health = 20;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 2;
+		attackValue = 50;
 
 		awardedExp = 20;
 

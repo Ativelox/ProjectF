@@ -11,7 +11,8 @@ public abstract class MusicWorld extends World{
 	protected boolean isRunning;
 	protected BGMPlayer soundPlayer;
 
-	public MusicWorld(BGMPlayer soundPlayer) {
+	public MusicWorld(BGMPlayer soundPlayer, String name) {
+		super(name);
 		
 		this.soundPlayer = soundPlayer;
 		

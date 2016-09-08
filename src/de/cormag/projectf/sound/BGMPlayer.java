@@ -77,7 +77,7 @@ public class BGMPlayer {
 				clip = AudioSystem.getClip();
 				clip.open(audioInputStream);
 				gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(-10f);
+				gainControl.setValue(-5f);
 				
 			} catch (Exception e) {
 	

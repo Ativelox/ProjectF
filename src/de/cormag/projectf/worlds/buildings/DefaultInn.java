@@ -13,7 +13,7 @@ public class DefaultInn extends LeaveableBuilding{
 	private EntityManager entityManager;
 
 	public DefaultInn(Handler handler, String path) {
-		super(handler, path);
+		super(handler, path, "DefaultInn");
 		entityManager = new EntityManager(handler, handler.getPlayer());
 		
 		leaveableTileX = 12 * Tile.TILEWIDTH;

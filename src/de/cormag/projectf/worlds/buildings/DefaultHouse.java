@@ -15,7 +15,7 @@ public class DefaultHouse extends LeaveableBuilding implements Serializable {
 	private EntityManager entityManager;
 
 	public DefaultHouse(Handler handler, String path) {
-		super(handler, path);
+		super(handler, path, "DefaultHouse");
 		
 		this.path = path;
 

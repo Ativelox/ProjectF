@@ -15,6 +15,7 @@ import de.cormag.projectf.worlds.buildings.DefaultHouse;
 import de.cormag.projectf.worlds.buildings.DefaultInn;
 import de.cormag.projectf.worlds.music.TutorialDesert;
 import de.cormag.projectf.worlds.music.TutorialFields;
+import de.cormag.projectf.worlds.music.WoodsOfDeception;
 import de.cormag.projectf.worlds.music.respawnable.FieldOne;
 import de.cormag.projectf.worlds.music.respawnable.RespawnableWorld;
 
@@ -33,6 +34,7 @@ public class Handler {
 	private TutorialDesert tutorialDesert;
 	private DefaultInn defaultInn;
 	private FieldOne fieldOne;
+	private WoodsOfDeception woodsOfDeception;
 	
 	private LinkedList<World> worldList;
 	
@@ -52,12 +54,12 @@ public class Handler {
 		tutorialDesert = new TutorialDesert(this, "TutorialDesert.pflf");
 		defaultInn = new DefaultInn(this, "defaultInn.pflf");
 		fieldOne = new FieldOne(this, "FieldOne.pflf");
-		
-		//TODO: need to add a world names FieldOne, has to be created new everytime u enter it for it to reload entities, solution still needs to be found
-		
+		woodsOfDeception = new WoodsOfDeception(this, "WoodsOfDeception.pflf");
+
 		worldList.add(tutorialFields);
 		worldList.add(tutorialDesert);
 		worldList.add(fieldOne);
+		worldList.add(woodsOfDeception);
 	
 	}
 	
@@ -115,7 +117,17 @@ public class Handler {
 				
 			}
 		}
-
+		
+		
+		if(this.world != null && 
+				this.world.getWorldNameHUDElement() != null && 
+				getGame().getStateManager().getGameState().getHUDState().containsHUDElement(this.world.getWorldNameHUDElement())){
+			
+			getGame().getStateManager().getGameState().getHUDState().removeHUDElement(this.world.getWorldNameHUDElement());
+			
+			this.world.getWorldNameHUDElement().resetFadeVariables();
+			this.world.setWorldNameRenderedFalse();
+		}
 		this.world = world;
 			
 	}
@@ -189,6 +201,12 @@ public class Handler {
 	public FieldOne getFieldOne(){
 		
 		return fieldOne;
+		
+	}
+	
+	public WoodsOfDeception getWoodsOfDeception(){
+		
+		return woodsOfDeception;
 		
 	}
 

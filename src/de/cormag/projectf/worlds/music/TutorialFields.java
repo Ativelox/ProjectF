@@ -32,7 +32,7 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	private Point comingFromDesert, comingFromFieldOne;
 
 	public TutorialFields(Handler handler, String path) {
-		super(handler.getBGMPlayer());
+		super(handler.getBGMPlayer(), "TutorialFields");
 
 		this.handler = handler;
 		this.path = path;
@@ -53,9 +53,6 @@ public class TutorialFields extends MusicWorld implements Serializable {
 		entityManager.addEntity(flatHouseTwo);
 		entityManager.addEntity(semiFlatHouse2);
 		entityManager.addEntity(semiFlatHouse3);
-		entityManager.addEntity(new VikingBoss(handler, 550, 100));
-		entityManager.addEntity(new KingBoss(handler, 100, 700));
-		entityManager.addEntity(new DemonBoss(handler, 800, 500));
 		entityManager.addEntity(new Efis(handler, 500, 400));
 		entityManager.addEntity(new FemaleNPC(handler, 600, 400));
 		
@@ -82,8 +79,8 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	public void tick() {
 		super.tick();
 		
-		changeWorldIfDemanded(handler.getTutorialDesert().getComingFromTutorialFields(), Tile.sandTeleportFTutorialFieldsTTutorialDesert);
-		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(), Tile.dirtTeleportFTutorialFieldsTFieldOne);
+		changeWorldIfDemanded(handler.getTutorialDesert().getComingFromTutorialFields(), Tile.snowTeleportFTutorialFieldsTTutorialDesert);
+		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(), Tile.snowTeleportFTutorialFieldsTFieldOne);
 
 		entityManager.tick();
 

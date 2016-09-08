@@ -55,37 +55,22 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 		g.setColor(new Color(153, 0, 0, 180));
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 15));
-		g.fillRect(100, 35, ((playerMaxHealth * 20) / playerMaxHealth) * playerHealth, 15);
+		g.fillRect(100, 35, 9999 / playerMaxHealth * (playerHealth / 30), 15);
 		g.setColor(Color.red);
 		g.drawString(playerHealth + "/" + playerMaxHealth, 105, 46);
-		// frame
-		g.drawLine(100, 34, ((playerMaxHealth * 20) / playerMaxHealth) * playerHealth + 100, 34);
-		g.drawLine(100, 34, 100, 50);
-		g.drawLine(100, 50, ((playerMaxHealth * 20) / playerMaxHealth) * playerHealth + 100, 50);
-		g.drawLine(((playerMaxHealth * 20) / playerMaxHealth) * playerHealth + 100, 34,
-				((playerMaxHealth * 20) / playerMaxHealth) * playerHealth + 100, 50);
+		g.drawRect(99, 34, (9999 / playerMaxHealth * (playerMaxHealth / 30)) + 1, 16);
 
 		g.setColor(new Color(0, 127, 0, 180));
-		g.fillRect(100, 55, (int) ((playerMaxStamina / playerMaxStamina) * playerStamina), 15);
+		g.fillRect(100, 55, (int) (999 / playerMaxStamina * (playerStamina / 5)), 15);
 		g.setColor(Color.green);
 		g.drawString((int) playerStamina + "/" + (int) playerMaxStamina, 105, 66);
-		// frame
-		g.drawLine(100, 54, (int) ((playerMaxStamina / playerMaxStamina) * playerStamina + 100), 54);
-		g.drawLine(100, 54, 100, 70);
-		g.drawLine(100, 70, (int) ((playerMaxStamina / playerMaxStamina) * playerStamina + 100), 70);
-		g.drawLine((int) ((playerMaxStamina / playerMaxStamina) * playerStamina + 100), 54,
-				(int) ((playerMaxStamina / playerMaxStamina) * playerStamina + 100), 70);
+		g.drawRect(99, 54, (int) ((999 / playerMaxStamina * (playerStamina / 5)) + 1), 16);
 
 		g.setColor(new Color(0, 0, 153, 180));
-		g.fillRect(100, 75, (playerMaxMagic * 20 / playerMaxMagic) * playerMagic, 15);
+		g.fillRect(100, 75, (999 / playerMaxMagic * (playerMagic / 5)), 15);
 		g.setColor(new Color(76, 76, 255));
 		g.drawString(playerMagic + "/" + playerMaxMagic, 105, 86);
-
-		g.drawLine(100, 74, (playerMaxMagic * 20 / playerMaxMagic) * playerMagic + 100, 74);
-		g.drawLine(100, 74, 100, 90);
-		g.drawLine(100, 90, (playerMaxMagic * 20 / playerMaxMagic) * playerMagic + 100, 90);
-		g.drawLine((playerMaxMagic * 20 / playerMaxMagic) * playerMagic + 100, 74,
-				(playerMaxMagic * 20 / playerMaxMagic) * playerMagic + 100, 90);
+		g.drawRect(99, 74, (999 / playerMaxMagic * (playerMagic / 5) + 1), 16);
 
 		g.setColor(Color.black);
 		g.drawRoundRect(10, 10, 80, 80, 10, 10);

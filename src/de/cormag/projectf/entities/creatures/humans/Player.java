@@ -51,10 +51,10 @@ public class Player extends Human implements Serializable {
 		stamina = 150;
 		maxStamina = stamina;
 
-		magic = 2;
+		magic = 150;
 		maxMagic = magic;
 
-		health = 15;
+		health = 500;
 		maxHealth = health;
 
 		xOffset = 0;
@@ -87,11 +87,11 @@ public class Player extends Human implements Serializable {
 			leveledUp = true;
 
 			level += 1;
-			maxHealth += 5;
-			health = maxHealth;
-			// maxHealth += 1;
-			// maxStamina += 20;
-			// maxMagic += 3;
+			maxHealth += 37.1;
+			maxStamina += 3.3;
+			maxMagic += 3.3;
+			
+			stamina = maxStamina;
 
 			experience = 0;
 		}
