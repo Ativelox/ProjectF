@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 

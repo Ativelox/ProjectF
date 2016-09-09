@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.enemies.bosses.Boss;
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.GameCamera;
 import de.cormag.projectf.input.KeyManager;
 import de.cormag.projectf.sound.BGMPlayer;

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.main.Handler;
 
 public class EntityManager implements Serializable {

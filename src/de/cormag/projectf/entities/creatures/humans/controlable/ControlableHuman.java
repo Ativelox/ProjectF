@@ -1,24 +1,21 @@
-package de.cormag.projectf.entities.creatures.humans;
+package de.cormag.projectf.entities.creatures.humans.controlable;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.io.Serializable;
+import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.Creature;
-import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
+import de.cormag.projectf.entities.creatures.humans.Human;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.GameOverState;
-import de.cormag.projectf.states.InventoryState;
 
-public class Player extends Human implements Serializable {
+public abstract class ControlableHuman extends Human{
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,25 +28,23 @@ public class Player extends Human implements Serializable {
 	private int maxMagic;
 	private int magic;
 
-	private transient boolean inventory;
 	private boolean leveledUp;
 	private int level;
 	private int experience;
 	
-	private float lastX, lastY;
-	private float lastXOffset, lastYOffset;
-
 	private IronSword ironSword;
 
 	private boolean sheathAble;
 	
-	private TalkableHuman lastEncountered;
-	
 	private String lastMovement;
+	
+	private Handler handler;
 
-	public Player(Handler handler, float x, float y) {
+	public ControlableHuman(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-
+		
+		this.handler = handler;
+		
 		stamina = 150;
 		maxStamina = stamina;
 
@@ -66,25 +61,78 @@ public class Player extends Human implements Serializable {
 		experience = 0;
 
 		sprinting = false;
-		inventory = false;
 
 		sheathAble = true;
 
 		leveledUp = false;
 
 		applyResources();
-
 	}
-
+	
 	@Override
 	public void tick() {
 		super.tick();
-		
-		handler.getGameCamera().centerOnEntity(this);
-		
-		talk(false);
-		
+
 		updateSteadyAnimation();
+		
+		updateStatsIfLeveledUp();
+
+		drawSword();
+		
+		checkStaminaUsage();
+		
+		calculatePlayerGettingDamage();
+
+		dieIfDead();
+
+		tickAnimations();
+
+		getInput(handler.getKeyManager().up, handler.getKeyManager().down, handler.getKeyManager().left,
+				handler.getKeyManager().right);
+		move();
+	
+	}
+
+	public void render(Graphics g, BufferedImage imageToDraw) {
+		
+		drawLevelUpIfApplicable(g);
+
+		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
+		
+		super.render(g);
+	}
+	
+	private void dieIfDead(){
+		
+		if (this.health <= 0) {
+			
+			health = 0;
+			handler.getGame().getStateManager().push(new GameOverState(handler));
+			
+		}
+	}
+	
+	private void tickAnimations(){
+		
+		if (sprinting) {
+
+			runningAnimDown.tick();
+			runningAnimUp.tick();
+			runningAnimLeft.tick();
+			runningAnimRight.tick();
+
+		} else {
+
+			walkingAnimDown.tick();
+			walkingAnimUp.tick();
+			walkingAnimRight.tick();
+			walkingAnimLeft.tick();
+
+		}
+		
+	}
+	
+	private void updateStatsIfLeveledUp(){
 		
 		if (experience >= experienceNeeded() && !leveledUp) {
 
@@ -99,8 +147,10 @@ public class Player extends Human implements Serializable {
 
 			experience = 0;
 		}
-
-		drawSword(handler.getWorld().getEntityManager(), handler, this);
+		
+	}
+	
+	private void checkStaminaUsage(){
 		
 		if(handler.getWorld().getEntityManager() != null){
 			if (handler.getKeyManager().shift
@@ -133,62 +183,15 @@ public class Player extends Human implements Serializable {
 				}
 			}
 		}
-
-		if (handler.getKeyManager().escape && !inventory) {
-
-			handler.getGame().getStateManager().push(new InventoryState(handler, this));
-
-			Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-
-				@Override
-				public void run() {
-
-					inventory = true;
-				}
-
-			}, 333);
-		}
-
-		if (this.health <= 0) {
-			
-			health = 0;
-			handler.getGame().getStateManager().push(new GameOverState(handler));
-			
-		}
-
-		calculatePlayerGettingDamage(xOffset, yOffset, Creature.DEFAULT_CREATURE_WIDTH);
-
-		// Animations
-		if (sprinting) {
-
-			runningAnimDown.tick();
-			runningAnimUp.tick();
-			runningAnimLeft.tick();
-			runningAnimRight.tick();
-
-		} else {
-
-			walkingAnimDown.tick();
-			walkingAnimUp.tick();
-			walkingAnimRight.tick();
-			walkingAnimLeft.tick();
-
-		}
-		// Movement
-
-		getInput(handler.getKeyManager().up, handler.getKeyManager().down, handler.getKeyManager().left,
-				handler.getKeyManager().right);
-		move();
-	
+		
 	}
 
-	@Override
-	public void render(Graphics g) {
-		
-		renderTalkNotification(g);
+	
+	private void drawLevelUpIfApplicable(Graphics g){
 		
 		if (leveledUp) {
+			
+			g.setColor(Color.WHITE);
 
 			g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(25f));
 
@@ -206,90 +209,38 @@ public class Player extends Human implements Serializable {
 			}, 2000);
 
 		}
-
-		debug(g, xOffset, yOffset, handler, this);
-
-		g.setColor(Color.black);
-
-		g.drawImage(
-				getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
-						Assets.player_down[1]),
-				(int) (x - xOffset), (int) (y - yOffset), width, height, null);
 		
-		super.render(g);
 	}
 
-	private void debug(Graphics g, float xOffset, float yOffset, Handler handler, Player player) {
+	private void drawSword() {
 
-		if (handler.getWorld().debug) {
+	
+		if (handler.getKeyManager().space && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble && stamina >= 50) {
 
-			g.setColor(new Color(0, 0, 0, 80));
-			g.fillRect(750, 0, 250, 100);
-			g.setFont(new Font(Font.SANS_SERIF, 3, 20));
-			g.setColor(Color.white);
-			g.drawString("Player Debug (G)", 800, 20);
-			g.setFont(new Font(Font.DIALOG_INPUT, 1, 15));
-			g.drawString("Invincible: " + player.getDamagedStatus(), 780, 50);
-			g.drawString("Sprinting: " + sprinting, 780, 80);
+			ironSword = new IronSword(handler, handler.getPlayer().getX(), handler.getPlayer().getY());
 
-		}
-	}
+			handler.getWorld().getEntityManager().addEntity(ironSword);
 
-	private void drawSword(EntityManager entityManager, Handler handler, Player player) {
+			stamina -= getCurrentWeapon().getStaminaUsage();
+
+			sheathAble = false;
+
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+
+					sheathAble = true;
+
+				}
+
+			}, 500);
+
 		
-		if(entityManager != null){
-	
-			if (handler.getKeyManager().space && !entityManager.contains(ironSword) && sheathAble && stamina >= 50) {
-	
-				ironSword = new IronSword(handler, player.getX(), player.getY());
-	
-				entityManager.addEntity(ironSword);
-	
-				stamina -= getCurrentWeapon().getStaminaUsage();
-	
-				sheathAble = false;
-	
-				Timer timer = new Timer();
-				timer.schedule(new TimerTask() {
-	
-					@Override
-					public void run() {
-	
-						sheathAble = true;
-	
-					}
-	
-				}, 500);
-	
-			}
 		
 		}
 
-	}
-	
-	public void talk(boolean finishedTalking){
-		
-		if((returnNearStandingTalkableHuman() != null) && (returnNearStandingTalkableHuman().getProperCollisionRectangle().intersects(this.getNearbyRectangle()))){
-
-			lastEncountered = returnNearStandingTalkableHuman();
-			
-			returnNearStandingTalkableHuman().talk(finishedTalking, returnNearStandingTalkableHuman());
-			
-		}else if(lastEncountered != null){
-			
-			lastEncountered.removeSpeechBubbleIfOOR(true);
-			
-		}
-	}
-	
-	public void renderTalkNotification(Graphics g){
-		
-		if(returnNearStandingTalkableHuman() != null && returnNearStandingTalkableHuman().getProperCollisionRectangle().intersects(this.getNearbyRectangle())){
-			
-			returnNearStandingTalkableHuman().renderTalkNotification(g);
-			
-		}
-		
 	}
 	
 	public void updateSteadyAnimation(){	
@@ -352,18 +303,6 @@ public class Player extends Human implements Serializable {
 
 	}
 
-	public boolean getInventoryStatus() {
-
-		return inventory;
-
-	}
-
-	public void setInventoryStatus(boolean inventory) {
-
-		this.inventory = inventory;
-
-	}
-
 	public float getStamina() {
 
 		return stamina;
@@ -415,56 +354,19 @@ public class Player extends Human implements Serializable {
 
 	}
 	
-	@Override
 	public void setX(float x){
-		
-		if(handler.getGameCamera() != null){
-			lastXOffset = handler.getGameCamera().getxOffset();
-		}
-		
-		lastX = this.x;
 		
 		this.x = x;
 		
 	}
-	
-	@Override
+
 	public void setY(float y){
-		
-		if(handler.getGameCamera()!= null){
-			lastYOffset = handler.getGameCamera().getyOffset();
-		}
-		
-		lastY = this.y;
 		
 		this.y = y;
 		
 	}
-	
-	public float getLastX(){
-		
-		return lastX;
-		
-	}
-	
-	public float getLastY(){
-		
-		return lastY;
-		
-	}
-	
-	public float getLastXOffset(){
-		
-		return lastXOffset;
-		
-	}
-	
-	public float getLastYOffset(){
-		
-		return lastYOffset;
-		
-	}
 
+	
 	@Override
 	public void applyResources() {
 		super.applyResources();
@@ -484,3 +386,5 @@ public class Player extends Human implements Serializable {
 	}
 
 }
+
+

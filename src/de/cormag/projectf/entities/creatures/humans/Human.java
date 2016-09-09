@@ -15,7 +15,7 @@ public abstract class Human extends Creature {
 
 	}
 
-	protected void calculatePlayerGettingDamage(float xOffset, float yOffset, int enemyWidth) {
+	protected void calculatePlayerGettingDamage() {
 
 		if (checkEntityCollisions(0f, 10f) || checkEntityCollisions(10f, 0f) || checkEntityCollisions(0f, -10f)
 				|| checkEntityCollisions(-10f, 0f)) {

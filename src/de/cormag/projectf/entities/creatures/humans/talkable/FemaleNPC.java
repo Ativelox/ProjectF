@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 //import java.awt.Rectangle;
 
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 

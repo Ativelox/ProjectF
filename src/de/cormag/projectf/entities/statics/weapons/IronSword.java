@@ -14,11 +14,9 @@ public class IronSword extends Weapon implements Serializable {
 	public static final int DEFAULT_IRON_SWORD_POWER = 5;
 
 	public IronSword(Handler handler, float x, float y) {
-		super(handler, x, y, DEFAULT_WEAPON_WIDTH, DEFAULT_WEAPON_HEIGHT);
+		super(handler, x, y, DEFAULT_WEAPON_WIDTH, DEFAULT_WEAPON_HEIGHT, DEFAULT_IRON_SWORD_POWER);
 		
 		attack = false;
-
-		attackValue = DEFAULT_IRON_SWORD_POWER;
 
 		staminaUsage = 50;
 		

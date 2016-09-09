@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.creatures.Creature;
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
@@ -22,7 +22,7 @@ public abstract class Weapon extends StaticEntity {
 	protected boolean attack;
 	protected boolean dispose;
 
-	protected int attackValue;
+	private int attackValue;
 	protected int staminaUsage;
 	
 	private Handler handler;
@@ -41,13 +41,15 @@ public abstract class Weapon extends StaticEntity {
 	
 	public static final float TICKS_TO_DISPOSE = MILLISECONDS_TO_DISPOSE * 0.12f;
 
-	public Weapon(Handler handler, float x, float y, int width, int height) {
+	public Weapon(Handler handler, float x, float y, int width, int height, int attackValue) {
 		super(handler, x, y, width, height);
 		
 		getBounds().x = (Player.DEFAULT_CREATURE_WIDTH / 2) + (Player.DEFAULT_CREATURE_WIDTH / 4);
 		getBounds().y = 0;
 		getBounds().width = DEFAULT_WEAPON_WIDTH;
 		getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
+		
+		this.attackValue = attackValue;
 		
 		this.handler = handler;
 		

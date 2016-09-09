@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 

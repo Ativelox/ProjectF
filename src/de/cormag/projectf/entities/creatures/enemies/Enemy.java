@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.Creature;
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.main.Handler;

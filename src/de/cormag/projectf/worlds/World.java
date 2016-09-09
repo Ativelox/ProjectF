@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.Creature;
-import de.cormag.projectf.entities.creatures.humans.Player;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.statics.FenceXBottomAlign;
 import de.cormag.projectf.entities.statics.FenceXTopAlign;
 import de.cormag.projectf.entities.statics.FenceYLeftAlign;
