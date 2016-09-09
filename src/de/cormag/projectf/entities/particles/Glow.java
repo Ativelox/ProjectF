@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import de.cormag.projectf.main.Handler;
 
 /**
- * Small glowing particle which slowly moves around the scene for the ambiance.
+ * Small glowing particle which slowly moves around the scene for ambiance.
  * 
  * @author Zabuza
  *
@@ -55,14 +55,6 @@ public final class Glow extends Particle {
 	 */
 	@Override
 	public void update() {
-		setOldRelativeX(getRelativeX());
-		setOldRelativeY(getRelativeY());
-
 		super.update();
-
-		setX(getRelativeX() - xOffset);
-		setY(getRelativeY() - yOffset);
-
-		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 	}
 }

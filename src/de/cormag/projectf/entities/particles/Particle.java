@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.main.Handler;
 
 /**
@@ -13,7 +14,7 @@ import de.cormag.projectf.main.Handler;
  * @author Zabuza
  *
  */
-public abstract class Particle extends Entity {
+public abstract class Particle extends Entity implements ISpatial {
 
 	/**
 	 * Serial version UID.
@@ -71,95 +72,104 @@ public abstract class Particle extends Entity {
 		return IRenderable.PARTICLE_LAYER;
 	}
 
-	/**
-	 * Gets the x-coordinate relative to the camera, i.e. the world position, of
-	 * the last tick.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return the oldRelativeX The x-coordinate relative to the camera, i.e.
-	 *         the world position, of the last tick.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeX()
 	 */
+	@Override
 	public float getOldRelativeX() {
 		return mOldRelativeX;
 	}
 
-	/**
-	 * Gets the y-coordinate relative to the camera, i.e. the world position, of
-	 * the last tick.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return The y-coordinate relative to the camera, i.e. the world position,
-	 *         of the last tick.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeY()
 	 */
+	@Override
 	public float getOldRelativeY() {
 		return mOldRelativeY;
 	}
 
-	/**
-	 * Gets the current x-coordinate relative to the camera, i.e. the world
-	 * position.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return The current x-coordinate relative to the camera, i.e. the world
-	 *         position.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeX()
 	 */
+	@Override
 	public float getRelativeX() {
 		return mRelativeX;
 	}
 
-	/**
-	 * Gets the current y-coordinate relative to the camera, i.e. the world
-	 * position.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return The current y-coordinate relative to the camera, i.e. the world
-	 *         position.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeY()
 	 */
+	@Override
 	public float getRelativeY() {
 		return mRelativeY;
 	}
 
-	/**
-	 * Sets the x-coordinate relative to the camera, i.e. the world position, of
-	 * the last tick.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param oldRelativeX
-	 *            The x-coordinate relative to the camera, i.e. the world
-	 *            position, of the last tick.
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeX(float)
 	 */
-	protected void setOldRelativeX(float oldRelativeX) {
+	@Override
+	public void setOldRelativeX(float oldRelativeX) {
 		this.mOldRelativeX = oldRelativeX;
 	}
 
-	/**
-	 * Sets the y-coordinate relative to the camera, i.e. the world position, of
-	 * the last tick.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param oldRelativeY
-	 *            The y-coordinate relative to the camera, i.e. the world
-	 *            position, of the last tick.
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeY(float)
 	 */
-	protected void setOldRelativeY(float oldRelativeY) {
+	@Override
+	public void setOldRelativeY(float oldRelativeY) {
 		this.mOldRelativeY = oldRelativeY;
 	}
 
-	/**
-	 * Sets the current x-coordinate relative to the camera, i.e. the world
-	 * position.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param relativeX
-	 *            The current x-coordinate relative to the camera, i.e. the
-	 *            world position.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeX(float)
 	 */
-	protected void setRelativeX(float relativeX) {
+	@Override
+	public void setRelativeX(float relativeX) {
 		this.mRelativeX = relativeX;
 	}
 
-	/**
-	 * Sets the current y-coordinate relative to the camera, i.e. the world
-	 * position.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param relativeY
-	 *            The current y-coordinate relative to the camera, i.e. the
-	 *            world position.
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeY(float)
 	 */
-	protected void setRelativeY(float relativeY) {
+	@Override
+	public void setRelativeY(float relativeY) {
 		this.mRelativeY = relativeY;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.Entity#update()
+	 */
+	@Override
+	public void update() {
+		setOldRelativeX(getRelativeX());
+		setOldRelativeY(getRelativeY());
+
+		super.update();
+
+		// Translate relative movement to absolute
+		setX(getRelativeX() - xOffset);
+		setY(getRelativeY() - yOffset);
+
+		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 	}
 }

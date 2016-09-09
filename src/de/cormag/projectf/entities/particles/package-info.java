@@ -1,5 +1,4 @@
 /**
- * 
  * This is the core package for particle like entities.
  * 
  * @author Zabuza
