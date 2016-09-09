@@ -2,6 +2,7 @@ package de.cormag.projectf.entities.statics.nocollision;
 
 import java.awt.Graphics;
 
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
 
@@ -19,5 +20,11 @@ public abstract class NoCollision extends StaticEntity {
 	@Override
 	protected void renderHitBox(Graphics g) {
 
+	}
+	
+	@Override
+	public int getLayer(){
+		return IRenderable.BACK_LAYER;
+		
 	}
 }

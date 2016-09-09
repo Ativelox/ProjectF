@@ -5,11 +5,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.statics.skills.Skills;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.main.Handler;
@@ -56,6 +59,51 @@ public abstract class Enemy extends Creature {
 		if (handler.getWorld().getEntityManager() != null) {
 
 			Weapon currentWeapon = handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon();
+			
+			Iterator <Entity> entities = handler.getWorld().getEntityManager().getEntities();
+			
+			while(entities.hasNext()){
+				Entity e = entities.next();
+				
+				if(e instanceof Skills){
+					if(this.getProperCollisionRectangle().intersects(e.getProperCollisionRectangle())){
+						if (!damaged) {
+
+							if (this.getHealth() > 0) {
+
+								this.health -= ((Skills) e).getDMG();
+								damaged = true;
+
+								if (damaged) {
+
+									Timer timer = new Timer();
+									timer.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+
+											damaged = false;
+
+										}
+									}, 400);
+
+								}
+
+							} else {
+
+								this.health = 0;
+
+							}
+						}
+						
+					}
+					
+					
+				}
+				
+				
+			}
+			
 
 			if (currentWeapon != null && handler.getWorld().getEntityManager().contains(currentWeapon)) {
 

@@ -3,8 +3,6 @@ package de.cormag.projectf.entities;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import de.cormag.projectf.entities.statics.nocollision.NoCollision;
-
 /**
  * Compares two renderable objects. Objects with a smaller layer are considered
  * to be greater. Because of that they get rendered first, thus being displayed
@@ -30,13 +28,6 @@ public final class LayerComparator implements Comparator<Entity>, Serializable {
 		// Smaller layers should get rendered first to be behind greater
 		int layerOrder = Integer.compare(entityOne.getLayer(), entityTwo.getLayer());
 		if (layerOrder == 0) {
-			// Objects are on the same level, use some position based logic
-			// to determine which object is in front
-			if (entityOne instanceof NoCollision) {
-				return -1;
-			} else if (entityTwo instanceof NoCollision) {
-				return 1;
-			}
 
 			if (entityOne.getY() + entityOne.getHeight() < entityTwo.getY() + entityTwo.getHeight()) {
 				return -1;

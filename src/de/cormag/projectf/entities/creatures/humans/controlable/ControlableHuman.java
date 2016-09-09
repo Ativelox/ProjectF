@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.Human;
+import de.cormag.projectf.entities.statics.skills.weapons.LongRangeSwipe;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.gfx.Animation;
@@ -39,6 +40,8 @@ public abstract class ControlableHuman extends Human {
 	private String lastMovement;
 
 	private Handler handler;
+	
+	private LongRangeSwipe longRangeSwipe;
 
 	public ControlableHuman(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -54,9 +57,6 @@ public abstract class ControlableHuman extends Human {
 		health = 500;
 		maxHealth = health;
 
-		xOffset = 0;
-		yOffset = 0;
-
 		level = 1;
 		experience = 0;
 
@@ -65,6 +65,8 @@ public abstract class ControlableHuman extends Human {
 		sheathAble = true;
 
 		leveledUp = false;
+		
+		longRangeSwipe = new LongRangeSwipe(handler, x, y);
 
 		applyResources();
 	}
@@ -77,9 +79,13 @@ public abstract class ControlableHuman extends Human {
 
 		updateStatsIfLeveledUp();
 
-		drawSword();
+		checkWeaponSkillUsage();
+		
+		drawSword(handler.getKeyManager().space);
 
 		checkStaminaUsage();
+		
+		checkMagicUsage();
 
 		calculatePlayerGettingDamage();
 
@@ -100,6 +106,26 @@ public abstract class ControlableHuman extends Human {
 		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
 
 		super.render(g);
+	}
+	
+
+	private void checkWeaponSkillUsage() {
+
+		if (handler.getKeyManager().one) {
+			if(!handler.getWorld().getEntityManager().contains(longRangeSwipe)){
+				drawSword(true);
+				
+				longRangeSwipe.setX(this.x);
+				longRangeSwipe.setY(this.y);
+				if(magic >= 30){
+					magic -= 30;
+					handler.getWorld().getEntityManager().addEntity(longRangeSwipe);
+					
+				}
+			}
+
+		}
+
 	}
 
 	private void dieIfDead() {
@@ -145,6 +171,15 @@ public abstract class ControlableHuman extends Human {
 			stamina = maxStamina;
 
 			experience = 0;
+		}
+
+	}
+	
+	private void checkMagicUsage(){
+		if(magic <= 0){
+			magic = 0;
+
+			
 		}
 
 	}
@@ -210,9 +245,9 @@ public abstract class ControlableHuman extends Human {
 
 	}
 
-	private void drawSword() {
+	private void drawSword(boolean key) {
 
-		if (handler.getKeyManager().space && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
+		if (key && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
 				&& stamina >= 50) {
 
 			ironSword = new IronSword(handler, handler.getPlayer().getX(), handler.getPlayer().getY());

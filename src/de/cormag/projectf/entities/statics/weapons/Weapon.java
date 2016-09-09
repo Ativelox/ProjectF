@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.statics.StaticEntity;
-import de.cormag.projectf.entities.statics.skills.weapons.LongRangeSwipe;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
@@ -15,8 +14,8 @@ public abstract class Weapon extends StaticEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	protected static final int DEFAULT_WEAPON_WIDTH = 32;
-	protected static final int DEFAULT_WEAPON_HEIGHT = 32;
+	public static final int DEFAULT_WEAPON_WIDTH = 32;
+	public static final int DEFAULT_WEAPON_HEIGHT = 32;
 
 	protected transient BufferedImage steadyAnimation;
 
@@ -81,8 +80,6 @@ public abstract class Weapon extends StaticEntity {
 
 		updateHitbox();
 
-		checkWeaponSkillUsage();
-
 		attackAnimationRight.tick();
 		attackAnimationLeft.tick();
 		attackAnimationUp.tick();
@@ -99,15 +96,6 @@ public abstract class Weapon extends StaticEntity {
 
 	}
 
-	private void checkWeaponSkillUsage() {
-
-		if (handler.getKeyManager().one) {
-
-			handler.getWorld().getEntityManager().addEntity(new LongRangeSwipe(handler, this.x, this.y));
-
-		}
-
-	}
 
 	protected void updateWeaponPosition(float playerArmX, float playerArmY) {
 		setX(playerArmX);

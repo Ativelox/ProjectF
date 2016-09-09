@@ -36,7 +36,7 @@ public class Assets {
 
 	public static BufferedImage fenceY, fenceX, verdurousGreenTree;
 
-	public static BufferedImage longRangeSwipe;
+	public static BufferedImage longRangeSwipeTop, longRangeSwipeLeft, longRangeSwipeRight, longRangeSwipeBottom;
 
 	public static Font OPTIMUS_PRINCEPS;
 
@@ -399,7 +399,10 @@ public class Assets {
 
 		verdurousGreenTree = treesAndBushes.crop(256, 0, 32, 64);
 
-		longRangeSwipe = weaponSkills.crop(0, 0, 128, 32);
+		longRangeSwipeTop = weaponSkills.crop(0, 0, 128, 32);
+		longRangeSwipeLeft = weaponSkills.crop(0, 32, 32, 128);
+		longRangeSwipeRight = weaponSkills.crop(128 - 32, 32, 32, 128);
+		longRangeSwipeBottom = weaponSkills.crop(0, 128 + 32, 128, 32);
 
 		avatar_crazy_mouth_open = avatar_sprite.crop(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT);
 		avatar_depressed = avatar_sprite.crop(AVATAR_WIDTH, 0, AVATAR_WIDTH, AVATAR_HEIGHT);
