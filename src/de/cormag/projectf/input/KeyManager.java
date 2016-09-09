@@ -4,15 +4,14 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class KeyManager implements KeyListener, FocusListener {
 
 	private boolean[] keys;
 	private boolean[] notAffectedKeys;
+	
 	public boolean up, down, left, right, space, y, enter, e, shift, c, l, o, p, escape, g, arrowDown, arrowLeft,
-			arrowRight, arrowUp, r, s, ctrl;
+			arrowRight, arrowUp, r, s, ctrl, one, two, three, four;
 	
 
 	public KeyManager() {
@@ -48,6 +47,10 @@ public class KeyManager implements KeyListener, FocusListener {
 		g = keys[KeyEvent.VK_G];
 		r = keys[KeyEvent.VK_R];
 		s = keys[KeyEvent.VK_S];
+		one = keys[KeyEvent.VK_1];
+		two = keys[KeyEvent.VK_2];
+		three = keys[KeyEvent.VK_3];
+		four = keys[KeyEvent.VK_4];
 		
 	}
 
@@ -68,19 +71,6 @@ public class KeyManager implements KeyListener, FocusListener {
 		notAffectedKeys[e.getKeyCode()] = true;
 		
 		keys[e.getKeyCode()] = true;
-		
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask(){
-
-			@Override
-			public void run() {
-				
-				keys[e.getKeyCode()] = false;
-				
-			}
-			
-			
-		}, 1000/60);
 		
 	}
 

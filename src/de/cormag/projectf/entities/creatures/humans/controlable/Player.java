@@ -70,7 +70,7 @@ public class Player extends ControlableHuman implements Serializable {
 		}, 333);
 	}
 	
-}
+	}	
 	
 	public void talk(boolean finishedTalking){
 		

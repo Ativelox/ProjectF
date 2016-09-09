@@ -34,6 +34,8 @@ public class Assets {
 	public static BufferedImage avatarMenuFace;
 	
 	public static BufferedImage fenceY, fenceX, verdurousGreenTree;
+	
+	public static BufferedImage longRangeSwipe;
 
 	public static Font OPTIMUS_PRINCEPS;
 
@@ -81,6 +83,7 @@ public class Assets {
 		SpriteSheet house_sheet = new SpriteSheet(ImageLoader.loadImage("Houses.png"));//TODO:SAME ^
 		SpriteSheet modernage = new SpriteSheet(ImageLoader.loadImage("modernage.png")); //TODO:SAME ^
 		SpriteSheet treesAndBushes = new SpriteSheet(ImageLoader.loadImage("TreesAndBushes.png")); //TODO:SAME ^
+		SpriteSheet weaponSkills = new SpriteSheet(ImageLoader.loadImage("Weapon Skills/WeaponSkillOne.png")); //TODO:SAME^
 
 		background = ImageLoader.loadImage("background.pfpf");
 
@@ -386,6 +389,8 @@ public class Assets {
 		fenceX = terrain_celianna.crop(333, 65, 37, 30);
 		
 		verdurousGreenTree = treesAndBushes.crop(256, 0, 32, 64);
+		
+		longRangeSwipe = weaponSkills.crop(0, 0, 128, 32);
 
 		avatar_crazy_mouth_open = avatar_sprite.crop(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT);
 		avatar_depressed = avatar_sprite.crop(AVATAR_WIDTH, 0, AVATAR_WIDTH, AVATAR_HEIGHT);

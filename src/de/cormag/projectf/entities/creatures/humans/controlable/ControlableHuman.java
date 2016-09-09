@@ -105,7 +105,6 @@ public abstract class ControlableHuman extends Human{
 	private void dieIfDead(){
 		
 		if (this.health <= 0) {
-			
 			health = 0;
 			handler.getGame().getStateManager().push(new GameOverState(handler));
 			
@@ -236,7 +235,6 @@ public abstract class ControlableHuman extends Human{
 				}
 
 			}, 500);
-
 		
 		
 		}
