@@ -15,7 +15,8 @@ public class Zombie extends Monster implements Serializable {
 
 	public Zombie(Handler handler, float x, float y) {
 
-		super(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, Player.DEFAULT_CREATURE_WIDTH,
+				Player.DEFAULT_CREATURE_HEIGHT);
 
 		this.handler = handler;
 		this.health = 5;
@@ -34,8 +35,8 @@ public class Zombie extends Monster implements Serializable {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void update() {
+		super.update();
 
 	}
 

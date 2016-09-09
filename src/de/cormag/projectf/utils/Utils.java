@@ -14,7 +14,8 @@ public class Utils {
 		StringBuilder builder = new StringBuilder();
 
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(Utils.class.getResource("/worlds/" + path).openStream()));
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(Utils.class.getResource("/worlds/" + path).openStream()));
 			String line;
 			while ((line = br.readLine()) != null)
 				builder.append(line + "\n");

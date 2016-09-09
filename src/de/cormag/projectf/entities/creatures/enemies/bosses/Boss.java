@@ -25,16 +25,15 @@ public abstract class Boss extends Enemy {
 
 	}
 
-	public void tick() {
-		super.tick();
-		
-		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
+	public void update() {
+		super.update();
 
-		if ((seenPlayer || damagedOnce) && 
-				!handler.getGame().getStateManager().getGameState().getHUDState().containsHUDElement(getBossHealthBar())
-				&& !reDrawHealthbarCooldown){
+		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2,
+				height * 2);
 
-			
+		if ((seenPlayer || damagedOnce) && !handler.getGame().getStateManager().getGameState().getHUDState()
+				.containsHUDElement(getBossHealthBar()) && !reDrawHealthbarCooldown) {
+
 			addHealthBar(getBossHealthBar());
 
 		}
@@ -47,33 +46,31 @@ public abstract class Boss extends Enemy {
 
 	}
 
-	
-	public void addHealthBar(BossHealthBar bossHealthBar){
-		
+	public void addHealthBar(BossHealthBar bossHealthBar) {
+
 		handler.getGame().getStateManager().getGameState().getHUDState().addHUDElement(bossHealthBar);
-		
+
 	}
-	
-	public void removeHealthBar(BossHealthBar bossHealthBar){
-		
+
+	public void removeHealthBar(BossHealthBar bossHealthBar) {
+
 		reDrawHealthbarCooldown = true;
-		
+
 		handler.getGame().getStateManager().getGameState().getHUDState().removeHUDElement(bossHealthBar);
-		
+
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask(){
+		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				reDrawHealthbarCooldown = false;
-				
+
 			}
-		
-			
+
 		}, 1000);
-		
+
 	}
-	
+
 	public abstract BossHealthBar getBossHealthBar();
 
 }

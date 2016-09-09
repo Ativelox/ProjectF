@@ -9,20 +9,18 @@ public class KeyManager implements KeyListener, FocusListener {
 
 	private boolean[] keys;
 	private boolean[] notAffectedKeys;
-	
+
 	public boolean up, down, left, right, space, y, enter, e, shift, c, l, o, p, escape, g, arrowDown, arrowLeft,
 			arrowRight, arrowUp, r, s, ctrl, one, two, three, four;
-	
 
 	public KeyManager() {
 		keys = new boolean[700];
 		notAffectedKeys = new boolean[700];
-		
+
 	}
 
 	public void tick() {
-		
-		
+
 		up = notAffectedKeys[KeyEvent.VK_W];
 		down = notAffectedKeys[KeyEvent.VK_S];
 		left = notAffectedKeys[KeyEvent.VK_A];
@@ -36,7 +34,7 @@ public class KeyManager implements KeyListener, FocusListener {
 		escape = notAffectedKeys[KeyEvent.VK_ESCAPE];
 		enter = notAffectedKeys[KeyEvent.VK_ENTER];
 		shift = notAffectedKeys[KeyEvent.VK_SHIFT];
-		
+
 		space = keys[KeyEvent.VK_SPACE];
 		y = keys[KeyEvent.VK_Y];
 		e = keys[KeyEvent.VK_E];
@@ -51,7 +49,7 @@ public class KeyManager implements KeyListener, FocusListener {
 		two = keys[KeyEvent.VK_2];
 		three = keys[KeyEvent.VK_3];
 		four = keys[KeyEvent.VK_4];
-		
+
 	}
 
 	public void resetKeys() {
@@ -67,24 +65,21 @@ public class KeyManager implements KeyListener, FocusListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 		notAffectedKeys[e.getKeyCode()] = true;
-		
+
 		keys[e.getKeyCode()] = true;
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
-		notAffectedKeys[e.getKeyCode()] = false;
-		
-		keys[e.getKeyCode()] = false;
-		
-	
-	}
 
-	
+		notAffectedKeys[e.getKeyCode()] = false;
+
+		keys[e.getKeyCode()] = false;
+
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -95,17 +90,16 @@ public class KeyManager implements KeyListener, FocusListener {
 	public void focusGained(FocusEvent arg0) {
 
 	}
-	
-	
-	public boolean unaffectedKeys(KeyEvent e){
-		
-		return e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A ||
-				e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_D ||
-				e.getKeyCode() == KeyEvent.VK_SHIFT || e.getKeyCode() == KeyEvent.VK_UP ||
-				e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_DOWN ||
-				e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_CONTROL ||
-				e.getKeyCode() == KeyEvent.VK_ESCAPE || e.getKeyCode() == KeyEvent.VK_ENTER;
-		
+
+	public boolean unaffectedKeys(KeyEvent e) {
+
+		return e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_S
+				|| e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_SHIFT
+				|| e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_LEFT
+				|| e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_RIGHT
+				|| e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_ESCAPE
+				|| e.getKeyCode() == KeyEvent.VK_ENTER;
+
 	}
 
 	@Override

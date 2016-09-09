@@ -35,14 +35,10 @@ public class MonsterHealthBar extends HUDElement {
 			float healthbarWidthRed = (float) ((enemy.getWidth() / enemy.getMaxHealth()) * enemy.getHealth());
 
 			g.setColor(Color.gray);
-			g.fillRect(
-					enemy.getProperCollisionRectangle().x
-							+ ((enemy.getBounds().width / 2) - (enemy.getWidth() / 2)),
+			g.fillRect(enemy.getProperCollisionRectangle().x + ((enemy.getBounds().width / 2) - (enemy.getWidth() / 2)),
 					enemy.getProperCollisionRectangle().y - 10, (int) healthbarWidthGray, 5);
 			g.setColor(Color.red);
-			g.fillRect(
-					enemy.getProperCollisionRectangle().x
-							+ ((enemy.getBounds().width / 2) - (enemy.getWidth() / 2)),
+			g.fillRect(enemy.getProperCollisionRectangle().x + ((enemy.getBounds().width / 2) - (enemy.getWidth() / 2)),
 					enemy.getProperCollisionRectangle().y - 10, (int) healthbarWidthRed, 5);
 		}
 	}

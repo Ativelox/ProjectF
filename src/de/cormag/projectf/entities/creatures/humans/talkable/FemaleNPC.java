@@ -23,7 +23,7 @@ public class FemaleNPC extends TalkableHuman {
 				(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
 		g.setColor(Color.black);
-		
+
 		super.render(g);
 
 	}
@@ -31,7 +31,7 @@ public class FemaleNPC extends TalkableHuman {
 	@Override
 	public void updateSpeech() {
 		setSpeech("haha");
-		
+
 	}
 
 }

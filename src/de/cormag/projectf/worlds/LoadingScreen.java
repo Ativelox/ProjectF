@@ -12,10 +12,10 @@ import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
-public class LoadingScreen extends World{
+public class LoadingScreen extends World {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int countRenderTicks;
 
 	/**
@@ -23,7 +23,7 @@ public class LoadingScreen extends World{
 	 */
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY) {
 		super(null);
-		
+
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;
 
@@ -50,16 +50,15 @@ public class LoadingScreen extends World{
 			}
 
 		}, 1000);
-		
-	
+
 	}
-	
+
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY, BGMPlayer bgmPlayer) {
 		super(null);
-		
+
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;
-		
+
 		bgmPlayer.stopCurrentSound();
 
 		Timer timer = new Timer();
@@ -79,61 +78,57 @@ public class LoadingScreen extends World{
 
 			@Override
 			public void run() {
-				
-				if(queuedWorld instanceof MusicWorld){
-					
+
+				if (queuedWorld instanceof MusicWorld) {
+
 					handler.setWorld(queuedWorld);
-					
+
 					World[] worlds = bgmPlayer.getVisitedMusicWorlds();
 					Clip[] clips = bgmPlayer.getVisitedMusicWorldsClip();
-					
-					if(worlds != null && clips != null){
 
-						for(int j = 0; j < worlds.length; j++){
-							
-							if(worlds[j] != null && worlds[j].equals(queuedWorld)){
-			
-								
+					if (worlds != null && clips != null) {
+
+						for (int j = 0; j < worlds.length; j++) {
+
+							if (worlds[j] != null && worlds[j].equals(queuedWorld)) {
+
 								bgmPlayer.setClip(clips[j]);
 							}
-							
-							
+
 						}
 
 					}
-				}else{
+				} else {
 					handler.setWorld(queuedWorld);
-				
+
 				}
 			}
 
 		}, 1000);
-		
-	
+
 	}
-	
-	public void render(Graphics g){
-		
+
+	public void render(Graphics g) {
+
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 50));
 		g.drawString("Loading", 50, 600);
-		
-		if(countRenderTicks >= 15){
-			
+
+		if (countRenderTicks >= 15) {
+
 			g.fillRoundRect(290, 575, 25, 25, 90, 90);
-			
-			if(countRenderTicks >= 30){
-				
+
+			if (countRenderTicks >= 30) {
+
 				g.fillRoundRect(325, 575, 25, 25, 90, 90);
-				
-				if(countRenderTicks >= 45){
-					
+
+				if (countRenderTicks >= 45) {
+
 					g.fillRoundRect(360, 575, 25, 25, 90, 90);
-					
+
 				}
 			}
 		}
-		
-		
+
 		countRenderTicks++;
 	}
 

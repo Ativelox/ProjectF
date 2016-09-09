@@ -1,7 +1,7 @@
 package de.cormag.projectf.utils;
 
 public class PathBool {
-	
+
 	private String path;
 	private boolean bool;
 
@@ -9,16 +9,16 @@ public class PathBool {
 		this.path = path;
 		this.bool = bool;
 	}
-	
-	public String getPath(){
-		
+
+	public String getPath() {
+
 		return path;
 	}
-	
-	public boolean getStatus(){
-		
+
+	public boolean getStatus() {
+
 		return bool;
-		
+
 	}
-	
+
 }

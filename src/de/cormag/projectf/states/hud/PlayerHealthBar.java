@@ -24,7 +24,6 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 	public PlayerHealthBar(Handler handler) {
 
 		this.player = handler.getPlayer();
-		
 
 		playerHealth = player.getHealth();
 		playerMaxHealth = player.getMaxHealth();
@@ -47,7 +46,6 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 	}
 
 	public void render(Graphics g) {
-
 
 		g.setFont(new Font(Font.MONOSPACED, 1, 20));
 		g.setColor(Color.WHITE);
@@ -96,7 +94,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 			g.drawImage(Assets.avatar_very_sad, 10, 10, 80, 80, null);
 
 		}
-		
+
 	}
 
 }

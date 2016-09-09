@@ -49,17 +49,17 @@ public class BossHealthBar extends HUDElement {
 
 		g.setColor(new Color(150, 0, 0));
 		g.fillRect(100, 640, ((800 / maxHealth) * health), 20);
-		
+
 		g.setColor(new Color(250, 0, 0));
 		g.drawLine(98, 638, 901, 638);
 		g.drawLine(98, 639, 901, 639);
-		
+
 		g.drawLine(98, 638, 98, 661);
 		g.drawLine(99, 638, 99, 661);
-		
+
 		g.drawLine(98, 660, 901, 660);
 		g.drawLine(98, 661, 901, 661);
-		
+
 		g.drawLine(900, 638, 900, 661);
 		g.drawLine(901, 638, 901, 661);
 

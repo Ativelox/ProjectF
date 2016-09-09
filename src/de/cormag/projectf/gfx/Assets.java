@@ -19,10 +19,11 @@ public class Assets {
 	private static final int DEFAULT_TILE_WIDTH = 128, DEFAULT_TILE_HEIGHT = 128;
 	private static final int TILE_PADDING_WIDTH = 16, TILE_PADDING_HEIGHT = 17;
 
-	public static BufferedImage dirt, grass, stone, tree, grassBushSmall, grassBushMedium, grassBushLarge, rock, water, woodenPlankets, gravel, mediumWoodenGround, sand,
-			solidSandStone, sandStone, smoothSandStone, darkWoodenWall, grassDirt, grassSand, grassStone, hardSand, sandGrass, sandWithStone,
-			dirtGrass, dirtSand, dirtStone, ice, iceFrozenStone, iceHoled, iceStone, blackBlankTile, whiteBlankTile;
-	
+	public static BufferedImage dirt, grass, stone, tree, grassBushSmall, grassBushMedium, grassBushLarge, rock, water,
+			woodenPlankets, gravel, mediumWoodenGround, sand, solidSandStone, sandStone, smoothSandStone,
+			darkWoodenWall, grassDirt, grassSand, grassStone, hardSand, sandGrass, sandWithStone, dirtGrass, dirtSand,
+			dirtStone, ice, iceFrozenStone, iceHoled, iceStone, blackBlankTile, whiteBlankTile;
+
 	public static BufferedImage background;
 	public static BufferedImage female_NPC;
 	public static BufferedImage classic_house;
@@ -32,9 +33,9 @@ public class Assets {
 	public static BufferedImage iron_sword;
 	public static BufferedImage menuLayerBackground;
 	public static BufferedImage avatarMenuFace;
-	
+
 	public static BufferedImage fenceY, fenceX, verdurousGreenTree;
-	
+
 	public static BufferedImage longRangeSwipe;
 
 	public static Font OPTIMUS_PRINCEPS;
@@ -52,10 +53,10 @@ public class Assets {
 			avatar_crazy_mouth_shut, avatar_surprised_cry, avatar_sad_cry;
 
 	public static void init() {
-		
 
 		try {
-			OPTIMUS_PRINCEPS = Font.createFont(Font.TRUETYPE_FONT, Assets.class.getResourceAsStream("/fonts/OptimusPrinceps.ttf"));
+			OPTIMUS_PRINCEPS = Font.createFont(Font.TRUETYPE_FONT,
+					Assets.class.getResourceAsStream("/fonts/OptimusPrinceps.ttf"));
 
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(OPTIMUS_PRINCEPS);
@@ -78,12 +79,21 @@ public class Assets {
 		SpriteSheet mattiBoss_sheet = new SpriteSheet(ImageLoader.loadImage("Matti.pfpf"));
 		SpriteSheet dragonBoss_sheet = new SpriteSheet(ImageLoader.loadImage("dragonSprite.pfpf"));
 		SpriteSheet king_sheet = new SpriteSheet(ImageLoader.loadImage("king.pfpf"));
-		SpriteSheet terrain_celianna = new SpriteSheet(ImageLoader.loadImage("CeliannaSpriteSheet.png")); //TODO: change png to pfpf
-		SpriteSheet characterSprites = new SpriteSheet(ImageLoader.loadImage("charactersprites.png")); //TODO: SAME ^
-		SpriteSheet house_sheet = new SpriteSheet(ImageLoader.loadImage("Houses.png"));//TODO:SAME ^
-		SpriteSheet modernage = new SpriteSheet(ImageLoader.loadImage("modernage.png")); //TODO:SAME ^
-		SpriteSheet treesAndBushes = new SpriteSheet(ImageLoader.loadImage("TreesAndBushes.png")); //TODO:SAME ^
-		SpriteSheet weaponSkills = new SpriteSheet(ImageLoader.loadImage("Weapon Skills/WeaponSkillOne.png")); //TODO:SAME^
+		SpriteSheet terrain_celianna = new SpriteSheet(ImageLoader.loadImage("CeliannaSpriteSheet.png")); // TODO:
+																											// change
+																											// png
+																											// to
+																											// pfpf
+		SpriteSheet characterSprites = new SpriteSheet(ImageLoader.loadImage("charactersprites.png")); // TODO:
+																										// SAME
+																										// ^
+		SpriteSheet house_sheet = new SpriteSheet(ImageLoader.loadImage("Houses.png"));// TODO:SAME
+																						// ^
+		SpriteSheet modernage = new SpriteSheet(ImageLoader.loadImage("modernage.png")); // TODO:SAME
+																							// ^
+		SpriteSheet treesAndBushes = new SpriteSheet(ImageLoader.loadImage("TreesAndBushes.png")); // TODO:SAME
+																									// ^
+		SpriteSheet weaponSkills = new SpriteSheet(ImageLoader.loadImage("Weapon Skills/WeaponSkillOne.png")); // TODO:SAME^
 
 		background = ImageLoader.loadImage("background.pfpf");
 
@@ -119,7 +129,7 @@ public class Assets {
 		dragonBoss_up = new BufferedImage[4];
 		dragonBoss_left = new BufferedImage[4];
 		dragonBoss_right = new BufferedImage[4];
-		
+
 		king_down = new BufferedImage[3];
 		king_up = new BufferedImage[3];
 		king_left = new BufferedImage[3];
@@ -148,19 +158,19 @@ public class Assets {
 		player_right[0] = anime_sprite.crop(0, HEIGHT * 2, WIDTH, HEIGHT);
 		player_right[1] = anime_sprite.crop(WIDTH, HEIGHT * 2, WIDTH, HEIGHT);
 		player_right[2] = anime_sprite.crop(WIDTH * 2, HEIGHT * 2, WIDTH, HEIGHT);
-		
+
 		efis_down[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
 		efis_down[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
 		efis_down[2] = characterSprites.crop(WIDTH * 2, CHARACTERSPRITE_TOPPADDING, WIDTH, HEIGHT);
-		
+
 		efis_left[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING + HEIGHT, WIDTH, HEIGHT);
 		efis_left[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING + HEIGHT, WIDTH, HEIGHT);
 		efis_left[2] = characterSprites.crop(WIDTH * 2, CHARACTERSPRITE_TOPPADDING + HEIGHT, WIDTH, HEIGHT);
-		
+
 		efis_right[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING + HEIGHT * 2, WIDTH, HEIGHT);
 		efis_right[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING + HEIGHT * 2, WIDTH, HEIGHT);
 		efis_right[2] = characterSprites.crop(WIDTH * 2, CHARACTERSPRITE_TOPPADDING + HEIGHT * 2, WIDTH, HEIGHT);
-		
+
 		efis_up[0] = characterSprites.crop(0, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
 		efis_up[1] = characterSprites.crop(WIDTH, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
 		efis_up[2] = characterSprites.crop(WIDTH * 2, CHARACTERSPRITE_TOPPADDING + HEIGHT * 3, WIDTH, HEIGHT);
@@ -236,24 +246,24 @@ public class Assets {
 		dragonBoss_up[1] = dragonBoss_sheet.crop(98 + 3, 288, 91, 96);
 		dragonBoss_up[2] = dragonBoss_sheet.crop(191 + 3, 288, 91, 96);
 		dragonBoss_up[3] = dragonBoss_sheet.crop(286 + 3, 288, 91, 96);
-		
+
 		king_down[0] = king_sheet.crop(0, 1, 32, 35);
 		king_down[1] = king_sheet.crop(32, 1, 32, 35);
 		king_down[2] = king_sheet.crop(64, 1, 32, 35);
-		
+
 		king_left[0] = king_sheet.crop(0, 38, 32, 35);
 		king_left[1] = king_sheet.crop(32, 38, 32, 35);
 		king_left[2] = king_sheet.crop(64, 38, 32, 35);
-		
+
 		king_right[0] = king_sheet.crop(0, 74, 32, 35);
 		king_right[1] = king_sheet.crop(32, 74, 32, 35);
 		king_right[2] = king_sheet.crop(64, 74, 32, 35);
-		
+
 		king_up[0] = king_sheet.crop(0, 111, 32, 35);
 		king_up[1] = king_sheet.crop(32, 111, 32, 35);
 		king_up[2] = king_sheet.crop(64, 111, 32, 35);
-		
-//		king_current[0] = king_down[1];
+
+		// king_current[0] = king_down[1];
 
 		attack_right[0] = sword_sprite.crop(TWO_TIMES_WIDTH, 0, TWO_TIMES_WIDTH, FOUR_TIMES_HEIGHT);
 		attack_right[1] = sword_sprite.crop(TWO_TIMES_WIDTH * 2, 0, TWO_TIMES_WIDTH, FOUR_TIMES_HEIGHT);
@@ -310,19 +320,19 @@ public class Assets {
 		water = terrain_sprite.crop(TILE_PADDING_WIDTH, DEFAULT_TILE_HEIGHT * 8 + 8 + TILE_PADDING_HEIGHT,
 				DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
 		dirt = terrain_celianna.crop(0, 64 * 2, 64, 64);
-				
+
 		grass = terrain_celianna.crop(0, 0, 64, 64);
-		
+
 		stone = terrain_sprite.crop(TILE_PADDING_WIDTH, TILE_PADDING_HEIGHT, DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
-		
+
 		gravel = terrain_sprite.crop(TILE_PADDING_WIDTH + DEFAULT_TILE_WIDTH + 1,
 				TILE_PADDING_HEIGHT + DEFAULT_TILE_HEIGHT * 6 + 6, DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
-		
+
 		woodenPlankets = terrain_sprite.crop(TILE_PADDING_WIDTH, TILE_PADDING_HEIGHT + DEFAULT_TILE_HEIGHT * 3 + 3,
 				DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
 		mediumWoodenGround = terrain_sprite.crop(TILE_PADDING_WIDTH + DEFAULT_TILE_WIDTH + 1,
 				TILE_PADDING_HEIGHT + DEFAULT_TILE_HEIGHT + 1, DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
-		
+
 		darkWoodenWall = terrain_sprite.crop(TILE_PADDING_WIDTH + DEFAULT_TILE_WIDTH + 1,
 				TILE_PADDING_HEIGHT + DEFAULT_TILE_HEIGHT * 2 + 2, DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
 
@@ -336,42 +346,41 @@ public class Assets {
 
 		sandStone = terrain_sprite.crop(TILE_PADDING_WIDTH + DEFAULT_TILE_WIDTH + 1,
 				TILE_PADDING_HEIGHT + DEFAULT_TILE_HEIGHT * 9 + 9, DEFAULT_TILE_WIDTH, DEFAULT_TILE_HEIGHT);
-		
+
 		grassDirt = terrain_celianna.crop(64 * 2, 0, 64, 64);
-		
+
 		grassSand = terrain_celianna.crop(64, 0, 64, 64);
-		
+
 		grassStone = terrain_celianna.crop(64 * 3, 0, 64, 64);
-		
+
 		hardSand = terrain_celianna.crop(64, 64, 64, 64);
-		
-		sandWithStone = terrain_celianna.crop(64*2, 64, 64, 64);
-		
-		sandGrass = terrain_celianna.crop(64*3, 64, 64, 64);
-		
-		dirtGrass = terrain_celianna.crop(64, 64*2, 64, 64);
-		
-		dirtSand = terrain_celianna.crop(64*3, 64*2, 64, 64);
-		
-		dirtStone = terrain_celianna.crop(64*2, 64*2, 64, 64);
-		
-		ice = terrain_celianna.crop(0, 64*3, 64, 64);
-		
-		iceFrozenStone = terrain_celianna.crop(64*3 , 64*3, 64, 64);
-		
-		iceHoled = terrain_celianna.crop(64, 64*3, 64, 64);
-		
-		iceStone = terrain_celianna.crop(64 * 2, 64*3, 64, 64);
-	
+
+		sandWithStone = terrain_celianna.crop(64 * 2, 64, 64, 64);
+
+		sandGrass = terrain_celianna.crop(64 * 3, 64, 64, 64);
+
+		dirtGrass = terrain_celianna.crop(64, 64 * 2, 64, 64);
+
+		dirtSand = terrain_celianna.crop(64 * 3, 64 * 2, 64, 64);
+
+		dirtStone = terrain_celianna.crop(64 * 2, 64 * 2, 64, 64);
+
+		ice = terrain_celianna.crop(0, 64 * 3, 64, 64);
+
+		iceFrozenStone = terrain_celianna.crop(64 * 3, 64 * 3, 64, 64);
+
+		iceHoled = terrain_celianna.crop(64, 64 * 3, 64, 64);
+
+		iceStone = terrain_celianna.crop(64 * 2, 64 * 3, 64, 64);
+
 		blackBlankTile = terrain_celianna.crop(0, 64 * 4, 64, 64);
-		
+
 		whiteBlankTile = terrain_celianna.crop(64, 64 * 4, 64, 64);
-		
-		
+
 		stoneHouseSemiFlat = house_sheet.crop(11, 22, 86, 112);
 		stoneHouseSharp = house_sheet.crop(123, 7, 86, 127);
 		stoneHouseFlat = house_sheet.crop(238, 38, 80, 96);
-		
+
 		piano = modernage.crop(384, 169, 64, 75);
 
 		tree = sheet.crop(0, 0, WIDTH, HEIGHT * 2);
@@ -380,16 +389,16 @@ public class Assets {
 		classic_house = classic_house_sprite.crop(0, 0, 128, 128);
 		hiFiSystem = hiFiSystem_sheet.crop(0, 0, 99, 56);
 		iron_sword = sword_sprite.crop(0, 0, WIDTH, HEIGHT);
-		
+
 		grassBushSmall = terrain_celianna.crop(64 * 4, 0, 32, 32);
 		grassBushMedium = terrain_celianna.crop(64 * 4 + 32, 0, 32, 32);
 		grassBushLarge = terrain_celianna.crop(64 * 4, 32, 64, 64);
-		
+
 		fenceY = terrain_celianna.crop(333, 33, 5, 32);
 		fenceX = terrain_celianna.crop(333, 65, 37, 30);
-		
+
 		verdurousGreenTree = treesAndBushes.crop(256, 0, 32, 64);
-		
+
 		longRangeSwipe = weaponSkills.crop(0, 0, 128, 32);
 
 		avatar_crazy_mouth_open = avatar_sprite.crop(0, 0, AVATAR_WIDTH, AVATAR_HEIGHT);

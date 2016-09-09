@@ -15,7 +15,7 @@ import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.GameOverState;
 
-public abstract class ControlableHuman extends Human{
+public abstract class ControlableHuman extends Human {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,20 +31,20 @@ public abstract class ControlableHuman extends Human{
 	private boolean leveledUp;
 	private int level;
 	private int experience;
-	
+
 	private IronSword ironSword;
 
 	private boolean sheathAble;
-	
+
 	private String lastMovement;
-	
+
 	private Handler handler;
 
 	public ControlableHuman(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-		
+
 		this.handler = handler;
-		
+
 		stamina = 150;
 		maxStamina = stamina;
 
@@ -68,19 +68,19 @@ public abstract class ControlableHuman extends Human{
 
 		applyResources();
 	}
-	
+
 	@Override
-	public void tick() {
-		super.tick();
+	public void update() {
+		super.update();
 
 		updateSteadyAnimation();
-		
+
 		updateStatsIfLeveledUp();
 
 		drawSword();
-		
+
 		checkStaminaUsage();
-		
+
 		calculatePlayerGettingDamage();
 
 		dieIfDead();
@@ -90,29 +90,29 @@ public abstract class ControlableHuman extends Human{
 		getInput(handler.getKeyManager().up, handler.getKeyManager().down, handler.getKeyManager().left,
 				handler.getKeyManager().right);
 		move();
-	
+
 	}
 
 	public void render(Graphics g, BufferedImage imageToDraw) {
-		
+
 		drawLevelUpIfApplicable(g);
 
 		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
-		
+
 		super.render(g);
 	}
-	
-	private void dieIfDead(){
-		
+
+	private void dieIfDead() {
+
 		if (this.health <= 0) {
 			health = 0;
 			handler.getGame().getStateManager().push(new GameOverState(handler));
-			
+
 		}
 	}
-	
-	private void tickAnimations(){
-		
+
+	private void tickAnimations() {
+
 		if (sprinting) {
 
 			runningAnimDown.tick();
@@ -128,11 +128,11 @@ public abstract class ControlableHuman extends Human{
 			walkingAnimLeft.tick();
 
 		}
-		
+
 	}
-	
-	private void updateStatsIfLeveledUp(){
-		
+
+	private void updateStatsIfLeveledUp() {
+
 		if (experience >= experienceNeeded() && !leveledUp) {
 
 			leveledUp = true;
@@ -141,55 +141,54 @@ public abstract class ControlableHuman extends Human{
 			maxHealth += 37.1;
 			maxStamina += 3.3;
 			maxMagic += 3.3;
-			
+
 			stamina = maxStamina;
 
 			experience = 0;
 		}
-		
+
 	}
-	
-	private void checkStaminaUsage(){
-		
-		if(handler.getWorld().getEntityManager() != null){
+
+	private void checkStaminaUsage() {
+
+		if (handler.getWorld().getEntityManager() != null) {
 			if (handler.getKeyManager().shift
 					&& !handler.getWorld().getEntityManager().contains(handler.getPlayer().getCurrentWeapon())
 					&& (xMove != 0 || yMove != 0)) {
-	
+
 				if (stamina == 0 || stamina < 0) {
-	
+
 					sprinting = false;
 					stamina = 0;
-	
+
 				} else {
-	
+
 					sprinting = true;
 					stamina -= 0.5;
 				}
-	
+
 			} else {
-	
+
 				if (stamina == maxStamina || stamina > maxStamina) {
-	
+
 					sprinting = false;
 					stamina = maxStamina;
-	
+
 				} else {
-	
+
 					sprinting = false;
 					stamina += 0.7;
-	
+
 				}
 			}
 		}
-		
+
 	}
 
-	
-	private void drawLevelUpIfApplicable(Graphics g){
-		
+	private void drawLevelUpIfApplicable(Graphics g) {
+
 		if (leveledUp) {
-			
+
 			g.setColor(Color.WHITE);
 
 			g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(25f));
@@ -208,13 +207,13 @@ public abstract class ControlableHuman extends Human{
 			}, 2000);
 
 		}
-		
+
 	}
 
 	private void drawSword() {
 
-	
-		if (handler.getKeyManager().space && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble && stamina >= 50) {
+		if (handler.getKeyManager().space && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
+				&& stamina >= 50) {
 
 			ironSword = new IronSword(handler, handler.getPlayer().getX(), handler.getPlayer().getY());
 
@@ -235,45 +234,48 @@ public abstract class ControlableHuman extends Human{
 				}
 
 			}, 500);
-		
-		
+
 		}
 
 	}
-	
-	public void updateSteadyAnimation(){	
-	
-		if(yMove > 0){
+
+	public void updateSteadyAnimation() {
+
+		if (yMove > 0) {
 			lastMovement = "down";
-			
+
 		}
-		if(yMove < 0){
+		if (yMove < 0) {
 			lastMovement = "top";
-	
+
 		}
-		if(xMove > 0){
+		if (xMove > 0) {
 			lastMovement = "right";
-		
+
 		}
-		if(xMove <0){
+		if (xMove < 0) {
 			lastMovement = "left";
-			
+
 		}
-		
-		if(lastMovement != null){
-			switch(lastMovement){
-			case "top" : steadyAnimation = Assets.player_up[1];
+
+		if (lastMovement != null) {
+			switch (lastMovement) {
+			case "top":
+				steadyAnimation = Assets.player_up[1];
 				break;
-				
-			case "down" : steadyAnimation = Assets.player_down[1];
+
+			case "down":
+				steadyAnimation = Assets.player_down[1];
 				break;
-				
-			case "right" : steadyAnimation = Assets.player_right[1];
-				break;	
-				
-			case "left" : steadyAnimation = Assets.player_left[1];
+
+			case "right":
+				steadyAnimation = Assets.player_right[1];
 				break;
-			
+
+			case "left":
+				steadyAnimation = Assets.player_left[1];
+				break;
+
 			}
 		}
 	}
@@ -308,7 +310,7 @@ public abstract class ControlableHuman extends Human{
 	}
 
 	public float getMaxStamina() {
-		
+
 		return maxStamina;
 	}
 
@@ -351,20 +353,19 @@ public abstract class ControlableHuman extends Human{
 		this.experience += awardedExp;
 
 	}
-	
-	public void setX(float x){
-		
+
+	public void setX(float x) {
+
 		this.x = x;
-		
+
 	}
 
-	public void setY(float y){
-		
+	public void setY(float y) {
+
 		this.y = y;
-		
+
 	}
 
-	
 	@Override
 	public void applyResources() {
 		super.applyResources();
@@ -384,5 +385,3 @@ public abstract class ControlableHuman extends Human{
 	}
 
 }
-
-

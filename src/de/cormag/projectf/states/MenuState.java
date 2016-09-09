@@ -16,33 +16,33 @@ public class MenuState extends State {
 	private int x;
 
 	private boolean mainMenu, options, controls;
-	
+
 	private BGMPlayer soundPlayer;
 	private boolean isRunning;
-	
+
 	public MenuState(Handler handler) {
 		super(handler);
 		x = 0;
 		mainMenu = true;
 		controls = false;
 		options = false;
-		
+
 		soundPlayer = handler.getBGMPlayer();
-		
+
 		isRunning = false;
 	}
 
 	@Override
 	public void tick() {
-		
-		if(!isRunning){
-			
+
+		if (!isRunning) {
+
 			soundPlayer.setSound("Intro.pfsf");
 			soundPlayer.playSound();
 			isRunning = true;
-			
+
 		}
-		
+
 		soundPlayer.tick();
 
 		if (handler.getKeyManager().o) {
@@ -105,9 +105,9 @@ public class MenuState extends State {
 				g.drawString("Press Space to start a new game", 230, 450);
 
 				if (handler.getKeyManager().space) {
-					
+
 					soundPlayer.stopCurrentSound();
-					
+
 					GameState gameState = new GameState(handler);
 					handler.getGame().getStateManager().push(gameState);
 					gameState.createHUD();

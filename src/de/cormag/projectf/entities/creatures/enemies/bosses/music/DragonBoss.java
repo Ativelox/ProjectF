@@ -29,21 +29,21 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 		speed = Player.DEFAULT_SPEED - 1f;
 
 		awardedExp = 1000;
-		
+
 		sprinting = false;
-		
+
 		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 
 	}
 
-	public void tick() {
-		super.tick();
+	public void update() {
+		super.update();
 
 	}
 
-	@Override 
+	@Override
 	public void render(Graphics g) {
 		super.render(g, Assets.dragonBoss_left[1], Assets.dragonBoss_right[1], Assets.dragonBoss_up[1],
 				Assets.dragonBoss_down[1]);
@@ -58,19 +58,14 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 		walkingAnimLeft = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.dragonBoss_left);
 		walkingAnimRight = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.dragonBoss_right);
 
-
 		steadyAnimation = Assets.dragonBoss_down[2];
 
 	}
 
 	@Override
 	public BossHealthBar getBossHealthBar() {
-		
+
 		return bossHealthBar;
 	}
-
-
-
-
 
 }

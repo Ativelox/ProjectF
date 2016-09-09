@@ -26,29 +26,28 @@ public class Handler {
 	private World lastWorld;
 	private BGMPlayer bgmPlayer;
 	private Player player;
-	
+
 	private GameCamera gameCamera;
-	
+
 	private TutorialFields tutorialFields;
 	private DefaultHouse defaultHouse;
 	private TutorialDesert tutorialDesert;
 	private DefaultInn defaultInn;
 	private FieldOne fieldOne;
 	private WoodsOfDeception woodsOfDeception;
-	
+
 	private LinkedList<World> worldList;
-	
 
 	public Handler(Game game) {
 		this.game = game;
-		
+
 		bgmPlayer = new BGMPlayer(this);
-		
+
 		worldList = new LinkedList<>();
-		
+
 		player = new Player(this, 200, 200);
 		gameCamera = new GameCamera(this, 0, 0);
-		
+
 		tutorialFields = new TutorialFields(this, "TutorialFields.pflf");
 		defaultHouse = new DefaultHouse(this, "defaultHouse.pflf");
 		tutorialDesert = new TutorialDesert(this, "TutorialDesert.pflf");
@@ -60,13 +59,13 @@ public class Handler {
 		worldList.add(tutorialDesert);
 		worldList.add(fieldOne);
 		worldList.add(woodsOfDeception);
-	
+
 	}
-	
-	public LinkedList<World> getWorldList(){
-		
+
+	public LinkedList<World> getWorldList() {
+
 		return worldList;
-		
+
 	}
 
 	public GameCamera getGameCamera() {
@@ -90,90 +89,87 @@ public class Handler {
 	}
 
 	public void setWorld(World world) {
-		
-		if(!(this.world instanceof LoadingScreen)){
+
+		if (!(this.world instanceof LoadingScreen)) {
 			lastWorld = this.world;
 		}
-		
-		if(world instanceof RespawnableWorld){
-			
+
+		if (world instanceof RespawnableWorld) {
+
 			((RespawnableWorld) world).respawnEntities();
-			
+
 		}
-		
-		if(this.world != null && this.world.getEntityManager() != null){
-		
-			Iterator <Entity> entities = this.world.getEntityManager().getEntities();
-			
-			while(entities.hasNext()){
-				
+
+		if (this.world != null && this.world.getEntityManager() != null) {
+
+			Iterator<Entity> entities = this.world.getEntityManager().getEntities();
+
+			while (entities.hasNext()) {
+
 				Entity e = entities.next();
-				
-				if(e instanceof Boss){
-					
+
+				if (e instanceof Boss) {
+
 					((Boss) e).removeHealthBar(((Boss) e).getBossHealthBar());
-					
+
 				}
-				
+
 			}
 		}
-		
-		
-		if(this.world != null && 
-				this.world.getWorldNameHUDElement() != null && 
-				getGame().getStateManager().getGameState().getHUDState().containsHUDElement(this.world.getWorldNameHUDElement())){
-			
-			getGame().getStateManager().getGameState().getHUDState().removeHUDElement(this.world.getWorldNameHUDElement());
-			
+
+		if (this.world != null && this.world.getWorldNameHUDElement() != null && getGame().getStateManager()
+				.getGameState().getHUDState().containsHUDElement(this.world.getWorldNameHUDElement())) {
+
+			getGame().getStateManager().getGameState().getHUDState()
+					.removeHUDElement(this.world.getWorldNameHUDElement());
+
 			this.world.getWorldNameHUDElement().resetFadeVariables();
 			this.world.setWorldNameRenderedFalse();
 		}
 		this.world = world;
-			
+
 	}
-	
-	
-	
-	public World getLastWorld(){
-		
+
+	public World getLastWorld() {
+
 		return lastWorld;
-		
+
 	}
-	
-	public BGMPlayer getBGMPlayer(){
-		
+
+	public BGMPlayer getBGMPlayer() {
+
 		return bgmPlayer;
-		
+
 	}
-	
-	public void setBGMPlayer(BGMPlayer bgmPlayer){
-		
+
+	public void setBGMPlayer(BGMPlayer bgmPlayer) {
+
 		this.bgmPlayer = bgmPlayer;
-		
+
 	}
-	
-	public Player getPlayer(){
-		
+
+	public Player getPlayer() {
+
 		return this.player;
-		
+
 	}
-	
-	public void setPlayer(Player player){
-		
+
+	public void setPlayer(Player player) {
+
 		this.player = player;
-		
+
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return game.getWidth();
-		
+
 	}
-	
-	public int getHeight(){
+
+	public int getHeight() {
 		return game.getHeight();
-		
+
 	}
-	
+
 	public TutorialFields getTutorialFields() {
 
 		return tutorialFields;
@@ -191,23 +187,23 @@ public class Handler {
 		return tutorialDesert;
 
 	}
-	
-	public DefaultInn getDefaultInn(){
-		
+
+	public DefaultInn getDefaultInn() {
+
 		return defaultInn;
-		
+
 	}
-	
-	public FieldOne getFieldOne(){
-		
+
+	public FieldOne getFieldOne() {
+
 		return fieldOne;
-		
+
 	}
-	
-	public WoodsOfDeception getWoodsOfDeception(){
-		
+
+	public WoodsOfDeception getWoodsOfDeception() {
+
 		return woodsOfDeception;
-		
+
 	}
 
 }

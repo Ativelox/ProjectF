@@ -25,9 +25,9 @@ public abstract class Weapon extends StaticEntity {
 
 	private int attackValue;
 	protected int staminaUsage;
-	
+
 	private Handler handler;
-	
+
 	private int tickcount;
 
 	protected transient Animation attackAnimationRight, attackAnimationLeft, attackAnimationUp, attackAnimationDown;
@@ -35,83 +35,79 @@ public abstract class Weapon extends StaticEntity {
 	protected transient BufferedImage noAttackRight, noAttackLeft, noAttackUp, noAttackDown;
 
 	protected int rightArmX, rightArmY, leftArmX, leftArmY, upperArmX, upperArmY, lowerArmX, lowerArmY;
-	
+
 	public static final int WEAPON_ANIMATION_SPEED_PER_FRAME = 16, WEAPON_IMAGEARRAY_LENGTH = 8;
-	
+
 	public static final int MILLISECONDS_TO_DISPOSE = WEAPON_ANIMATION_SPEED_PER_FRAME * WEAPON_IMAGEARRAY_LENGTH;
-	
+
 	public static final float TICKS_TO_DISPOSE = MILLISECONDS_TO_DISPOSE * 0.12f;
 
 	public Weapon(Handler handler, float x, float y, int width, int height, int attackValue) {
 		super(handler, x, y, width, height);
-		
+
 		getBounds().x = (Player.DEFAULT_CREATURE_WIDTH / 2) + (Player.DEFAULT_CREATURE_WIDTH / 4);
 		getBounds().y = 0;
 		getBounds().width = DEFAULT_WEAPON_WIDTH;
 		getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
-		
+
 		this.attackValue = attackValue;
-		
+
 		this.handler = handler;
-		
+
 		tickcount = 0;
 
 		attack = false;
 		attackValue = 1;
 
 		applyResources();
-		
+
 		setWeaponDirectionEqualToPlayer();
 		updateCorrespondingPlayerArms();
-		
 
 	}
-	
-	public void tick(){
-		super.tick();
-		
-		if(tickcount >= Math.floor(TICKS_TO_DISPOSE)){
+
+	public void update() {
+		super.update();
+
+		if (tickcount >= Math.floor(TICKS_TO_DISPOSE)) {
 			disposeWeapon();
 			tickcount = 0;
 			return;
-			
+
 		}
-		
+
 		setWeaponDirectionEqualToPlayer();
 		updateCorrespondingPlayerArms();
-		
+
 		updateHitbox();
-		
+
 		checkWeaponSkillUsage();
-		
+
 		attackAnimationRight.tick();
 		attackAnimationLeft.tick();
 		attackAnimationUp.tick();
 		attackAnimationDown.tick();
 
 		tickcount++;
-	
-		
+
 	}
-	
-	public void render(Graphics g){
-		tick();
+
+	public void render(Graphics g) {
+		update();
 		g.drawImage(this.getCurrentAnimationFrame(), (int) (x - xOffset), (int) (y - yOffset), null);
 		renderHitBox(g);
-		
+
 	}
-	
-	private void checkWeaponSkillUsage(){
-		
-		if(handler.getKeyManager().one){
-			
+
+	private void checkWeaponSkillUsage() {
+
+		if (handler.getKeyManager().one) {
+
 			handler.getWorld().getEntityManager().addEntity(new LongRangeSwipe(handler, this.x, this.y));
-			
+
 		}
-		
-		
+
 	}
-		
 
 	protected void updateWeaponPosition(float playerArmX, float playerArmY) {
 		setX(playerArmX);
@@ -120,7 +116,7 @@ public abstract class Weapon extends StaticEntity {
 	}
 
 	protected void updateCorrespondingPlayerArms() {
-		
+
 		rightArmX = (int) handler.getPlayer().getX() + ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
 		rightArmY = (int) handler.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 4));
 
@@ -132,7 +128,7 @@ public abstract class Weapon extends StaticEntity {
 
 		lowerArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
 		lowerArmY = (int) handler.getPlayer().getY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
-	
+
 		if (handler.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
 
 			updateWeaponPosition(rightArmX, rightArmY);
@@ -150,7 +146,6 @@ public abstract class Weapon extends StaticEntity {
 			updateWeaponPosition(lowerArmX, lowerArmY);
 
 		}
-		
 
 	}
 
@@ -187,19 +182,19 @@ public abstract class Weapon extends StaticEntity {
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 
-		} else if (handler.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {			
+		} else if (handler.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
 			getBounds().x = 0;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT + DEFAULT_WEAPON_HEIGHT / 2;
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
-			
-		} else if (handler.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {			
+
+		} else if (handler.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = 0;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;
 			getBounds().width = DEFAULT_WEAPON_WIDTH * 2;
 
-		} else if (handler.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {			
+		} else if (handler.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;

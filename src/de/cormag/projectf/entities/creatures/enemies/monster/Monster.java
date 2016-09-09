@@ -15,22 +15,23 @@ public abstract class Monster extends Enemy implements Serializable {
 
 	private transient MonsterHealthBar monsterHealthBar;
 	private int tickcounts;
-	
+
 	private String lastMove;
 
 	public Monster(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-		
+
 		tickcounts = 0;
-		
+
 		this.handler = handler;
-		
-		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2, height * 2);
-		
+
+		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2,
+				height * 2);
+
 		monsterHealthBar = new MonsterHealthBar(this);
 
 	}
-	
+
 	@Override
 	protected void basicAI() {
 
@@ -73,94 +74,102 @@ public abstract class Monster extends Enemy implements Serializable {
 
 			}
 
-			
-			
-		}else if(tickcounts == 0 && !(seenPlayer || damagedOnce)){
-			
-			if(Math.round(Math.random()) == 0){
+		} else if (tickcounts == 0 && !(seenPlayer || damagedOnce)) {
+
+			if (Math.round(Math.random()) == 0) {
 				yMove = 0;
 				this.xMove = ((int) Math.round((Math.random() * 2) - 1)) * speed;
-				
-			}else{
+
+			} else {
 				xMove = 0;
 				this.yMove = ((int) Math.round((Math.random() * 2) - 1)) * speed;
-				
+
 			}
 		}
-		
+
 		move();
 		tickcounts++;
 	}
-	
-	protected void changeVisionField(){	
 
-		
-		if(this.xMove > 0){
-			
-			visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),(int) (y - yOffset - height / 2), height * 2, width * 2);
-			
+	protected void changeVisionField() {
+
+		if (this.xMove > 0) {
+
+			visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),
+					(int) (y - yOffset - height / 2), height * 2, width * 2);
+
 			lastMove = "right";
-			
-			
-		}else if(this.xMove < 0){
-			
-			visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x),(int) (y - yOffset - height / 2), height * 2, width * 2);
-			
+
+		} else if (this.xMove < 0) {
+
+			visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x), (int) (y - yOffset - height / 2),
+					height * 2, width * 2);
+
 			lastMove = "left";
-			
-			
-		}else if(this.yMove > 0){
-			
-			visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
-			
+
+		} else if (this.yMove > 0) {
+
+			visionField.setBounds((int) (x - xOffset - width / 2),
+					(int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
+
 			lastMove = "down";
-			
-			
-		}else if(this.yMove < 0){
-			
-			visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2 + getBounds().y), height * 2, width * 2);
-			
+
+		} else if (this.yMove < 0) {
+
+			visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset - height * 2 + getBounds().y),
+					height * 2, width * 2);
+
 			lastMove = "up";
-			
-		}else{
-			
-			if(lastMove != null){
-			
-				switch(lastMove){
-				
-				case "right" : visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),(int) (y - yOffset - height / 2), height * 2, width * 2);
-				break;
-				
-				case "left" : visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x),(int) (y - yOffset - height / 2), height * 2, width * 2);
-				break;
-				
-				case "down" : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
-				break;
-				
-				case "up" : visionField.setBounds((int) (x - xOffset - width / 2),(int) (y - yOffset - height * 2 + getBounds().y), height * 2, width * 2);
-				break;
-				
-				default : visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
-				break;
+
+		} else {
+
+			if (lastMove != null) {
+
+				switch (lastMove) {
+
+				case "right":
+					visionField.setBounds((int) (x - xOffset + getBounds().x + getBounds().width),
+							(int) (y - yOffset - height / 2), height * 2, width * 2);
+					break;
+
+				case "left":
+					visionField.setBounds((int) (x - xOffset - width * 2 + getBounds().x),
+							(int) (y - yOffset - height / 2), height * 2, width * 2);
+					break;
+
+				case "down":
+					visionField.setBounds((int) (x - xOffset - width / 2),
+							(int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
+					break;
+
+				case "up":
+					visionField.setBounds((int) (x - xOffset - width / 2),
+							(int) (y - yOffset - height * 2 + getBounds().y), height * 2, width * 2);
+					break;
+
+				default:
+					visionField.setBounds((int) (x - xOffset - width / 2),
+							(int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
+					break;
 				}
-				
+
 			}
 		}
 	}
-	
-	public void tick() {
-		super.tick();
-		
-		if(tickcounts >= 60){
-			
+
+	public void update() {
+		super.update();
+
+		if (tickcounts >= 60) {
+
 			tickcounts = 0;
-			
+
 		}
-			
-		visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y), width * 2, height * 2);
+
+		visionField.setBounds((int) (x - xOffset - width / 2), (int) (y - yOffset + getBounds().height + getBounds().y),
+				width * 2, height * 2);
 
 		changeVisionField();
-		
 
 		monsterHealthBar.tick();
 	}

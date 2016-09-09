@@ -16,9 +16,9 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private EntityManager entityManager;
-	
+
 	private StoneHouseSemiFlat semiFlatHouse;
-	
+
 	private Point comingFromTutorialFields;
 
 	public TutorialDesert(Handler handler, String path) {
@@ -28,7 +28,7 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 		this.path = path;
 
 		player = handler.getPlayer();
-		
+
 		semiFlatHouse = new StoneHouseSemiFlat(handler, 300, 100, 1);
 
 		entityManager = new EntityManager(handler, player);
@@ -37,20 +37,22 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 		entityManager.addEntity(new FemaleNPC(handler, 500, 200));
 
 		loadWorld(path);
-		
+
 		createWorldBoundary(entityManager);
-		
+
 		defaultSoundtrack = "GourmetRace.pfsf";
-		
-		comingFromTutorialFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 15 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
+
+		comingFromTutorialFields = new Point(25 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2,
+				15 * Tile.TILEHEIGHT - handler.getPlayer().getHeight());
 
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		
-		changeWorldIfDemanded(handler.getTutorialFields().getComingFromDesert(), Tile.sandTeleportFTutorialDesertTTutorialFields);
+
+		changeWorldIfDemanded(handler.getTutorialFields().getComingFromDesert(),
+				Tile.sandTeleportFTutorialDesertTTutorialFields);
 
 		entityManager.tick();
 
@@ -70,11 +72,11 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 		return entityManager;
 
 	}
-	
-	public Point getComingFromTutorialFields(){
-		
+
+	public Point getComingFromTutorialFields() {
+
 		return comingFromTutorialFields;
-		
+
 	}
-	
+
 }

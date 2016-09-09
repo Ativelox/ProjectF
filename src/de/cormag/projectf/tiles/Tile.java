@@ -42,10 +42,10 @@ public class Tile {
 	public static Tile iceHoled = new IceHoled(22);
 	public static Tile iceStone = new IceStone(23);
 	public static Tile iceFrozenStone = new IceFrozenStone(24);
-	
+
 	public static Tile blackBlankTile = new BlackBlankTile(100);
 	public static Tile whiteBlankTile = new WhiteBlankTile(101);
-	
+
 	public static Tile snowTeleportFTutorialFieldsTTutorialDesert = new SnowTeleportFTutorialFieldsTTutorialDesert(200);
 	public static Tile sandTeleportFTutorialDesertTTutorialFields = new SandTeleportFTutorialDesertTTutorialFields(201);
 	public static Tile snowTeleportFTutorialFieldsTFieldOne = new SnowTeleportFTutorialFieldsTFieldOne(202);
@@ -60,7 +60,6 @@ public class Tile {
 	protected BufferedImage texture;
 	public boolean isOnScreen;
 	protected final int id;
-	
 
 	public Tile(BufferedImage texture, int id) {
 		this.texture = texture;
@@ -70,26 +69,26 @@ public class Tile {
 	}
 
 	public void tick() {
-		
+
 	}
 
 	public void render(Graphics g, int x, int y) {
 		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 	}
-	
-	public void setOnScreen(boolean onScreen){
-		
+
+	public void setOnScreen(boolean onScreen) {
+
 		isOnScreen = onScreen;
-		
+
 	}
 
 	public boolean isSolid() {
 		return false;
 	}
-	
-	public boolean isBlank(){
+
+	public boolean isBlank() {
 		return false;
-		
+
 	}
 
 	public int getId() {

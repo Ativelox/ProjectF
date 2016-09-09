@@ -14,19 +14,18 @@ public abstract class StaticEntity extends Entity {
 		super(handler, x, y, width, height);
 
 	}
-	
-	public void render(Graphics g, BufferedImage imageToDraw, int width, int height){
 
-		g.drawImage(imageToDraw,(int) (x  - xOffset), (int) (y - yOffset), width, height, null);
-		
+	public void render(Graphics g, BufferedImage imageToDraw, int width, int height) {
+
+		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
+
 		super.render(g);
-		
-		
+
 	}
-	
-	public void tick(){
-		super.tick();
-	
+
+	public void update() {
+		super.update();
+
 	}
 
 }

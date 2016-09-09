@@ -21,14 +21,14 @@ public class Display {
 
 	private Game game;
 	private JLayeredPane layers;
-	private MusicList musicList;	
+	private MusicList musicList;
 
 	public Display(String title, int width, int height, Game game) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
 		this.game = game;
-		
+
 		createDisplay();
 	}
 
@@ -39,26 +39,26 @@ public class Display {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setFocusable(false);
 		canvas.setBounds(0, 0, width, height);
-		
+
 		musicList = new MusicList();
 		musicList.setOpaque(false);
 		musicList.setFocusable(false);
 		musicList.setVisible(false);
-		
+
 		layers = new JLayeredPane();
 		layers.setLayout(null);
 		layers.setBounds(0, 0, width, height);
-		
+
 		layers.setLayer(canvas, new Integer(0));
 		layers.setLayer(musicList, new Integer(2));
-		
+
 		layers.add(canvas);
 		layers.add(musicList);
 
@@ -75,17 +75,17 @@ public class Display {
 
 		});
 	}
-	
-	public String getClickedSoundtrack(){
-		
+
+	public String getClickedSoundtrack() {
+
 		return musicList.getClickedSoundtrack();
-		
+
 	}
-	
-	public JPanel getMusicList(){
-		
+
+	public JPanel getMusicList() {
+
 		return musicList;
-		
+
 	}
 
 	public Canvas getCanvas() {
@@ -95,20 +95,20 @@ public class Display {
 	public JFrame getFrame() {
 		return frame;
 	}
-	
-	public JLayeredPane getLayers(){
+
+	public JLayeredPane getLayers() {
 		return layers;
-		
+
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return frame.getWidth();
-		
+
 	}
-	
-	public int getHeight(){
+
+	public int getHeight() {
 		return frame.getHeight() - 30;
-		
+
 	}
 
 }

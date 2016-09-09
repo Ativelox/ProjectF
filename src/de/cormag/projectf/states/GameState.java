@@ -28,7 +28,7 @@ public class GameState extends State implements Serializable {
 
 	public GameState(Handler handler) {
 		super(handler);
-		
+
 		this.tutorialFields = handler.getTutorialFields();
 		this.tutorialHouse = handler.getDefaultHouse();
 		this.tutorialDesert = handler.getTutorialDesert();
@@ -85,8 +85,6 @@ public class GameState extends State implements Serializable {
 		return worldList.iterator();
 
 	}
-
-	
 
 	public World getWorld() {
 

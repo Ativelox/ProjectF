@@ -19,7 +19,7 @@ public class EntityManager implements Serializable {
 	private LinkedList<Entity> entitiesToRemove;
 	private transient Handler handler;
 	private Player player;
-	private EntityComparator comparator;
+	private LayerComparator comparator;
 	private boolean isCurrentlyTicking;
 
 	public EntityManager(Handler handler, Player player) {
@@ -31,6 +31,7 @@ public class EntityManager implements Serializable {
 		entities = new ArrayList<>();
 		entitiesToAdd = new LinkedList<>();
 		entitiesToRemove = new LinkedList<>();
+		comparator = new LayerComparator();
 
 		addEntity(player);
 
@@ -105,9 +106,8 @@ public class EntityManager implements Serializable {
 		isCurrentlyTicking = true;
 
 		for (Entity e : entities) {
-			e.tick();
+			e.update();
 		}
-
 
 		for (Entity e : entitiesToRemove) {
 			entities.remove(e);

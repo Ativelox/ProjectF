@@ -15,16 +15,16 @@ public class GameOverState extends State {
 	private BGMPlayer soundPlayer;
 	private boolean isRunning;
 	private Handler handler;
-	
+
 	public GameOverState(Handler handler) {
 		super(handler);
-		
+
 		this.handler = handler;
 
 		x = 0;
 		tx = 0;
 		txx = 0;
-		
+
 		soundPlayer = handler.getBGMPlayer();
 		isRunning = false;
 
@@ -32,15 +32,15 @@ public class GameOverState extends State {
 
 	@Override
 	public void tick() {
-		
-		if(!isRunning){
+
+		if (!isRunning) {
 			soundPlayer.setSound("GameOver.pfsf");
 			soundPlayer.playSound();
 			isRunning = true;
 		}
-		
+
 		soundPlayer.tick();
-		
+
 	}
 
 	@Override
@@ -86,13 +86,13 @@ public class GameOverState extends State {
 					g.drawString("Press Space to go to the menus", 230, 400);
 
 					if (handler.getKeyManager().space) {
-						
+
 						Handler newHandler = new Handler(handler.getGame());
-						
+
 						soundPlayer.stopCurrentSound();
 
 						handler.getGame().getStateManager().clear();
-						
+
 						handler.getGame().getStateManager().push(new MenuState(newHandler));
 
 					}

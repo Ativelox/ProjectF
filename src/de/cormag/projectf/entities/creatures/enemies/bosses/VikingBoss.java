@@ -13,7 +13,7 @@ public class VikingBoss extends Boss {
 	private static final long serialVersionUID = 1L;
 
 	public static final int DEFAULT_MATTI_BOSS_WIDTH = 62, DEFAULT_MATTI_BOSS_HEIGHT = 75;
-	
+
 	private BossHealthBar bossHealthBar;
 
 	public VikingBoss(Handler handler, float x, float y) {
@@ -32,7 +32,7 @@ public class VikingBoss extends Boss {
 		damagedOnce = false;
 
 		speed = 2;
-		
+
 		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
@@ -40,8 +40,8 @@ public class VikingBoss extends Boss {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void update() {
+		super.update();
 
 	}
 
@@ -52,7 +52,6 @@ public class VikingBoss extends Boss {
 
 	}
 
-
 	@Override
 	public void applyResources() {
 		super.applyResources();
@@ -61,14 +60,14 @@ public class VikingBoss extends Boss {
 		walkingAnimUp = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.mattiBoss_up);
 		walkingAnimLeft = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.mattiBoss_left);
 		walkingAnimRight = new Animation(Player.WALKING_ANIMATION_SPEED, Assets.mattiBoss_right);
-		
+
 		steadyAnimation = Assets.mattiBoss_down[1];
 
 	}
 
 	@Override
 	public BossHealthBar getBossHealthBar() {
-		
+
 		return bossHealthBar;
 	}
 

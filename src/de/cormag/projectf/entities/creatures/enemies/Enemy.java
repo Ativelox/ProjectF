@@ -24,8 +24,6 @@ public abstract class Enemy extends Creature {
 	protected String name;
 	protected int awardedExp;
 	protected Player player;
-	
-
 
 	public Enemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -54,47 +52,46 @@ public abstract class Enemy extends Creature {
 	}
 
 	public void calculateDamageTaken(Handler handler) {
-		
-		if(handler.getWorld().getEntityManager() != null){
+
+		if (handler.getWorld().getEntityManager() != null) {
 
 			Weapon currentWeapon = handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon();
-	
+
 			if (currentWeapon != null && handler.getWorld().getEntityManager().contains(currentWeapon)) {
-	
-				if (this.getProperCollisionRectangle()
-						.intersects(currentWeapon.getProperCollisionRectangle())) {
-	
+
+				if (this.getProperCollisionRectangle().intersects(currentWeapon.getProperCollisionRectangle())) {
+
 					if (!damaged) {
-	
+
 						if (this.getHealth() > 0) {
-	
+
 							this.health -= currentWeapon.getAttackValue();
 							damaged = true;
-	
+
 							if (damaged) {
-	
+
 								Timer timer = new Timer();
 								timer.schedule(new TimerTask() {
-	
+
 									@Override
 									public void run() {
-	
+
 										damaged = false;
-	
+
 									}
 								}, 400);
-	
+
 							}
-	
+
 						} else {
-	
+
 							this.health = 0;
-	
+
 						}
 					}
-	
+
 				}
-	
+
 			}
 		}
 
@@ -154,7 +151,6 @@ public abstract class Enemy extends Creature {
 		}
 
 	}
-	
 
 	protected void renderVisionField(Graphics g) {
 
@@ -166,11 +162,11 @@ public abstract class Enemy extends Creature {
 
 		}
 	}
-	
+
 	@Override
-	public void tick() {
-		super.tick();
-		
+	public void update() {
+		super.update();
+
 		calculateDamageTaken(handler);
 
 		if (damaged) {
@@ -202,7 +198,7 @@ public abstract class Enemy extends Creature {
 				height, null);
 
 		renderVisionField(g);
-		
+
 		super.render(g);
 	}
 

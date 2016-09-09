@@ -19,40 +19,40 @@ public abstract class Human extends Creature {
 
 		if (checkEntityCollisions(0f, 10f) || checkEntityCollisions(10f, 0f) || checkEntityCollisions(0f, -10f)
 				|| checkEntityCollisions(-10f, 0f)) {
-			
-			if(getCollidingEntity() instanceof Creature){
-			
+
+			if (getCollidingEntity() instanceof Creature) {
+
 				if (!damaged) {
-	
+
 					if (this.health > 0) {
-	
+
 						this.health -= ((Creature) getCollidingEntity()).getAttackValue();
-	
+
 						damaged = true;
-	
+
 						if (damaged) {
-	
+
 							Timer timer = new Timer();
 							timer.schedule(new TimerTask() {
-	
+
 								@Override
 								public void run() {
-	
+
 									damaged = false;
-	
+
 								}
 							}, 1000);
 						}
-	
+
 					} else {
-	
+
 						this.health = 0;
-	
+
 					}
 				}
-	
+
 			}
-			
+
 		}
 
 	}

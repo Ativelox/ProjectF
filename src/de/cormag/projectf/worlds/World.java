@@ -27,7 +27,7 @@ import de.cormag.projectf.utils.Utils;
 public abstract class World implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	protected Player player;
 	protected transient Handler handler;
 	protected int width, height;
@@ -36,7 +36,7 @@ public abstract class World implements Serializable {
 	protected int[][] tiles;
 	protected String path;
 	protected boolean worldNameRendered;
-	
+
 	private WorldName worldName;
 
 	public World(String name) {
@@ -44,7 +44,7 @@ public abstract class World implements Serializable {
 		debugActive = false;
 		debug = false;
 		worldNameRendered = false;
-		
+
 		worldName = new WorldName(name);
 
 	}
@@ -62,11 +62,9 @@ public abstract class World implements Serializable {
 	public void renderWorld(Graphics g, Handler handler) {
 
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
-		int xEnd = (int) Math.min(width,
-				(handler.getGameCamera().getxOffset() + Game.WIDTH) / Tile.TILEWIDTH + 1);
+		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + Game.WIDTH) / Tile.TILEWIDTH + 1);
 		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-		int yEnd = (int) Math.min(height,
-				(handler.getGameCamera().getyOffset() + Game.HEIGHT) / Tile.TILEHEIGHT + 1);
+		int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + Game.HEIGHT) / Tile.TILEHEIGHT + 1);
 
 		for (int y = yStart; y < yEnd; y++) {
 			for (int x = xStart; x < xEnd; x++) {
@@ -75,155 +73,159 @@ public abstract class World implements Serializable {
 			}
 		}
 	}
-	
-	protected void createGrassBushField(EntityManager entityManager, int xStart, int yStart, int width, int height){
-		
-		EntityManager worldToCreateFieldTo = entityManager;
-		
-		for(int i = xStart; i < width; i++){
-			for(int j = yStart; j < height; j++){
-				worldToCreateFieldTo.addEntity(new GrassBushLarge(handler, i, j));
-				
-			}
-		}	
-	}
-	
-	protected void createGreenWoods(EntityManager entityManager, int xStart, int yStart, int width, int height){
-		
-		EntityManager worldToCreateWoodsTo = entityManager;
-		
-		for(int i = xStart; i < width; i++){
-			for(int j = yStart; j < height; j++){
-				worldToCreateWoodsTo.addEntity(new VerdurousGreenTree(handler, i, j));
-				
-			}
-		}	
-	}
-	
-	protected void createAdditionalYBoundaryLeftAlign(EntityManager entityManager, int yTileToStartFrom, int yTileToEndAt, int xTileToStartFrom, int[] ySpaces){
-		
-		EntityManager worldToCreateBoundaryTo = entityManager;
-		
-		boolean createSpace = false;
-		
-		for(int i = yTileToStartFrom - 2; i < yTileToEndAt + 1; i++){
-			
-			if(ySpaces != null){
-				for(int j = 0; j < ySpaces.length; j++){
-					if(ySpaces[j] == i){
-						createSpace = true;
-						
-					}
-				}
-			}
-			
-			if(!createSpace){
-				worldToCreateBoundaryTo.addEntity(new FenceYLeftAlign(handler, xTileToStartFrom + 1, i));
-				
-			}
-		}
-	}
-	
-	protected void createAdditionalYBoundaryRightAlign(EntityManager entityManager, int yTileToStartFrom, int yTileToEndAt, int xTileToStartFrom, int[] ySpaces){
-		
-		EntityManager worldToCreateBoundaryTo = entityManager;
-		
-		boolean createSpace = false;
-		
-		for(int i = yTileToStartFrom - 2; i < yTileToEndAt + 1; i++){
-			
-			if(ySpaces != null){
-				for(int j = 0; j < ySpaces.length; j++){
-					if(ySpaces[j] == i){
-						createSpace = true;
-						
-					}
-				}
-			}
-			
-			if(!createSpace){
-				worldToCreateBoundaryTo.addEntity(new FenceYRightAlign(handler, xTileToStartFrom, i));
-				
-			}
-		}
-	}
-	
-	protected void createAdditionalXBoundaryTopAlign(EntityManager entityManager, int xTileToStartFrom, int xTileToEndAt, int yTileToStartFrom, int[] xSpaces){
 
-		EntityManager worldToCreateBoundaryTo = entityManager;	
-		
+	protected void createGrassBushField(EntityManager entityManager, int xStart, int yStart, int width, int height) {
+
+		EntityManager worldToCreateFieldTo = entityManager;
+
+		for (int i = xStart; i < width; i++) {
+			for (int j = yStart; j < height; j++) {
+				worldToCreateFieldTo.addEntity(new GrassBushLarge(handler, i, j));
+
+			}
+		}
+	}
+
+	protected void createGreenWoods(EntityManager entityManager, int xStart, int yStart, int width, int height) {
+
+		EntityManager worldToCreateWoodsTo = entityManager;
+
+		for (int i = xStart; i < width; i++) {
+			for (int j = yStart; j < height; j++) {
+				worldToCreateWoodsTo.addEntity(new VerdurousGreenTree(handler, i, j));
+
+			}
+		}
+	}
+
+	protected void createAdditionalYBoundaryLeftAlign(EntityManager entityManager, int yTileToStartFrom,
+			int yTileToEndAt, int xTileToStartFrom, int[] ySpaces) {
+
+		EntityManager worldToCreateBoundaryTo = entityManager;
+
 		boolean createSpace = false;
-		
-		for(int i = xTileToStartFrom; i <= xTileToEndAt - 1; i++){
-			
-			if(xSpaces != null){
-				for(int j = 0; j < xSpaces.length; j++){
-					if(xSpaces[j] == i){
+
+		for (int i = yTileToStartFrom - 2; i < yTileToEndAt + 1; i++) {
+
+			if (ySpaces != null) {
+				for (int j = 0; j < ySpaces.length; j++) {
+					if (ySpaces[j] == i) {
 						createSpace = true;
-						
+
 					}
 				}
 			}
-			
-			if(!createSpace){
+
+			if (!createSpace) {
+				worldToCreateBoundaryTo.addEntity(new FenceYLeftAlign(handler, xTileToStartFrom + 1, i));
+
+			}
+		}
+	}
+
+	protected void createAdditionalYBoundaryRightAlign(EntityManager entityManager, int yTileToStartFrom,
+			int yTileToEndAt, int xTileToStartFrom, int[] ySpaces) {
+
+		EntityManager worldToCreateBoundaryTo = entityManager;
+
+		boolean createSpace = false;
+
+		for (int i = yTileToStartFrom - 2; i < yTileToEndAt + 1; i++) {
+
+			if (ySpaces != null) {
+				for (int j = 0; j < ySpaces.length; j++) {
+					if (ySpaces[j] == i) {
+						createSpace = true;
+
+					}
+				}
+			}
+
+			if (!createSpace) {
+				worldToCreateBoundaryTo.addEntity(new FenceYRightAlign(handler, xTileToStartFrom, i));
+
+			}
+		}
+	}
+
+	protected void createAdditionalXBoundaryTopAlign(EntityManager entityManager, int xTileToStartFrom,
+			int xTileToEndAt, int yTileToStartFrom, int[] xSpaces) {
+
+		EntityManager worldToCreateBoundaryTo = entityManager;
+
+		boolean createSpace = false;
+
+		for (int i = xTileToStartFrom; i <= xTileToEndAt - 1; i++) {
+
+			if (xSpaces != null) {
+				for (int j = 0; j < xSpaces.length; j++) {
+					if (xSpaces[j] == i) {
+						createSpace = true;
+
+					}
+				}
+			}
+
+			if (!createSpace) {
 				worldToCreateBoundaryTo.addEntity(new FenceXTopAlign(handler, i, yTileToStartFrom - 1));
 			}
-			
+
 			createSpace = false;
 		}
-		
-	}
-	
-	protected void createAdditionalXBoundaryBottomAlign(EntityManager entityManager, int xTileToStartFrom, int xTileToEndAt, int yTileToStartFrom, int[] xSpaces){
 
-		EntityManager worldToCreateBoundaryTo = entityManager;	
-		
+	}
+
+	protected void createAdditionalXBoundaryBottomAlign(EntityManager entityManager, int xTileToStartFrom,
+			int xTileToEndAt, int yTileToStartFrom, int[] xSpaces) {
+
+		EntityManager worldToCreateBoundaryTo = entityManager;
+
 		boolean createSpace = false;
-		
-		for(int i = xTileToStartFrom; i <= xTileToEndAt - 1; i++){
-			
-			if(xSpaces != null){
-				for(int j = 0; j < xSpaces.length; j++){
-					if(xSpaces[j] == i){
+
+		for (int i = xTileToStartFrom; i <= xTileToEndAt - 1; i++) {
+
+			if (xSpaces != null) {
+				for (int j = 0; j < xSpaces.length; j++) {
+					if (xSpaces[j] == i) {
 						createSpace = true;
-						
+
 					}
 				}
 			}
-			
-			if(!createSpace){
+
+			if (!createSpace) {
 				worldToCreateBoundaryTo.addEntity(new FenceXBottomAlign(handler, i, yTileToStartFrom - 1));
 			}
-			
+
 			createSpace = false;
 		}
-		
+
 	}
-	
-	protected void createWorldBoundary(EntityManager entityManager){
-		
+
+	protected void createWorldBoundary(EntityManager entityManager) {
+
 		EntityManager worldToCreateBoundaryTo = entityManager;
-		
-		for(int i = 0; i < height; i ++){
+
+		for (int i = 0; i < height; i++) {
 
 			worldToCreateBoundaryTo.addEntity(new FenceYLeftAlign(handler, width, i));
-			
+
 			worldToCreateBoundaryTo.addEntity(new FenceYRightAlign(handler, 0, i));
 
 		}
-		
-		for(int i = 1; i <= width - 2; i++){
-			
-			if(!(getTile(i, 0) instanceof TeleportTile)){
+
+		for (int i = 1; i <= width - 2; i++) {
+
+			if (!(getTile(i, 0) instanceof TeleportTile)) {
 				worldToCreateBoundaryTo.addEntity(new FenceXTopAlign(handler, i, 0));
-				
+
 			}
-			
-			if(!(getTile(i, height - 1) instanceof TeleportTile)){
+
+			if (!(getTile(i, height - 1) instanceof TeleportTile)) {
 				worldToCreateBoundaryTo.addEntity(new FenceXBottomAlign(handler, i, height - 1));
-				
+
 			}
-			
+
 		}
 	}
 
@@ -234,96 +236,102 @@ public abstract class World implements Serializable {
 		height = Utils.parseInt(tokens[1]);
 
 		tiles = new int[width][height];
-		
+
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 2]);
 			}
 		}
 	}
-	
-	public void renderTeleportTileHitbox(Graphics g){
-		
+
+	public void renderTeleportTileHitbox(Graphics g) {
+
 		for (int y = 0; y < height; y++) {
-			
+
 			for (int x = 0; x < width; x++) {
-				
-				if(getTile(x, y) instanceof TeleportTile){
+
+				if (getTile(x, y) instanceof TeleportTile) {
 					g.setColor(Color.RED);
-					Rectangle tempTeleportTileHitbox = new Rectangle((int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
-							   (int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()), Tile.TILEWIDTH, Tile.TILEHEIGHT);
-					
-					g.drawRect(tempTeleportTileHitbox.x, tempTeleportTileHitbox.y, tempTeleportTileHitbox.width, tempTeleportTileHitbox.height);
-					
+					Rectangle tempTeleportTileHitbox = new Rectangle(
+							(int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
+							(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()), Tile.TILEWIDTH,
+							Tile.TILEHEIGHT);
+
+					g.drawRect(tempTeleportTileHitbox.x, tempTeleportTileHitbox.y, tempTeleportTileHitbox.width,
+							tempTeleportTileHitbox.height);
+
 				}
 			}
 		}
 
 	}
-	
-	public Tile getCorrespondingTeleportTile(){
-		
-		if(!(handler.getWorld() instanceof LoadingScreen)){
-		
-			int playerTileX = (int) Math.ceil(((handler.getPlayer().getX() + (handler.getPlayer().getWidth() / 2)) / 64) - 1);
-			int playerTileY = (int) Math.ceil(((handler.getPlayer().getY() + (handler.getPlayer().getHeight())) / 64) - 1);
-			
-			if(getTile(playerTileX, playerTileY) instanceof TeleportTile){
-				
+
+	public Tile getCorrespondingTeleportTile() {
+
+		if (!(handler.getWorld() instanceof LoadingScreen)) {
+
+			int playerTileX = (int) Math
+					.ceil(((handler.getPlayer().getX() + (handler.getPlayer().getWidth() / 2)) / 64) - 1);
+			int playerTileY = (int) Math
+					.ceil(((handler.getPlayer().getY() + (handler.getPlayer().getHeight())) / 64) - 1);
+
+			if (getTile(playerTileX, playerTileY) instanceof TeleportTile) {
+
 				return getTile(playerTileX, playerTileY);
-				
+
 			}
 			return null;
-		
+
 		}
 		return null;
 	}
-	
-	protected void changeWorldIfDemanded(Point newWorldSpawn, Tile tileSteppedOn){
-		
-		if(getCorrespondingTeleportTile() != null && getCorrespondingTeleportTile().equals(tileSteppedOn)){
-			
-			Iterator <World> worlds = handler.getWorldList().iterator();
-			
-			while(worlds.hasNext()){
+
+	protected void changeWorldIfDemanded(Point newWorldSpawn, Tile tileSteppedOn) {
+
+		if (getCorrespondingTeleportTile() != null && getCorrespondingTeleportTile().equals(tileSteppedOn)) {
+
+			Iterator<World> worlds = handler.getWorldList().iterator();
+
+			while (worlds.hasNext()) {
 				World w = worlds.next();
-				
-				if(w.getPath() == ((TeleportTile)tileSteppedOn).getWorldToTeleportTo()){
-					
+
+				if (w.getPath() == ((TeleportTile) tileSteppedOn).getWorldToTeleportTo()) {
+
 					handler.getBGMPlayer().setLastMusicInWorld(handler.getBGMPlayer().getClip(), handler.getWorld());
-					
-					handler.setWorld(new LoadingScreen(w, handler, newWorldSpawn.x, newWorldSpawn.y, handler.getBGMPlayer()));
-					
+
+					handler.setWorld(
+							new LoadingScreen(w, handler, newWorldSpawn.x, newWorldSpawn.y, handler.getBGMPlayer()));
+
 				}
-				
-				
+
 			}
-			
+
 		}
 
 	}
-	
-	public void tick(){};
 
-	public void render(Graphics g){
-		
+	public void tick() {
+	};
+
+	public void render(Graphics g) {
+
 		renderWorld(g, handler);
 		renderTeleportTileHitbox(g);
-		
-		if(!worldNameRendered){
-		
+
+		if (!worldNameRendered) {
+
 			handler.getGame().getStateManager().getGameState().getHUDState().addHUDElement(worldName);
-			
+
 			worldNameRendered = true;
-		
+
 		}
-		
+
 	}
-	
-	public String getPath(){
-		
+
+	public String getPath() {
+
 		return path;
-		
+
 	}
 
 	public int getWidth() {
@@ -333,7 +341,6 @@ public abstract class World implements Serializable {
 	public int getHeight() {
 		return height;
 	}
-
 
 	public abstract EntityManager getEntityManager();
 
@@ -349,29 +356,25 @@ public abstract class World implements Serializable {
 				(int) ((player.getY() + Creature.DEFAULT_CREATURE_HEIGHT / 2)));
 
 	}
-	
-	public void setWorldNameRenderedFalse(){
-		
+
+	public void setWorldNameRenderedFalse() {
+
 		this.worldNameRendered = false;
-		
+
 	}
-	
-	public WorldName getWorldNameHUDElement(){
-		
-		
+
+	public WorldName getWorldNameHUDElement() {
+
 		return worldName;
-		
+
 	}
-	
-	public void applyResources(){
-		
-		
+
+	public void applyResources() {
+
 	}
-	
-	public void stopMusic(){
-		
-		
-		
+
+	public void stopMusic() {
+
 	}
 
 }

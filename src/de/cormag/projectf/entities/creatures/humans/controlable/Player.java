@@ -21,9 +21,9 @@ public class Player extends ControlableHuman implements Serializable {
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y);
-		
+
 		this.handler = handler;
-		
+
 		inventory = false;
 
 		applyResources();
@@ -31,70 +31,72 @@ public class Player extends ControlableHuman implements Serializable {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
-		
+	public void update() {
+		super.update();
+
 		handler.getGameCamera().centerOnEntity(this);
-		
+
 		talk(false);
 
 		checkInventoryState();
-	
+
 	}
 
 	@Override
 	public void render(Graphics g) {
-		
+
 		renderTalkNotification(g);
-		
-		super.render(g, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], 
-				Assets.player_up[1], Assets.player_down[1]));
+
+		super.render(g, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
+				Assets.player_down[1]));
 
 	}
-	
-	private void checkInventoryState(){
-	
-	if (handler.getKeyManager().escape && !inventory) {
 
-		handler.getGame().getStateManager().push(new InventoryState(handler, this));
+	private void checkInventoryState() {
 
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
+		if (handler.getKeyManager().escape && !inventory) {
 
-			@Override
-			public void run() {
+			handler.getGame().getStateManager().push(new InventoryState(handler, this));
 
-				inventory = true;
-			}
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
 
-		}, 333);
+				@Override
+				public void run() {
+
+					inventory = true;
+				}
+
+			}, 333);
+		}
+
 	}
-	
-	}	
-	
-	public void talk(boolean finishedTalking){
-		
-		if((returnNearStandingTalkableHuman() != null) && (returnNearStandingTalkableHuman().getProperCollisionRectangle().intersects(this.getNearbyRectangle()))){
+
+	public void talk(boolean finishedTalking) {
+
+		if ((returnNearStandingTalkableHuman() != null) && (returnNearStandingTalkableHuman()
+				.getProperCollisionRectangle().intersects(this.getNearbyRectangle()))) {
 
 			lastEncountered = returnNearStandingTalkableHuman();
-			
+
 			returnNearStandingTalkableHuman().talk(finishedTalking, returnNearStandingTalkableHuman());
-			
-		}else if(lastEncountered != null){
-			
+
+		} else if (lastEncountered != null) {
+
 			lastEncountered.removeSpeechBubbleIfOOR(true);
-			
+
 		}
 	}
-	
-	public void renderTalkNotification(Graphics g){
-		
-		if(returnNearStandingTalkableHuman() != null && returnNearStandingTalkableHuman().getProperCollisionRectangle().intersects(this.getNearbyRectangle())){
-			
+
+	public void renderTalkNotification(Graphics g) {
+
+		if (returnNearStandingTalkableHuman() != null && returnNearStandingTalkableHuman().getProperCollisionRectangle()
+				.intersects(this.getNearbyRectangle())) {
+
 			returnNearStandingTalkableHuman().renderTalkNotification(g);
-			
+
 		}
-		
+
 	}
 
 	public boolean getInventoryStatus() {
@@ -108,41 +110,40 @@ public class Player extends ControlableHuman implements Serializable {
 		this.inventory = inventory;
 
 	}
-	
+
 	@Override
-	public void setX(float x){
-		
+	public void setX(float x) {
+
 		lastX = this.x;
-		
+
 		this.x = x;
-		
+
 	}
-	
+
 	@Override
-	public void setY(float y){
+	public void setY(float y) {
 
 		lastY = this.y;
-		
+
 		this.y = y;
-		
+
 	}
-	
-	public float getLastX(){
-		
+
+	public float getLastX() {
+
 		return lastX;
-		
+
 	}
-	
-	public float getLastY(){
-		
+
+	public float getLastY() {
+
 		return lastY;
-		
+
 	}
 
 	@Override
 	public void applyResources() {
 		super.applyResources();
-
 
 	}
 

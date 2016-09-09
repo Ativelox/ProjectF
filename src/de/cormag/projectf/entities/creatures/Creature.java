@@ -186,10 +186,10 @@ public abstract class Creature extends Entity {
 	protected boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
-	
-	public void tick(){
-		super.tick();
-		
+
+	public void update() {
+		super.update();
+
 	}
 
 	public BufferedImage getSteadyAnimation() {

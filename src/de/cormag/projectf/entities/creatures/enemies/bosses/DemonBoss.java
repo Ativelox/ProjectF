@@ -14,12 +14,12 @@ public class DemonBoss extends Boss implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final int DEFAULT_DEMON_BOSS_WIDTH = 96, DEFAULT_DEMON_BOSS_HEIGHT = 48;
-	
+
 	private BossHealthBar bossHealthBar;
 
 	public DemonBoss(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_DEMON_BOSS_WIDTH * 2 + 40, DEFAULT_CREATURE_HEIGHT * 2);
-		
+
 		this.handler = handler;
 		this.health = 20;
 		maxHealth = this.health;
@@ -29,15 +29,15 @@ public class DemonBoss extends Boss implements Serializable {
 		awardedExp = 20;
 
 		sprinting = false;
-		
+
 		bossHealthBar = new BossHealthBar(this, handler);
 
 		applyResources();
 
 	}
 
-	public void tick() {
-		super.tick();
+	public void update() {
+		super.update();
 
 	}
 
@@ -68,7 +68,7 @@ public class DemonBoss extends Boss implements Serializable {
 
 	@Override
 	public BossHealthBar getBossHealthBar() {
-		
+
 		return bossHealthBar;
 	}
 

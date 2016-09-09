@@ -4,29 +4,26 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class SpeechBubble extends HUDElement{
+public class SpeechBubble extends HUDElement {
 
 	private String content;
 
-	 private int left = 200;
-	 private int top = 500;
-	 private int width = 750;
-	 private int height = 150;
-
+	private int left = 200;
+	private int top = 500;
+	private int width = 750;
+	private int height = 150;
 
 	public SpeechBubble() {
-		
+
 		content = "";
 
 	}
-	
 
 	@Override
 	public void tick() {
-	
-		
+
 	}
- 
+
 	public void render(Graphics g) {
 
 		g.setColor(Color.WHITE);
@@ -53,12 +50,11 @@ public class SpeechBubble extends HUDElement{
 		g.drawString(content, left + 20, top + 30);
 
 	}
-	
-	public void setContent(String content){
-		
-		this.content = content;
-		
-	}
 
+	public void setContent(String content) {
+
+		this.content = content;
+
+	}
 
 }

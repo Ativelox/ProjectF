@@ -43,7 +43,7 @@ public class Game implements Runnable {
 
 	// Handler
 	private Handler handler;
-	
+
 	public static final int WIDTH = 1000, HEIGHT = 700;
 
 	public Game(String title) {
@@ -60,10 +60,9 @@ public class Game implements Runnable {
 		Assets.init();
 
 		handler = new Handler(this);
-		
+
 		stateManager = new StateManager();
 
-		
 		MenuState menuState = new MenuState(handler);
 
 		stateManager.push(menuState);
@@ -225,23 +224,23 @@ public class Game implements Runnable {
 	public Display getDisplay() {
 		return display;
 	}
-	
-	public Handler getHandler(){
-		
+
+	public Handler getHandler() {
+
 		return handler;
-		
+
 	}
-	
-	public int getWidth(){
-		
+
+	public int getWidth() {
+
 		return display.getWidth();
-		
+
 	}
-	
-	public int getHeight(){
-		
+
+	public int getHeight() {
+
 		return display.getHeight();
-		
+
 	}
 
 	public synchronized void start() {
