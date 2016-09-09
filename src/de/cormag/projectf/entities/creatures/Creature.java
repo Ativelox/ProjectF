@@ -192,8 +192,6 @@ public abstract class Creature extends Entity {
 		
 	}
 
-	// GETTERS SETTERS
-
 	public BufferedImage getSteadyAnimation() {
 
 		return steadyAnimation;

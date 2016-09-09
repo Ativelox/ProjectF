@@ -2,10 +2,7 @@ package de.cormag.projectf.entities.statics.weapons;
 
 import java.awt.Graphics;
 import java.io.Serializable;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import de.cormag.projectf.entities.creatures.humans.Player;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
@@ -17,65 +14,27 @@ public class IronSword extends Weapon implements Serializable {
 	public static final int DEFAULT_IRON_SWORD_POWER = 5;
 
 	public IronSword(Handler handler, float x, float y) {
-
 		super(handler, x, y, DEFAULT_WEAPON_WIDTH, DEFAULT_WEAPON_HEIGHT);
-
-		getBounds().x = (Player.DEFAULT_CREATURE_WIDTH / 2) + (Player.DEFAULT_CREATURE_WIDTH / 4);
-		getBounds().y = 0;
-		getBounds().width = DEFAULT_WEAPON_WIDTH;
-		getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
-
+		
 		attack = false;
-		this.handler = handler;
 
 		attackValue = DEFAULT_IRON_SWORD_POWER;
 
 		staminaUsage = 50;
-
-		xOffset = handler.getGameCamera().getxOffset();
-		yOffset = handler.getGameCamera().getyOffset();
-
+		
 		applyResources();
-
-		checkPlayerDirection(handler);
-
 	}
 
 	public void tick() {
 		super.tick();
-
-		attackAnimationRight.tick();
-		attackAnimationLeft.tick();
-		attackAnimationUp.tick();
-		attackAnimationDown.tick();
-
-		updatePlayerArms(handler.getWorld().getEntityManager());
-
-		updateCorrespondingPlayeArms(handler.getWorld().getEntityManager());
-
-		disposeWeapon(handler);
+		
+		
+ 
 	}
 
 	public void render(Graphics g) {
+		super.render(g);
 
-		xOffset = handler.getGameCamera().getxOffset();
-		yOffset = handler.getGameCamera().getyOffset();
-
-		renderWeapon(g, handler.getWorld().getEntityManager(), xOffset, yOffset);
-
-		renderHitBox(g);
-		
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-
-				dispose = true;
-
-			}
-
-		}, 140);
 
 	}
 
@@ -83,16 +42,17 @@ public class IronSword extends Weapon implements Serializable {
 	public void applyResources() {
 		super.applyResources();
 
-		attackAnimationRight = new Animation(16, Assets.attack_right);
-		attackAnimationLeft = new Animation(16, Assets.attack_left);
-		attackAnimationUp = new Animation(16, Assets.attack_up);
-		attackAnimationDown = new Animation(16, Assets.attack_down);
+		attackAnimationRight = new Animation(Weapon.WEAPON_ANIMATION_SPEED_PER_FRAME, Assets.attack_right);
+		attackAnimationLeft = new Animation(Weapon.WEAPON_ANIMATION_SPEED_PER_FRAME, Assets.attack_left);
+		attackAnimationUp = new Animation(Weapon.WEAPON_ANIMATION_SPEED_PER_FRAME, Assets.attack_up);
+		attackAnimationDown = new Animation(Weapon.WEAPON_ANIMATION_SPEED_PER_FRAME, Assets.attack_down);
 
 		noAttackRight = Assets.default_sword_right;
 		noAttackLeft = Assets.default_sword_left;
 		noAttackUp = Assets.default_sword_up;
 		noAttackDown = Assets.default_sword_down;
-
+		
+//		steadyAnimation = Assets.default_sword_down;
 	}
 
 }

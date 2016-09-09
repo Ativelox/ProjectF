@@ -5,9 +5,6 @@ import java.awt.Point;
 import java.io.Serializable;
 
 import de.cormag.projectf.entities.EntityManager;
-import de.cormag.projectf.entities.creatures.enemies.bosses.DemonBoss;
-import de.cormag.projectf.entities.creatures.enemies.bosses.VikingBoss;
-import de.cormag.projectf.entities.creatures.enemies.bosses.music.KingBoss;
 import de.cormag.projectf.entities.creatures.humans.talkable.Efis;
 import de.cormag.projectf.entities.creatures.humans.talkable.FemaleNPC;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseFlat;

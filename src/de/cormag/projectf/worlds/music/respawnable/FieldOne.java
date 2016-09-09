@@ -5,7 +5,6 @@ import java.awt.Point;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.enemies.monster.Zombie;
-import de.cormag.projectf.entities.statics.VerdurousGreenTree;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
 

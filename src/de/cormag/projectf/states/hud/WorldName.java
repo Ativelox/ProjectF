@@ -1,12 +1,10 @@
 package de.cormag.projectf.states.hud;
 
-import java.awt.Graphics;
-
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import de.cormag.projectf.main.Game;
-import de.cormag.projectf.main.Handler;
 
 public class WorldName extends HUDElement{
 

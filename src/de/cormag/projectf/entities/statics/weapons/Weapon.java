@@ -3,8 +3,8 @@ package de.cormag.projectf.entities.statics.weapons;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.Creature;
+import de.cormag.projectf.entities.creatures.humans.Player;
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
@@ -24,104 +24,135 @@ public abstract class Weapon extends StaticEntity {
 
 	protected int attackValue;
 	protected int staminaUsage;
+	
+	private Handler handler;
+	
+	private int tickcount;
 
 	protected transient Animation attackAnimationRight, attackAnimationLeft, attackAnimationUp, attackAnimationDown;
 
 	protected transient BufferedImage noAttackRight, noAttackLeft, noAttackUp, noAttackDown;
 
 	protected int rightArmX, rightArmY, leftArmX, leftArmY, upperArmX, upperArmY, lowerArmX, lowerArmY;
+	
+	public static final int WEAPON_ANIMATION_SPEED_PER_FRAME = 16, WEAPON_IMAGEARRAY_LENGTH = 8;
+	
+	public static final int MILLISECONDS_TO_DISPOSE = WEAPON_ANIMATION_SPEED_PER_FRAME * WEAPON_IMAGEARRAY_LENGTH;
+	
+	public static final float TICKS_TO_DISPOSE = MILLISECONDS_TO_DISPOSE * 0.12f;
 
 	public Weapon(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-
-		xOffset = handler.getGameCamera().getxOffset();
-		yOffset = handler.getGameCamera().getyOffset();
+		
+		getBounds().x = (Player.DEFAULT_CREATURE_WIDTH / 2) + (Player.DEFAULT_CREATURE_WIDTH / 4);
+		getBounds().y = 0;
+		getBounds().width = DEFAULT_WEAPON_WIDTH;
+		getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
+		
+		this.handler = handler;
+		
+		tickcount = 0;
 
 		attack = false;
 		attackValue = 1;
-		dispose = false;
 
 		applyResources();
+		
+		setWeaponDirectionEqualToPlayer();
+		updateCorrespondingPlayerArms();
+		
 
 	}
-
-	protected void updatePlayerArms(EntityManager manager) {
+	
+	public void tick(){
+		super.tick();
 		
-		if(manager != null){
-
-			rightArmX = (int) manager.getPlayer().getX() + ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
-			rightArmY = (int) manager.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 4));
-	
-			leftArmX = (int) manager.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
-			leftArmY = (int) manager.getPlayer().getY() - (Creature.DEFAULT_CREATURE_HEIGHT / 4);
-	
-			upperArmX = (int) manager.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
-			upperArmY = (int) manager.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 2) + 5);
-	
-			lowerArmX = (int) manager.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
-			lowerArmY = (int) manager.getPlayer().getY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
+		if(tickcount >= Math.floor(TICKS_TO_DISPOSE)){
+			disposeWeapon();
+			tickcount = 0;
+			return;
 			
 		}
+		
+		setWeaponDirectionEqualToPlayer();
+		updateCorrespondingPlayerArms();
+		
+		updateHitbox();
+		
+		attackAnimationRight.tick();
+		attackAnimationLeft.tick();
+		attackAnimationUp.tick();
+		attackAnimationDown.tick();
+
+		tickcount++;
+	
+		
+	}
+	
+	public void render(Graphics g){
+		tick();
+		g.drawImage(this.getCurrentAnimationFrame(), (int) (x - xOffset), (int) (y - yOffset), null);
+		renderHitBox(g);
+		
 	}
 		
 
 	protected void updateWeaponPosition(float playerArmX, float playerArmY) {
-
-		this.x = playerArmX;
-		this.y = playerArmY;
-
-	}
-
-	protected void updateCorrespondingPlayeArms(EntityManager manager) {
-		
-		if(manager != null){
-		
-			if (steadyAnimation == null || manager.getPlayer() == null) {
-				return;
-	
-			}
-	
-			if (manager.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
-	
-				updateWeaponPosition(rightArmX, rightArmY);
-	
-			} else if (manager.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
-	
-				updateWeaponPosition(leftArmX, leftArmY);
-	
-			} else if (manager.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
-	
-				updateWeaponPosition(upperArmX, upperArmY);
-	
-			} else if (manager.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
-	
-				updateWeaponPosition(lowerArmX, lowerArmY);
-	
-			}
-		}
+		setX(playerArmX);
+		setY(playerArmY);
 
 	}
 
-	protected BufferedImage getCurrentAnimationFrame(EntityManager manager) {
+	protected void updateCorrespondingPlayerArms() {
+		
+		rightArmX = (int) handler.getPlayer().getX() + ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
+		rightArmY = (int) handler.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 4));
 
-		if (steadyAnimation == null || manager == null || manager.getPlayer() == null) {
-			return attackAnimationDown.getCurrentFrame();
+		leftArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
+		leftArmY = (int) handler.getPlayer().getY() - (Creature.DEFAULT_CREATURE_HEIGHT / 4);
+
+		upperArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
+		upperArmY = (int) handler.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 2) + 5);
+
+		lowerArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
+		lowerArmY = (int) handler.getPlayer().getY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
+	
+		if (handler.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
+
+			updateWeaponPosition(rightArmX, rightArmY);
+
+		} else if (handler.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
+
+			updateWeaponPosition(leftArmX, leftArmY);
+
+		} else if (handler.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
+
+			updateWeaponPosition(upperArmX, upperArmY);
+
+		} else if (handler.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
+
+			updateWeaponPosition(lowerArmX, lowerArmY);
 
 		}
+		
 
-		if (manager.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
+	}
+
+	protected BufferedImage getCurrentAnimationFrame() {
+
+		if (handler.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
 
 			return attackAnimationLeft.getCurrentFrame();
 
-		} else if (manager.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
+		} else if (handler.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
 
 			return attackAnimationRight.getCurrentFrame();
 
-		} else if (manager.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
+		} else if (handler.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
 
 			return attackAnimationUp.getCurrentFrame();
 
-		} else if (manager.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
+		} else if (handler.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
 
 			return attackAnimationDown.getCurrentFrame();
 
@@ -132,73 +163,50 @@ public abstract class Weapon extends StaticEntity {
 		}
 	}
 
-	protected void renderWeapon(Graphics g, EntityManager manager, float xOffset, float yOffset) {
+	protected void updateHitbox() {
 
-		if (steadyAnimation == null || manager.getPlayer() == null) {
-			return;
-
-		}
-
-		if (manager.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
-			// right
+		if (handler.getPlayer().getxMove() > 0 || steadyAnimation.equals(noAttackRight)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
-			getBounds().y = DEFAULT_WEAPON_HEIGHT + DEFAULT_WEAPON_HEIGHT / 2;
+			getBounds().y = 20;
+			getBounds().width = DEFAULT_WEAPON_WIDTH;
+			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 
-			g.drawImage(getCurrentAnimationFrame(manager), (int) (x - xOffset), (int) (y - yOffset), null);
-
-			steadyAnimation = noAttackRight;
-
-		} else if (manager.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
-			// left
+		} else if (handler.getPlayer().getxMove() < 0 || steadyAnimation.equals(noAttackLeft)) {			
 			getBounds().x = 0;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT + DEFAULT_WEAPON_HEIGHT / 2;
-
-			g.drawImage(getCurrentAnimationFrame(manager), (int) (x - xOffset), (int) (y - yOffset), null);
-
-			steadyAnimation = noAttackLeft;
-
-		} else if (manager.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {
-			// up
+			getBounds().width = DEFAULT_WEAPON_WIDTH;
+			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
+			
+		} else if (handler.getPlayer().getyMove() < 0 || steadyAnimation.equals(noAttackUp)) {			
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = 0;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;
 			getBounds().width = DEFAULT_WEAPON_WIDTH * 2;
 
-			g.drawImage(getCurrentAnimationFrame(manager), (int) (x - xOffset), (int) (y - yOffset), null);
-
-			steadyAnimation = noAttackUp;
-
-		} else if (manager.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {
-			// down
+		} else if (handler.getPlayer().getyMove() > 0 || steadyAnimation.equals(noAttackDown)) {			
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;
 			getBounds().width = DEFAULT_WEAPON_WIDTH * 2;
 
-			g.drawImage(getCurrentAnimationFrame(manager), (int) (x - xOffset), (int) (y - yOffset), null);
-
-			steadyAnimation = noAttackDown;
-
 		}
 	}
 
-	protected void checkPlayerDirection(Handler handler) {
+	protected void setWeaponDirectionEqualToPlayer() {
 
-		if (handler.getWorld().getEntityManager().getPlayer().getSteadyAnimation().equals(Assets.player_down[1])) {
+		if (handler.getPlayer().getSteadyAnimation().equals(Assets.player_down[1])) {
 
 			steadyAnimation = noAttackDown;
 
-		} else if (handler.getWorld().getEntityManager().getPlayer().getSteadyAnimation().equals(Assets.player_up[1])) {
+		} else if (handler.getPlayer().getSteadyAnimation().equals(Assets.player_up[1])) {
 
 			steadyAnimation = noAttackUp;
 
-		} else if (handler.getWorld().getEntityManager().getPlayer().getSteadyAnimation()
-				.equals(Assets.player_left[1])) {
+		} else if (handler.getPlayer().getSteadyAnimation().equals(Assets.player_left[1])) {
 
 			steadyAnimation = noAttackLeft;
 
-		} else if (handler.getWorld().getEntityManager().getPlayer().getSteadyAnimation()
-				.equals(Assets.player_right[1])) {
+		} else if (handler.getPlayer().getSteadyAnimation().equals(Assets.player_right[1])) {
 
 			steadyAnimation = noAttackRight;
 
@@ -206,15 +214,10 @@ public abstract class Weapon extends StaticEntity {
 
 	}
 
-	protected void disposeWeapon(Handler handler) {
+	protected void disposeWeapon() {
 
-		if (dispose) {
+		handler.getWorld().getEntityManager().removeEntity(this);
 
-			handler.getWorld().getEntityManager().removeEntity(this);
-
-			dispose = false;
-
-		}
 	}
 
 	public int getAttackValue() {

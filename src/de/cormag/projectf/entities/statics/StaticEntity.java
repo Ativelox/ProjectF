@@ -9,18 +9,15 @@ import de.cormag.projectf.main.Handler;
 public abstract class StaticEntity extends Entity {
 
 	private static final long serialVersionUID = 1L;
-	
-	private float staticX, staticY;
 
 	public StaticEntity(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-		
-		this.staticX = x;
-		this.staticY = y;
+
 	}
 	
 	public void render(Graphics g, BufferedImage imageToDraw, int width, int height){
-		g.drawImage(imageToDraw,(int) (staticX  - xOffset), (int) (staticY - yOffset), width, height, null);
+
+		g.drawImage(imageToDraw,(int) (x  - xOffset), (int) (y - yOffset), width, height, null);
 		
 		super.render(g);
 		

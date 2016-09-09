@@ -36,7 +36,6 @@ public abstract class World implements Serializable {
 	protected int[][] tiles;
 	protected String path;
 	protected boolean worldNameRendered;
-	private String name;
 	
 	private WorldName worldName;
 
@@ -45,7 +44,6 @@ public abstract class World implements Serializable {
 		debugActive = false;
 		debug = false;
 		worldNameRendered = false;
-		this.name = name;
 		
 		worldName = new WorldName(name);
 

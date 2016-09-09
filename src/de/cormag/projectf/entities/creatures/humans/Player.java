@@ -44,6 +44,8 @@ public class Player extends Human implements Serializable {
 	private boolean sheathAble;
 	
 	private TalkableHuman lastEncountered;
+	
+	private String lastMovement;
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -81,6 +83,8 @@ public class Player extends Human implements Serializable {
 		handler.getGameCamera().centerOnEntity(this);
 		
 		talk(false);
+		
+		updateSteadyAnimation();
 		
 		if (experience >= experienceNeeded() && !leveledUp) {
 
@@ -286,6 +290,43 @@ public class Player extends Human implements Serializable {
 			
 		}
 		
+	}
+	
+	public void updateSteadyAnimation(){	
+	
+		if(yMove > 0){
+			lastMovement = "down";
+			
+		}
+		if(yMove < 0){
+			lastMovement = "top";
+	
+		}
+		if(xMove > 0){
+			lastMovement = "right";
+		
+		}
+		if(xMove <0){
+			lastMovement = "left";
+			
+		}
+		
+		if(lastMovement != null){
+			switch(lastMovement){
+			case "top" : steadyAnimation = Assets.player_up[1];
+				break;
+				
+			case "down" : steadyAnimation = Assets.player_down[1];
+				break;
+				
+			case "right" : steadyAnimation = Assets.player_right[1];
+				break;	
+				
+			case "left" : steadyAnimation = Assets.player_left[1];
+				break;
+			
+			}
+		}
 	}
 
 	public Weapon getCurrentWeapon() {
