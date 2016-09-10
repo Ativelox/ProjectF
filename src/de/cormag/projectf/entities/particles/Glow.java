@@ -20,15 +20,23 @@ import de.cormag.projectf.main.Handler;
 public final class Glow extends Particle {
 
 	/**
+	 * The render color for the inner part of the oval.
+	 */
+	private final static Color INNER_COLOR = new Color(180, 0, 0, 100);
+
+	/**
+	 * The render color for the outline of the oval.
+	 */
+	private final static Color OUTLINE_COLOR = new Color(255, 0, 0, 200);
+
+	/**
 	 * The serial version UID.
 	 */
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * The width and height of this entity.
 	 */
 	private static final int SIZE = 10;
-
 	/**
 	 * Object which manages the modes of this particle.
 	 */
@@ -60,8 +68,10 @@ public final class Glow extends Particle {
 	 */
 	@Override
 	public void render(final Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(INNER_COLOR);
 		g.fillOval((int) getX(), (int) getY(), getWidth(), getHeight());
+		g.setColor(OUTLINE_COLOR);
+		g.drawOval((int) getX(), (int) getY(), getWidth(), getHeight());
 	}
 
 	/*

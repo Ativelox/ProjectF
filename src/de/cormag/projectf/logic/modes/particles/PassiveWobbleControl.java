@@ -110,13 +110,13 @@ public final class PassiveWobbleControl implements IModeControl {
 			return;
 		}
 
-		// Dummy movement
+		// Sine wave like move pattern
 		long millis = System.currentTimeMillis();
 		float placeInPeriod = millis % PERIOD_MILLIS;
 
+		// This indicates the period is over and direction has to be changed
 		boolean isPeriodOver = mLastPlaceInPeriod > placeInPeriod;
 		if (isPeriodOver) {
-			// This indicates the period is over and direction has to be changed
 			mIsInFirstPeriodHalf = !mIsInFirstPeriodHalf;
 		}
 
