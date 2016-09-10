@@ -3,7 +3,7 @@ package de.cormag.projectf.entities.particles;
 import java.awt.Rectangle;
 
 import de.cormag.projectf.entities.Entity;
-import de.cormag.projectf.entities.properties.IMoveable;
+import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.main.Handler;
@@ -15,7 +15,7 @@ import de.cormag.projectf.main.Handler;
  * @author Zabuza
  *
  */
-public abstract class Particle extends Entity implements ISpatial, IMoveable {
+public abstract class Particle extends Entity implements ISpatial, ICanMove {
 
 	/**
 	 * Serial version UID.

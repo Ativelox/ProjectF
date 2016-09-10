@@ -13,11 +13,6 @@ import de.cormag.projectf.logic.modes.UnsupportedModeException;
  *
  */
 public final class ParticleModeManager extends AModeManager {
-
-	/**
-	 * Error message when trying to pass a mode which is not supported
-	 */
-	private static final String ERROR_UNKNOWN_MODE = "Particle mode is not supported by this object: ";
 	/**
 	 * The current active mode.
 	 */
@@ -32,15 +27,20 @@ public final class ParticleModeManager extends AModeManager {
 	 * Creates a new particle mode manager which belongs to a given particle.
 	 * 
 	 * @param parent
-	 *            The particle this object manages mode for.
+	 *            The particle this object manages modes for.
+	 * @param passiveWobbleControl
+	 *            The control object which should be used in mode
+	 *            {@link EParticleMode#PASSIVE_WOBBLE PASSIVE_WOBBLE}
+	 * @param initialMode
+	 *            The initial mode for the object
 	 */
 	public ParticleModeManager(final Particle parent, final IModeControl passiveWobbleControl,
-			final EParticleMode startMode) {
+			final EParticleMode initialMode) {
 		super(parent);
 
 		mPassiveWobbleControl = passiveWobbleControl;
 
-		mCurrentMode = startMode;
+		mCurrentMode = initialMode;
 		getCurrentModeControl().activate();
 	}
 

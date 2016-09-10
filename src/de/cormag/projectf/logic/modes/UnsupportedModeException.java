@@ -8,7 +8,6 @@ package de.cormag.projectf.logic.modes;
  *
  */
 public final class UnsupportedModeException extends RuntimeException {
-
 	/**
 	 * Serial version UID.
 	 */

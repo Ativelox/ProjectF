@@ -6,6 +6,6 @@ package de.cormag.projectf.entities.properties;
  * @author Zabuza
  *
  */
-public interface IMoveable extends ISpatial {
+public interface ICanMove extends ISpatial {
 
 }

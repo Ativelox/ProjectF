@@ -11,6 +11,10 @@ import de.cormag.projectf.entities.properties.IUpdateable;
  *
  */
 public abstract class AModeManager implements IUpdateable {
+	/**
+	 * Error message when trying to pass a mode which is not supported.
+	 */
+	protected static final String ERROR_UNKNOWN_MODE = "Mode is not supported by this object: ";
 
 	/**
 	 * The entity for which this object manages modes for.
