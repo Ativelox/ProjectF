@@ -18,9 +18,14 @@ public final class ParticleModeManager extends AModeManager {
 	 * Error message when trying to pass a mode which is not supported
 	 */
 	private static final String ERROR_UNKNOWN_MODE = "Particle mode is not supported by this object: ";
-
+	/**
+	 * The current active mode.
+	 */
 	private EParticleMode mCurrentMode;
-
+	/**
+	 * The control object for the mode {@link EParticleMode#PASSIVE_WOBBLE
+	 * PASSIVE_WOBBLE}.
+	 */
 	private final IModeControl mPassiveWobbleControl;
 
 	/**
