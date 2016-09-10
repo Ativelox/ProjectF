@@ -33,7 +33,17 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 	@Override
 	public void moveTo(final float x, final float y) {
 		mParent.setRelativeX(x);
-		mParent.setRelativeX(y);
+		mParent.setRelativeY(y);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
+	@Override
+	public void update() {
+
 	}
 
 }

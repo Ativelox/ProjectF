@@ -1,12 +1,14 @@
 package de.cormag.projectf.logic.movement;
 
+import de.cormag.projectf.entities.properties.IUpdateable;
+
 /**
  * Interface for objects that define the logic how to move.
  * 
  * @author Zabuza
  *
  */
-public interface IMoveBehavior {
+public interface IMoveBehavior extends IUpdateable {
 	/**
 	 * Moves the object to the given position.
 	 * 
