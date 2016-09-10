@@ -25,9 +25,8 @@ public class GrassBushSmall extends NoCollision {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.grassBushSmall, WIDTH, HEIGHT);
+		super.render(g, Assets.grassBushSmall);
 
 	}
 

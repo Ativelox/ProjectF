@@ -33,8 +33,8 @@ public class LoadingScreen extends World {
 			@Override
 			public void run() {
 
-				handler.getPlayer().setX(spawnX);
-				handler.getPlayer().setY(spawnY);
+				handler.getPlayer().setRelativeX(spawnX);
+				handler.getPlayer().setRelativeY(spawnY);
 
 			}
 
@@ -66,9 +66,9 @@ public class LoadingScreen extends World {
 
 			@Override
 			public void run() {
-
-				handler.getPlayer().setX(spawnX);
-				handler.getPlayer().setY(spawnY);
+					
+				handler.getPlayer().setRelativeX(spawnX);
+				handler.getPlayer().setRelativeY(spawnY);
 
 			}
 

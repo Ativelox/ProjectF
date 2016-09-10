@@ -15,10 +15,8 @@ public abstract class StaticEntity extends Entity {
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw, int width, int height) {
-
-		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
-
+	public void render(Graphics g, BufferedImage imageToDraw) {
+		g.drawImage(imageToDraw, (int) getX(), (int) getY(), getWidth(), getHeight(), null);
 		super.render(g);
 
 	}

@@ -5,23 +5,26 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
 import de.cormag.projectf.entities.properties.offensive.ICanAttack;
-import de.cormag.projectf.entities.properties.offensive.ICanOffensive;
-import de.cormag.projectf.entities.statics.skills.Skills;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
-import de.cormag.projectf.entities.statics.weapons.Weapon;
+import de.cormag.projectf.logic.modes.AModeManager;
+import de.cormag.projectf.logic.modes.IModeControl;
+import de.cormag.projectf.logic.modes.enemies.AggressiveControl;
+import de.cormag.projectf.logic.modes.enemies.DefensiveControl;
+import de.cormag.projectf.logic.modes.enemies.EEnemyMode;
+import de.cormag.projectf.logic.modes.enemies.EnemyModeManager;
+import de.cormag.projectf.logic.movement.IMoveBehavior;
+import de.cormag.projectf.logic.movement.TeleportMoveBehavior;
+import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
+import de.cormag.projectf.logic.offensive.OffensiveBehavior;
 import de.cormag.projectf.main.Handler;
 
-public abstract class Enemy extends Creature implements ILively, IAttackable, ICanAttack, ICanOffensive{
+public abstract class Enemy extends Creature implements ILively, IAttackable, ICanAttack{
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +40,8 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	protected int maxHealth;
 	protected boolean damaged;
 	protected int attackValue;
+	
+	private AModeManager mModeManager;
 
 	public Enemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -49,8 +54,14 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		awardedExp = 0;
 		name = this.getClass().getName();
 		player = handler.getPlayer();
+		
+		IMoveBehavior moveBehavior = new TeleportMoveBehavior(this);
+		IOffensiveBehavior offensiveBehavior = new OffensiveBehavior(this);
+		IModeControl aggresiveControl = new AggressiveControl(this, moveBehavior, offensiveBehavior, handler);
+		IModeControl defensiveControl = new DefensiveControl(this, moveBehavior, offensiveBehavior, handler);
+		mModeManager = new EnemyModeManager(this, aggresiveControl, defensiveControl, EEnemyMode.AGGRESSIVE);
 
-		visionField = new Rectangle((int) (x - xOffset), (int) (y - yOffset + height), width, height);
+		visionField = new Rectangle((int) (getX()), (int) (getY() + height), width, height);
 
 	}
 
@@ -66,141 +77,141 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		}
 	}
 
-	public void calculateDamageTaken(Handler handler) {
+//	public void calculateDamageTaken(Handler handler) {
+//
+//		if (handler.getWorld().getEntityManager() != null) {
+//
+//			Weapon currentWeapon = handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon();
+//			
+//			Iterator <Entity> entities = handler.getWorld().getEntityManager().getEntities();
+//			
+//			while(entities.hasNext()){
+//				Entity e = entities.next();
+//				
+//				if(e instanceof Skills){
+//					if(this.getProperCollisionRectangle().intersects(e.getProperCollisionRectangle())){
+//						if (!damaged) {
+//
+//							if (this.getHealth() > 0) {
+//
+//								this.health -= ((Skills) e).getDMG();
+//								damaged = true;
+//
+//								if (damaged) {
+//
+//									Timer timer = new Timer();
+//									timer.schedule(new TimerTask() {
+//
+//										@Override
+//										public void run() {
+//
+//											damaged = false;
+//
+//										}
+//									}, 400);
+//
+//								}
+//
+//							} else {
+//
+//								this.health = 0;
+//
+//							}
+//						}
+//						
+//					}
+//					
+//					
+//				}
+//				
+//				
+//			}
+//			
+//
+//			if (currentWeapon != null && handler.getWorld().getEntityManager().contains(currentWeapon)) {
+//
+//				if (this.getProperCollisionRectangle().intersects(currentWeapon.getProperCollisionRectangle())) {
+//
+//					if (!damaged) {
+//
+//						if (this.getHealth() > 0) {
+//
+//							this.health -= currentWeapon.getAttackValue();
+//							damaged = true;
+//
+//							if (damaged) {
+//
+//								Timer timer = new Timer();
+//								timer.schedule(new TimerTask() {
+//
+//									@Override
+//									public void run() {
+//
+//										damaged = false;
+//
+//									}
+//								}, 400);
+//
+//							}
+//
+//						} else {
+//
+//							this.health = 0;
+//
+//						}
+//					}
+//
+//				}
+//
+//			}
+//		}
+//
+//	}
 
-		if (handler.getWorld().getEntityManager() != null) {
-
-			Weapon currentWeapon = handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon();
-			
-			Iterator <Entity> entities = handler.getWorld().getEntityManager().getEntities();
-			
-			while(entities.hasNext()){
-				Entity e = entities.next();
-				
-				if(e instanceof Skills){
-					if(this.getProperCollisionRectangle().intersects(e.getProperCollisionRectangle())){
-						if (!damaged) {
-
-							if (this.getHealth() > 0) {
-
-								this.health -= ((Skills) e).getDMG();
-								damaged = true;
-
-								if (damaged) {
-
-									Timer timer = new Timer();
-									timer.schedule(new TimerTask() {
-
-										@Override
-										public void run() {
-
-											damaged = false;
-
-										}
-									}, 400);
-
-								}
-
-							} else {
-
-								this.health = 0;
-
-							}
-						}
-						
-					}
-					
-					
-				}
-				
-				
-			}
-			
-
-			if (currentWeapon != null && handler.getWorld().getEntityManager().contains(currentWeapon)) {
-
-				if (this.getProperCollisionRectangle().intersects(currentWeapon.getProperCollisionRectangle())) {
-
-					if (!damaged) {
-
-						if (this.getHealth() > 0) {
-
-							this.health -= currentWeapon.getAttackValue();
-							damaged = true;
-
-							if (damaged) {
-
-								Timer timer = new Timer();
-								timer.schedule(new TimerTask() {
-
-									@Override
-									public void run() {
-
-										damaged = false;
-
-									}
-								}, 400);
-
-							}
-
-						} else {
-
-							this.health = 0;
-
-						}
-					}
-
-				}
-
-			}
-		}
-
-	}
-
-	protected void basicAI() {
-
-		if (seenPlayer || damagedOnce) {
-
-			int playerX = player.getEntityCenter(xOffset, yOffset).x;
-			int playerY = player.getEntityCenter(xOffset, yOffset).y;
-			int monsterX = this.getEntityCenter(xOffset, yOffset).x;
-			int monsterY = this.getEntityCenter(xOffset, yOffset).y;
-
-			if (playerX > monsterX - 5) {
-
-				this.xMove = 0;
-
-			} else if (playerX < monsterX) {
-
-				this.xMove = -speed;
-
-			}
-
-			if (playerX > monsterX) {
-
-				this.xMove = speed;
-
-			}
-
-			if (playerY > monsterY - 5) {
-
-				this.yMove = 0;
-
-			} else if (playerY < monsterY) {
-
-				this.yMove = -speed;
-
-			}
-
-			if (playerY > monsterY) {
-
-				this.yMove = speed;
-
-			}
-
-			move();
-		}
-	}
+//	protected void basicAI() {
+//
+//		if (seenPlayer || damagedOnce) {
+//
+//			int playerX = player.getEntityCenter(xOffset, yOffset).x;
+//			int playerY = player.getEntityCenter(xOffset, yOffset).y;
+//			int monsterX = this.getEntityCenter(xOffset, yOffset).x;
+//			int monsterY = this.getEntityCenter(xOffset, yOffset).y;
+//
+//			if (playerX > monsterX - 5) {
+//
+//				this.xMove = 0;
+//
+//			} else if (playerX < monsterX) {
+//
+//				this.xMove = -speed;
+//
+//			}
+//
+//			if (playerX > monsterX) {
+//
+//				this.xMove = speed;
+//
+//			}
+//
+//			if (playerY > monsterY - 5) {
+//
+//				this.yMove = 0;
+//
+//			} else if (playerY < monsterY) {
+//
+//				this.yMove = -speed;
+//
+//			}
+//
+//			if (playerY > monsterY) {
+//
+//				this.yMove = speed;
+//
+//			}
+//
+//			move();
+//		}
+//	}
 
 	protected void checkIfEnemySeenPlayer() {
 
@@ -226,8 +237,10 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	@Override
 	public void update() {
 		super.update();
+		
+		mModeManager.update();
 
-		calculateDamageTaken(handler);
+//		calculateDamageTaken(handler);
 
 		if (damaged) {
 
@@ -248,18 +261,19 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		walkingAnimRight.tick();
 
 		checkIfEnemySeenPlayer();
-		basicAI();
+//		basicAI();
 
 	}
 
-	public void render(Graphics g, BufferedImage left, BufferedImage right, BufferedImage up, BufferedImage down) {
-
-		g.drawImage(getCurrentAnimationFrame(left, right, up, down), (int) (x - xOffset), (int) (y - yOffset), width,
-				height, null);
-
+	public void render(Graphics g, BufferedImage imageToDraw) {
 		renderVisionField(g);
-
-		super.render(g);
+		super.render(g, imageToDraw);
+		
+	}
+	
+	public Rectangle getVisionField(){
+		return this.visionField;
+		
 	}
 	
 	public int getAttackPower(){
@@ -282,15 +296,41 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	}
 
 	public void changeLifepoints(final int amount){
-		health = amount;
+		if(health + amount > maxHealth){
+			health = maxHealth;
+			
+		}else{
+			health += amount;
+			
+		}
+	}
+	
+	@Override
+	public void setLifepoints(int amount) {
+		if(amount > maxHealth){
+			health = maxHealth;
+		}else{
+			health = amount;
+		}
+		
 	}
 
-	public boolean getSeenPlayer() {
+	@Override
+	public int getMaxLifepoints() {
+		return maxHealth;
+	}
+
+	public boolean seenPlayer() {
 
 		return seenPlayer;
 	}
+	
+	public void setSeenPlayer(boolean seen){
+		seenPlayer = seen;
+		
+	}
 
-	public boolean getDamagedOnce() {
+	public boolean damagedOnce() {
 
 		return damagedOnce;
 
@@ -301,29 +341,6 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		return name;
 
 	}
-	
-	public int getHealth(){
-		return health;
-		
-	}
-	
-
-	public void setHealth(int health) {
-
-		this.health = health;
-	}
-
-	public int getAttackValue() {
-
-		return attackValue;
-
-	}
-
-	public int getMaxHealth() {
-		return maxHealth;
-
-	}
-
 	public boolean getDamaged() {
 
 		return damaged;

@@ -44,9 +44,8 @@ public class KingBoss extends BossWithMusic implements Serializable {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.king_left[1], Assets.king_right[1], Assets.king_up[1], Assets.king_down[1]);
+		super.render(g, getCurrentAnimationFrame(Assets.king_left[1], Assets.king_right[1], Assets.king_up[1], Assets.king_down[1]));
 	}
 
 	@Override

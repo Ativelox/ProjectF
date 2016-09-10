@@ -1,5 +1,6 @@
 package de.cormag.projectf.entities.creatures;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.Entity;
@@ -25,27 +26,6 @@ public abstract class Creature extends Entity implements ICanMove{
 
 	transient protected BufferedImage steadyAnimation;
 	
-	/**
-	 * Holds the x-coordinate relative to the camera, i.e. the world position,
-	 * of the last tick.
-	 */
-	private float mOldRelativeX;
-	/**
-	 * Holds the y-coordinate relative to the camera, i.e. the world position,
-	 * of the last tick.
-	 */
-	private float mOldRelativeY;
-	/**
-	 * Holds the current x-coordinate relative to the camera, i.e. the world
-	 * position.
-	 */
-	private float mRelativeX;
-	/**
-	 * Holds the current y-coordinate relative to the camera, i.e. the world
-	 * position.
-	 */
-	private float mRelativeY;
-
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
 		speed = DEFAULT_SPEED;
@@ -59,6 +39,13 @@ public abstract class Creature extends Entity implements ICanMove{
 		getBounds().width = width / 3;
 		getBounds().height = 2 * height / 3;
 	}
+	
+	public void render(Graphics g, BufferedImage image){
+		g.drawImage(image, (int) getX(), (int) getY(), getWidth(), getHeight(), null); 
+		super.render(g);
+
+		
+	}
 
 	public void move() {
 		if (!checkEntityCollisions(xMove, 0f))
@@ -69,25 +56,23 @@ public abstract class Creature extends Entity implements ICanMove{
 
 	public void moveX() {
 		if (xMove > 0) {// Moving right
-			int tx = (int) (x + xMove + getBounds().x + getBounds().width) / Tile.TILEWIDTH;
+			int tx = (int) (getRelativeX() + xMove + getBounds().x + getBounds().width) / Tile.TILEWIDTH;
 
-			if (!collisionWithTile(tx, (int) (y + getBounds().y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (y + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
-				x += xMove;
-				hasMoved = true;
+			if (!collisionWithTile(tx, (int) (getRelativeY() + getBounds().y) / Tile.TILEHEIGHT)
+					&& !collisionWithTile(tx, (int) (getRelativeY() + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
+				setRelativeX(getRelativeX() + xMove);
 			} else {
-				x = tx * Tile.TILEWIDTH - getBounds().x - getBounds().width - 1;
+				setRelativeX(tx * Tile.TILEWIDTH - getBounds().x - getBounds().width - 1);
 			}
 
 		} else if (xMove < 0) {// Moving left
-			int tx = (int) (x + xMove + getBounds().x) / Tile.TILEWIDTH;
+			int tx = (int) (getRelativeX() + xMove + getBounds().x) / Tile.TILEWIDTH;
 
-			if (!collisionWithTile(tx, (int) (y + getBounds().y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (y + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
-				x += xMove;
-				hasMoved = true;
+			if (!collisionWithTile(tx, (int) (getRelativeY() + getBounds().y) / Tile.TILEHEIGHT)
+					&& !collisionWithTile(tx, (int) (getRelativeY() + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
+				setRelativeX(getRelativeX() + xMove);
 			} else {
-				x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - getBounds().x;
+				setRelativeX(tx * Tile.TILEWIDTH + Tile.TILEWIDTH - getBounds().x);
 			}
 
 		}
@@ -95,25 +80,23 @@ public abstract class Creature extends Entity implements ICanMove{
 
 	public void moveY() {
 		if (yMove < 0) {// Up
-			int ty = (int) (y + yMove + getBounds().y) / Tile.TILEHEIGHT;
+			int ty = (int) (getRelativeY() + yMove + getBounds().y) / Tile.TILEHEIGHT;
 
-			if (!collisionWithTile((int) (x + getBounds().x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (x + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
-				y += yMove;
-				hasMoved = true;
+			if (!collisionWithTile((int) (getRelativeX() + getBounds().x) / Tile.TILEWIDTH, ty)
+					&& !collisionWithTile((int) (getRelativeX() + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
+				setRelativeY(getRelativeY() + yMove);
 			} else {
-				y = ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - getBounds().y;
+				setRelativeY(ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - getBounds().y);
 			}
 
 		} else if (yMove > 0) {// Down
-			int ty = (int) (y + yMove + getBounds().y + getBounds().height) / Tile.TILEHEIGHT;
+			int ty = (int) (getRelativeY() + yMove + getBounds().y + getBounds().height) / Tile.TILEHEIGHT;
 
-			if (!collisionWithTile((int) (x + getBounds().x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (x + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
-				y += yMove;
-				hasMoved = true;
+			if (!collisionWithTile((int) (getRelativeX() + getBounds().x) / Tile.TILEWIDTH, ty)
+					&& !collisionWithTile((int) (getRelativeX() + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
+				setRelativeY(getRelativeY() + yMove);
 			} else {
-				y = ty * Tile.TILEHEIGHT - getBounds().y - getBounds().height - 1;
+				setRelativeY(y = ty * Tile.TILEHEIGHT - getBounds().y - getBounds().height - 1);
 			}
 
 		}
@@ -203,17 +186,6 @@ public abstract class Creature extends Entity implements ICanMove{
 
 	public void update() {
 		super.update();
-		
-//		setOldRelativeX(getRelativeX());
-//		setOldRelativeY(getRelativeY());
-//
-//		super.update();
-//
-//		// Translate relative movement to absolute
-//		setX(getRelativeX() - xOffset);
-//		setY(getRelativeY() - yOffset);
-//
-//		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 
 	}
 
@@ -247,86 +219,6 @@ public abstract class Creature extends Entity implements ICanMove{
 		this.speed = speed;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeX()
-	 */
-	@Override
-	public float getOldRelativeX() {
-		return mOldRelativeX;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeY()
-	 */
-	@Override
-	public float getOldRelativeY() {
-		return mOldRelativeY;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeX()
-	 */
-	@Override
-	public float getRelativeX() {
-		return mRelativeX;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeY()
-	 */
-	@Override
-	public float getRelativeY() {
-		return mRelativeY;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeX(float)
-	 */
-	@Override
-	public void setOldRelativeX(float oldRelativeX) {
-		this.mOldRelativeX = oldRelativeX;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeY(float)
-	 */
-	@Override
-	public void setOldRelativeY(float oldRelativeY) {
-		this.mOldRelativeY = oldRelativeY;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeX(float)
-	 */
-	@Override
-	public void setRelativeX(float relativeX) {
-		this.mRelativeX = relativeX;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeY(float)
-	 */
-	@Override
-	public void setRelativeY(float relativeY) {
-		this.mRelativeY = relativeY;
-	}
+	
 
 }

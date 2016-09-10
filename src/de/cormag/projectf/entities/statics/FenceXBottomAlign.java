@@ -20,7 +20,7 @@ public class FenceXBottomAlign extends StaticEntity {
 	}
 
 	public void render(Graphics g) {
-		super.render(g, Assets.fenceX, WIDTH, HEIGHT);
+		super.render(g, Assets.fenceX);
 
 	}
 

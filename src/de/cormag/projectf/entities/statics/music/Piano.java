@@ -44,10 +44,7 @@ public class Piano extends MusicPlayingDevice {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(Assets.piano, (int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()), WIDTH, HEIGHT, null);
-
-		super.render(g);
+		super.render(g, Assets.piano);
 
 	}
 

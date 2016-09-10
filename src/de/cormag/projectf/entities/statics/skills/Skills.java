@@ -1,6 +1,7 @@
 package de.cormag.projectf.entities.statics.skills;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
@@ -23,8 +24,8 @@ public abstract class Skills extends StaticEntity {
 		
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	public void render(Graphics g, BufferedImage imageToDraw) {
+		super.render(g, imageToDraw);
 
 	}
 	

@@ -1,6 +1,5 @@
 package de.cormag.projectf.entities.creatures.humans.talkable;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
@@ -16,14 +15,8 @@ public class Efis extends TalkableHuman {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.efis_down[1], (int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-
-		g.setColor(Color.black);
-
-		super.render(g);
+		super.render(g, Assets.efis_down[1]);
 
 	}
 

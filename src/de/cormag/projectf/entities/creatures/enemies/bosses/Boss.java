@@ -1,8 +1,6 @@
 package de.cormag.projectf.entities.creatures.enemies.bosses;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,15 +18,10 @@ public abstract class Boss extends Enemy {
 
 	}
 
-	public void render(Graphics g, BufferedImage left, BufferedImage right, BufferedImage up, BufferedImage down) {
-		super.render(g, left, right, up, down);
-
-	}
-
 	public void update() {
 		super.update();
 
-		visionField = new Rectangle((int) (x - xOffset - width / 2), (int) (y - yOffset + height), width * 2,
+		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2,
 				height * 2);
 
 		if ((seenPlayer || damagedOnce) && !handler.getGame().getStateManager().getGameState().getHUDState()

@@ -79,6 +79,11 @@ public class EntityManager implements Serializable {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public List<Entity> getEntityList(){
+		return entities;
+		
+	}
 
 	public Iterator<Entity> getEntities() {
 

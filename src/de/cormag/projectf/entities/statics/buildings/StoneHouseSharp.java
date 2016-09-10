@@ -32,9 +32,8 @@ public class StoneHouseSharp extends EnterableBuilding {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.stoneHouseSharp, WIDTH, HEIGHT);
+		super.render(g, Assets.stoneHouseSharp);
 
 	}
 

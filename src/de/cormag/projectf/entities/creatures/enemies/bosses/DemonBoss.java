@@ -40,11 +40,11 @@ public class DemonBoss extends Boss implements Serializable {
 		super.update();
 
 	}
-
-	@Override
+	
+	
 	public void render(Graphics g) {
-		super.render(g, Assets.demonBoss_left[1], Assets.demonBoss_right[1], Assets.demonBoss_up[1],
-				Assets.demonBoss_down[1]);
+		super.render(g, getCurrentAnimationFrame(Assets.demonBoss_left[1], Assets.demonBoss_right[1], Assets.demonBoss_up[1],
+				Assets.demonBoss_down[1]));
 
 	}
 

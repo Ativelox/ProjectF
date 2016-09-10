@@ -40,9 +40,8 @@ public class Zombie extends Monster implements Serializable {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.zombie_left[1], Assets.zombie_right[1], Assets.zombie_up[1], Assets.zombie_down[1]);
+		super.render(g, getCurrentAnimationFrame(Assets.zombie_left[1], Assets.zombie_right[1], Assets.zombie_up[1], Assets.zombie_down[1]));
 	}
 
 	@Override

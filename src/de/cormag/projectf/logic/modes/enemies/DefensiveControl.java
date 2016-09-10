@@ -1,8 +1,11 @@
 package de.cormag.projectf.logic.modes.enemies;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Optional;
 
+import de.cormag.projectf.entities.Entity;
+import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.ISpatial;
@@ -11,6 +14,7 @@ import de.cormag.projectf.entities.properties.offensive.IOffensiveable;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.movement.IMoveBehavior;
 import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
+import de.cormag.projectf.main.Handler;
 
 /**
  * Controls the behavior of objects defensively. It will attack other objects
@@ -23,7 +27,7 @@ public final class DefensiveControl implements IModeControl {
 	/**
 	 * Minimal distance to target in pixel for an offensive action.
 	 */
-	private static final float MINIMAL_TRIGGER_DISTANCE = 15;
+	private static final float MINIMAL_TRIGGER_DISTANCE = 50;
 
 	/**
 	 * Error message when trying to pass a object that is missing interfaces.
@@ -52,6 +56,8 @@ public final class DefensiveControl implements IModeControl {
 	 * The entity which is controlled by this object.
 	 */
 	private final ISpatial mParent;
+	
+	private final Handler mHandler;
 
 	/**
 	 * Creates a new defensive movement control object which lets an object
@@ -66,8 +72,9 @@ public final class DefensiveControl implements IModeControl {
 	 *            Offensive order receiving behavior
 	 */
 	public DefensiveControl(final ISpatial parent, final IMoveBehavior moveReceiver,
-			final IOffensiveBehavior offensiveReceiver) {
+			final IOffensiveBehavior offensiveReceiver, final Handler handler) {
 		mParent = parent;
+		mHandler = handler;
 		mMoveReceiver = moveReceiver;
 		mOffensiveReceiver = offensiveReceiver;
 		mIsActive = false;
@@ -103,7 +110,6 @@ public final class DefensiveControl implements IModeControl {
 	 * 
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	public void update() {
 		// Pass update call to the receivers
@@ -117,26 +123,38 @@ public final class DefensiveControl implements IModeControl {
 
 		// Case 1: Object is not attacking and chasing another object.
 		if (!mOffensiveTarget.isPresent() && !mMoveReceiver.isMoving()) {
-			// TODO Select a target, if there is one in sight and
-			// assign instead of null. Target must be IOffensiveable, ICanMove
-			// and ISpatial.
-			IOffensiveable target = null;
 
+			IOffensiveable target = null;
+			
+			List<Entity> entityList = mHandler.getWorld().getEntityManager().getEntityList();
+			
+			for(Entity e : entityList){
+				if(e instanceof IOffensiveable){
+					if(((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())){
+						target = (IOffensiveable) e;
+						
+					}
+				}
+			}
+			
 			if (target != null) {
 				mOffensiveTarget = Optional.of(target);
+				
 			}
+				
 		}
 
 		// Case 2: Object is trying to attack another object.
 		if (mOffensiveTarget.isPresent()) {
 			IOffensiveable target = mOffensiveTarget.get();
-
-			boolean isCloseEnough = true;
+			boolean isCloseEnough = false;
+			
 			if (target instanceof ISpatial) {
 				ISpatial targetAsSpatial = (ISpatial) target;
 				Point2D targetPos = new Point2D.Float(targetAsSpatial.getRelativeX(), targetAsSpatial.getRelativeY());
 				Point2D parentPos = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
 				double distance = targetPos.distance(parentPos);
+				System.out.println(distance);
 				isCloseEnough = distance <= MINIMAL_TRIGGER_DISTANCE;
 			}
 

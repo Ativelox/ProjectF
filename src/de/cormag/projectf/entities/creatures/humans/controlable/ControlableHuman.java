@@ -7,12 +7,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.Creature;
-import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.entities.creatures.humans.Human;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
 import de.cormag.projectf.entities.properties.offensive.ICanAttack;
-import de.cormag.projectf.entities.properties.offensive.IOffensiveable;
 import de.cormag.projectf.entities.statics.skills.weapons.LongRangeSwipe;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
@@ -21,7 +19,7 @@ import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.GameOverState;
 
-public abstract class ControlableHuman extends Human implements ILively, IAttackable, ICanAttack, IOffensiveable{
+public abstract class ControlableHuman extends Human implements ILively, IAttackable, ICanAttack{
 
 	private static final long serialVersionUID = 1L;
 
@@ -87,15 +85,13 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 		updateStatsIfLeveledUp();
 
-		checkWeaponSkillUsage();
+//		checkWeaponSkillUsage();
 		
 		drawSword(handler.getKeyManager().space);
 
 		checkStaminaUsage();
 		
 		checkMagicUsage();
-
-		calculatePlayerGettingDamage();
 
 		dieIfDead();
 
@@ -108,15 +104,15 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 
 	public void render(Graphics g, BufferedImage imageToDraw) {
+		
+		super.render(g, imageToDraw);
 
 		drawLevelUpIfApplicable(g);
-
-		g.drawImage(imageToDraw, (int) (x - xOffset), (int) (y - yOffset), width, height, null);
-
-		super.render(g);
+		
 	}
 	
 
+	@SuppressWarnings("unused")
 	private void checkWeaponSkillUsage() {
 
 		if (handler.getKeyManager().one) {
@@ -254,50 +250,6 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 	
 
-	protected void calculatePlayerGettingDamage() {
-
-		if (checkEntityCollisions(0f, 10f) || checkEntityCollisions(10f, 0f) || checkEntityCollisions(0f, -10f)
-				|| checkEntityCollisions(-10f, 0f)) {
-
-			if (getCollidingEntity() instanceof Enemy) {
-				
-				Enemy e = (Enemy) getCollidingEntity();
-
-				if (!e.getDamaged()) {
-
-					if (this.health > 0) {
-
-						this.health -= e.getAttackValue();
-
-						e.setDamaged(true);
-
-						if (e.getDamaged()) {
-
-							Timer timer = new Timer();
-							timer.schedule(new TimerTask() {
-
-								@Override
-								public void run() {
-
-									e.setDamaged(false);
-
-								}
-							}, 1000);
-						}
-
-					} else {
-
-						this.health = 0;
-
-					}
-				}
-
-			}
-
-		}
-
-	}
-
 	private void drawSword(boolean key) {
 
 		if (key && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
@@ -370,11 +322,6 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	
 	public int getAttackPower(){
 		return getCurrentWeapon().getAttackValue();
-		
-	}
-	
-	public int getMaxHealth(){
-		return maxHealth;
 		
 	}
 
@@ -451,6 +398,21 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		return health;
 		
 	}
+	
+
+	@Override
+	public void setLifepoints(int amount) {
+		if(amount > maxHealth){
+			health = maxHealth;
+		}else{
+			health = amount;
+		}
+	}
+
+	@Override
+	public int getMaxLifepoints() {
+		return maxHealth;
+	}
 
 	public boolean isAlive(){
 		if(health > 0){
@@ -462,8 +424,11 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 
 	public void changeLifepoints(final int amount){
-		health = amount;
-		
+		if(health + amount > maxHealth ){
+			health = maxHealth;
+		}else{
+			health += amount;
+		}
 	}
 
 	@Override

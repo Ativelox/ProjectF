@@ -59,8 +59,8 @@ public class TutorialFields extends MusicWorld implements Serializable {
 
 		loadWorld(path);
 
-		player.setX(580);
-		player.setY(450);
+		player.setRelativeX(580);
+		player.setRelativeY(450);
 
 		defaultSoundtrack = "Town.pfsf";
 

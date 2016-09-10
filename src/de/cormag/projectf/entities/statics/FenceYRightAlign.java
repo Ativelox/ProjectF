@@ -18,7 +18,7 @@ public class FenceYRightAlign extends StaticEntity {
 	}
 
 	public void render(Graphics g) {
-		super.render(g, Assets.fenceY, WIDTH, HEIGHT);
+		super.render(g, Assets.fenceY);
 
 	}
 

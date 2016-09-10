@@ -13,16 +13,16 @@ public class MonsterHealthBar extends HUDElement {
 	public MonsterHealthBar(Enemy enemy) {
 
 		this.enemy = enemy;
-		seenPlayer = enemy.getSeenPlayer();
-		damagedOnce = enemy.getDamagedOnce();
+		seenPlayer = enemy.seenPlayer();
+		damagedOnce = enemy.damagedOnce();
 
 	}
 
 	@Override
 	public void tick() {
 
-		seenPlayer = enemy.getSeenPlayer();
-		damagedOnce = enemy.getDamagedOnce();
+		seenPlayer = enemy.seenPlayer();
+		damagedOnce = enemy.damagedOnce();
 
 	}
 
@@ -31,8 +31,8 @@ public class MonsterHealthBar extends HUDElement {
 
 		if (seenPlayer || damagedOnce) {
 
-			float healthbarWidthGray = (float) ((enemy.getWidth() / enemy.getMaxHealth()) * enemy.getMaxHealth());
-			float healthbarWidthRed = (float) ((enemy.getWidth() / enemy.getMaxHealth()) * enemy.getHealth());
+			float healthbarWidthGray = (float) ((enemy.getWidth() / enemy.getMaxLifepoints()) * enemy.getMaxLifepoints());
+			float healthbarWidthRed = (float) ((enemy.getWidth() / enemy.getMaxLifepoints()) * enemy.getLifepoints());
 
 			g.setColor(Color.gray);
 			g.fillRect(enemy.getProperCollisionRectangle().x + ((enemy.getBounds().width / 2) - (enemy.getWidth() / 2)),

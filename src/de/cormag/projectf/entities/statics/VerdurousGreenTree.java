@@ -23,7 +23,7 @@ public class VerdurousGreenTree extends StaticEntity {
 	}
 
 	public void render(Graphics g) {
-		super.render(g, Assets.verdurousGreenTree, WIDTH, HEIGHT);
+		super.render(g, Assets.verdurousGreenTree);
 
 	}
 

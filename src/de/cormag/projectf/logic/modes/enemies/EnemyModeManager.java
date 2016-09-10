@@ -1,6 +1,6 @@
 package de.cormag.projectf.logic.modes.enemies;
 
-import de.cormag.projectf.entities.particles.Particle;
+import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.logic.modes.AModeManager;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.modes.UnsupportedModeException;
@@ -26,6 +26,9 @@ public final class EnemyModeManager extends AModeManager {
 	 * The control object for the mode {@link EEnemyMode#DEFENSIVE DEFENSIVE}.
 	 */
 	private final IModeControl mDefensiveControl;
+	
+	@SuppressWarnings("unused")
+	private final Enemy mParent;
 
 	/**
 	 * Creates a new enemy mode manager which belongs to a given enemy.
@@ -41,10 +44,11 @@ public final class EnemyModeManager extends AModeManager {
 	 * @param initialMode
 	 *            The initial mode for the object
 	 */
-	public EnemyModeManager(final Particle parent, final IModeControl aggressiveControl,
+	public EnemyModeManager(final Enemy parent, final IModeControl aggressiveControl,
 			final IModeControl defensiveControl, final EEnemyMode initialMode) {
 		super(parent);
-
+		
+		mParent = parent;
 		mAggressiveControl = aggressiveControl;
 		mDefensiveControl = defensiveControl;
 
@@ -70,9 +74,11 @@ public final class EnemyModeManager extends AModeManager {
 	public void update() {
 		getCurrentModeControl().update();
 
-		// TODO Some logic to determine when to change modes, do not forget to
-		// terminate the old control and to activate the new, when changing
-		// modes.
+//		if(mParent.seenPlayer() || mParent.damagedOnce()){
+//			mDefensiveControl.terminate();
+//			mAggressiveControl.activate();
+//		}
+		
 	}
 
 	/*

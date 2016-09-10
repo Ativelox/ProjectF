@@ -39,8 +39,8 @@ public abstract class LeaveableBuilding extends World {
 
 		if (checkPlayerLeaveableTileCollision()) {
 
-			handler.setWorld(new LoadingScreen(handler.getLastWorld(), handler, handler.getPlayer().getLastX(),
-					handler.getPlayer().getLastY()));
+			handler.setWorld(new LoadingScreen(handler.getLastWorld(), handler, handler.getPlayer().getRelativeX(),
+					handler.getPlayer().getRelativeY()));
 
 		}
 

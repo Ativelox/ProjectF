@@ -9,10 +9,11 @@ import java.util.Iterator;
 
 import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
 import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.main.Handler;
 
-public abstract class Entity implements Serializable, IRenderable, IUpdateable {
+public abstract class Entity implements Serializable, IRenderable, IUpdateable, ISpatial {
 
 	public static final int DEFAULT_COLLISION_PADDDING = 7;
 
@@ -28,6 +29,28 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 
 	protected float xOffset, yOffset;
 
+	/**
+	 * Holds the x-coordinate relative to the camera, i.e. the world position,
+	 * of the last tick.
+	 */
+	private float mOldRelativeX;
+	/**
+	 * Holds the y-coordinate relative to the camera, i.e. the world position,
+	 * of the last tick.
+	 */
+	private float mOldRelativeY;
+	/**
+	 * Holds the current x-coordinate relative to the camera, i.e. the world
+	 * position.
+	 */
+	private float mRelativeX;
+	/**
+	 * Holds the current y-coordinate relative to the camera, i.e. the world
+	 * position.
+	 */
+	private float mRelativeY;
+
+
 	public Entity(Handler handler, float x, float y, int width, int height) {
 		this.handler = handler;
 		this.x = x;
@@ -39,6 +62,11 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 		yOffset = 0;
 
 		setBounds(new Rectangle(0, 0, width, height));
+		
+		setOldRelativeX(x);
+		setOldRelativeY(y);
+		setRelativeX(x);
+		setRelativeY(y);
 	}
 
 	public void applyResources() {
@@ -66,6 +94,11 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 
 		}
 	}
+	
+	public Iterator<Entity> getEntityIterator(){
+		return handler.getWorld().getEntityManager().getEntities();
+		
+	}
 
 	public Rectangle getBounds() {
 		return bounds;
@@ -78,7 +111,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 	}
 
 	public Rectangle getCollisionBounds(float xOffset, float yOffset) {
-		return new Rectangle((int) (x + getBounds().x + xOffset), (int) (y + getBounds().y + yOffset),
+		return new Rectangle((int) (getRelativeX() + getBounds().x + xOffset), (int) (getRelativeY() + getBounds().y + yOffset),
 				getBounds().width, getBounds().height);
 	}
 
@@ -96,7 +129,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 
 	public Point getEntityCenter(float xOffset, float yOffset) {
 
-		return new Point((int) (x - xOffset + width / 2), (int) (y - yOffset + height / 2));
+		return new Point((int) (getX() + width / 2), (int) (getY() + height / 2));
 
 	}
 
@@ -150,7 +183,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 	 */
 	@Override
 	public void render(Graphics g) {
-
+		
 		renderHitBox(g);
 
 	}
@@ -211,16 +244,105 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable {
 	@Override
 	public void update() {
 
+		setOldRelativeX(getRelativeX());
+		setOldRelativeY(getRelativeY());
+
 		xOffset = handler.getGameCamera().getxOffset();
 		yOffset = handler.getGameCamera().getyOffset();
 
-		hasMoved = false;
+//		// Translate relative movement to absolute
+		setX(getRelativeX() - xOffset);
+		setY(getRelativeY() - yOffset);
+
+		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 	}
 
 	protected void renderHitBox(Graphics g) {
 
 		g.setColor(Color.orange);
-		g.drawRect((int) (x + bounds.x - xOffset), (int) (y + bounds.y - yOffset), bounds.width, bounds.height);
+		g.drawRect((int) getX() + bounds.x, (int) getY() + bounds.y, bounds.width, bounds.height);
 
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeX()
+	 */
+	@Override
+	public float getOldRelativeX() {
+		return mOldRelativeX;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeY()
+	 */
+	@Override
+	public float getOldRelativeY() {
+		return mOldRelativeY;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeX()
+	 */
+	@Override
+	public float getRelativeX() {
+		return mRelativeX;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeY()
+	 */
+	@Override
+	public float getRelativeY() {
+		return mRelativeY;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeX(float)
+	 */
+	@Override
+	public void setOldRelativeX(float oldRelativeX) {
+		this.mOldRelativeX = oldRelativeX;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeY(float)
+	 */
+	@Override
+	public void setOldRelativeY(float oldRelativeY) {
+		this.mOldRelativeY = oldRelativeY;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeX(float)
+	 */
+	@Override
+	public void setRelativeX(float relativeX) {
+		this.mRelativeX = relativeX;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeY(float)
+	 */
+	@Override
+	public void setRelativeY(float relativeY) {
+		this.mRelativeY = relativeY;
 	}
 }

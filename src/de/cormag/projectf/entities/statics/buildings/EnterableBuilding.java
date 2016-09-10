@@ -31,20 +31,20 @@ public abstract class EnterableBuilding extends StaticEntity {
 
 		this.id = id;
 
-		doorHitbox = new Rectangle((int) (x - xOffset + doorX), (int) (y - yOffset + doorY), doorWidth, doorHeight);
+		doorHitbox = new Rectangle((int) (getX() + doorX), (int) (getY() + doorY), doorWidth, doorHeight);
 
 	}
 
 	public void update() {
 		super.update();
 
-		doorHitbox = new Rectangle((int) (x - xOffset + doorX), (int) (y - yOffset + doorY), doorWidth, doorHeight);
+		doorHitbox =  new Rectangle((int) (getX() + doorX), (int) (getY() + doorY), doorWidth, doorHeight);
 		enterBuildingIfEntered();
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw, int width, int height) {
-		super.render(g, imageToDraw, width, height);
+	public void render(Graphics g, BufferedImage imageToDraw) {
+		super.render(g, imageToDraw);
 
 		if (checkPlayerDoorCollision()) {
 

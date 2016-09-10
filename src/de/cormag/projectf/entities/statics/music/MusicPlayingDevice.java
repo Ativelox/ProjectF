@@ -3,6 +3,7 @@ package de.cormag.projectf.entities.statics.music;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
@@ -47,8 +48,8 @@ public abstract class MusicPlayingDevice extends StaticEntity implements ICanPla
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	public void render(Graphics g, BufferedImage imageToDrawTo) {
+		super.render(g, imageToDrawTo);
 
 		if (handler.getPlayer().getProperCollisionRectangle().intersects(musicTriggerRect)) {
 

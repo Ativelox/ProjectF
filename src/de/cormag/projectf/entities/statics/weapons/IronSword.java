@@ -47,7 +47,6 @@ public class IronSword extends Weapon implements Serializable {
 		noAttackUp = Assets.default_sword_up;
 		noAttackDown = Assets.default_sword_down;
 
-		// steadyAnimation = Assets.default_sword_down;
 	}
 
 }

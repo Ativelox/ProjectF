@@ -91,7 +91,8 @@ public abstract class Weapon extends StaticEntity {
 
 	public void render(Graphics g) {
 		update();
-		g.drawImage(this.getCurrentAnimationFrame(), (int) (x - xOffset), (int) (y - yOffset), null);
+		
+		g.drawImage(this.getCurrentAnimationFrame(), (int) getX(), (int) getY(), null);
 		renderHitBox(g);
 
 	}

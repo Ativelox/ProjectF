@@ -1,6 +1,5 @@
 package de.cormag.projectf.entities.creatures.humans.talkable;
 
-import java.awt.Color;
 import java.awt.Graphics;
 //import java.awt.Rectangle;
 
@@ -16,15 +15,10 @@ public class FemaleNPC extends TalkableHuman {
 		super(handler, x, y, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATURE_HEIGHT);
 
 	}
-
-	@Override
+	
 	public void render(Graphics g) {
-		g.drawImage(Assets.female_NPC, (int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
-		g.setColor(Color.black);
-
-		super.render(g);
+		super.render(g, Assets.female_NPC);
 
 	}
 

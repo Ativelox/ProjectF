@@ -34,7 +34,7 @@ public class LongRangeSwipe extends Skills {
 	public void update() {
 		super.update();
 		
-		if(borderAdjustment !=null && (borderAdjustment.y + yOffset <= 0 || borderAdjustment.y + yOffset >= handler.getWorld().getHeight() * Tile.TILEHEIGHT
+		if(borderAdjustment != null && (borderAdjustment.y + yOffset <= 0 || borderAdjustment.y + yOffset >= handler.getWorld().getHeight() * Tile.TILEHEIGHT
 				|| borderAdjustment.x + xOffset <= 0 || borderAdjustment.x + xOffset >= handler.getWorld().getWidth() * Tile.TILEWIDTH)){
 			
 			direction = "";
@@ -56,8 +56,6 @@ public class LongRangeSwipe extends Skills {
 
 	public void render(Graphics g) {
 		renderWeaponSkill(g);
-		
-		super.render(g);
 	}
 	
 	public void setDirection(){
@@ -91,22 +89,22 @@ public class LongRangeSwipe extends Skills {
 
 		
 		if(direction.equals("up")){
-			borderAdjustment = new Rectangle((int) (x - xOffset - WIDTH / 4), (int) (y - yOffset - handler.getPlayer().getCurrentWeapon().getBounds().height) - topMovement, WIDTH, HEIGHT);
+			borderAdjustment = new Rectangle((int) (getX() - WIDTH / 4), (int) (getY() - handler.getPlayer().getCurrentWeapon().getBounds().height) - topMovement, WIDTH, HEIGHT);
 			g.drawImage(Assets.longRangeSwipeTop, borderAdjustment.x, borderAdjustment.y, borderAdjustment.width, borderAdjustment.height, null);
 
 
 		}else if(direction.equals("down")){
-			borderAdjustment = new Rectangle((int) (x - xOffset - WIDTH / 4), (int) (y - yOffset + Player.DEFAULT_CREATURE_HEIGHT + handler.getPlayer().getCurrentWeapon().getBounds().height) + topMovement, WIDTH, HEIGHT);
+			borderAdjustment = new Rectangle((int) (getX() - WIDTH / 4), (int) (getY() + Player.DEFAULT_CREATURE_HEIGHT + handler.getPlayer().getCurrentWeapon().getBounds().height) + topMovement, WIDTH, HEIGHT);
 			g.drawImage(Assets.longRangeSwipeBottom, borderAdjustment.x, borderAdjustment.y, borderAdjustment.width, borderAdjustment.height, null);
 
 
 		}else if(direction.equals("left")){
-			borderAdjustment = new Rectangle((int) (x - xOffset - handler.getPlayer().getCurrentWeapon().getBounds().width) - topMovement, (int) (y - yOffset), HEIGHT, WIDTH);
+			borderAdjustment = new Rectangle((int) (getX() - handler.getPlayer().getCurrentWeapon().getBounds().width) - topMovement, (int) (getY()), HEIGHT, WIDTH);
 			g.drawImage(Assets.longRangeSwipeLeft, borderAdjustment.x, borderAdjustment.y, borderAdjustment.width, borderAdjustment.height, null);
 
 
 		}else if(direction.equals("right")){
-			borderAdjustment = new Rectangle((int) (x - xOffset + Player.DEFAULT_CREATURE_WIDTH + handler.getPlayer().getCurrentWeapon().getBounds().width) + topMovement, (int) (y - yOffset) , HEIGHT, WIDTH);
+			borderAdjustment = new Rectangle((int) (getX() + Player.DEFAULT_CREATURE_WIDTH + handler.getPlayer().getCurrentWeapon().getBounds().width) + topMovement, (int) (getY()) , HEIGHT, WIDTH);
 			g.drawImage(Assets.longRangeSwipeRight, borderAdjustment.x, borderAdjustment.y, borderAdjustment.width, borderAdjustment.height, null);
 
 

@@ -45,10 +45,9 @@ public class VikingBoss extends Boss {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.mattiBoss_left[1], Assets.mattiBoss_right[1], Assets.mattiBoss_up[1],
-				Assets.mattiBoss_down[1]);
+		super.render(g, getCurrentAnimationFrame(Assets.mattiBoss_left[1], Assets.mattiBoss_right[1], Assets.mattiBoss_up[1],
+				Assets.mattiBoss_down[1]));
 
 	}
 

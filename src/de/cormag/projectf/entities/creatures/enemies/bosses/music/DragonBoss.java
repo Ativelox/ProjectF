@@ -43,10 +43,9 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.dragonBoss_left[1], Assets.dragonBoss_right[1], Assets.dragonBoss_up[1],
-				Assets.dragonBoss_down[1]);
+		super.render(g, getCurrentAnimationFrame(Assets.dragonBoss_left[1], Assets.dragonBoss_right[1], Assets.dragonBoss_up[1],
+				Assets.dragonBoss_down[1]));
 	}
 
 	@Override

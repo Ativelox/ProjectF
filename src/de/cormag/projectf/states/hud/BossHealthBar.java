@@ -20,8 +20,8 @@ public class BossHealthBar extends HUDElement {
 		this.enemy = enemy;
 		this.handler = handler;
 
-		health = enemy.getHealth();
-		maxHealth = enemy.getMaxHealth();
+		health = enemy.getLifepoints();
+		maxHealth = enemy.getMaxLifepoints();
 		name = enemy.getName();
 		damaged = enemy.getDamaged();
 
@@ -30,8 +30,8 @@ public class BossHealthBar extends HUDElement {
 	@Override
 	public void tick() {
 
-		health = enemy.getHealth();
-		maxHealth = enemy.getMaxHealth();
+		health = enemy.getLifepoints();
+		maxHealth = enemy.getMaxLifepoints();
 		name = enemy.getName();
 		damaged = enemy.getDamaged();
 

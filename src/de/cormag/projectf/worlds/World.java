@@ -271,9 +271,9 @@ public abstract class World implements Serializable {
 		if (!(handler.getWorld() instanceof LoadingScreen)) {
 
 			int playerTileX = (int) Math
-					.ceil(((handler.getPlayer().getX() + (handler.getPlayer().getWidth() / 2)) / 64) - 1);
+					.ceil(((handler.getPlayer().getRelativeX() + (handler.getPlayer().getWidth() / 2)) / 64) - 1);
 			int playerTileY = (int) Math
-					.ceil(((handler.getPlayer().getY() + (handler.getPlayer().getHeight())) / 64) - 1);
+					.ceil(((handler.getPlayer().getRelativeY() + (handler.getPlayer().getHeight())) / 64) - 1);
 
 			if (getTile(playerTileX, playerTileY) instanceof TeleportTile) {
 

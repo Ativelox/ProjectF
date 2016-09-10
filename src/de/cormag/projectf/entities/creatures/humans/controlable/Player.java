@@ -15,7 +15,6 @@ public class Player extends ControlableHuman implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private transient boolean inventory;
-	private float lastX, lastY;
 	private TalkableHuman lastEncountered;
 	private Handler handler;
 
@@ -33,7 +32,7 @@ public class Player extends ControlableHuman implements Serializable {
 	@Override
 	public void update() {
 		super.update();
-
+		
 		handler.getGameCamera().centerOnEntity(this);
 
 		talk(false);
@@ -42,13 +41,11 @@ public class Player extends ControlableHuman implements Serializable {
 
 	}
 
-	@Override
 	public void render(Graphics g) {
-
-		renderTalkNotification(g);
-
 		super.render(g, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
 				Assets.player_down[1]));
+		
+		renderTalkNotification(g);
 
 	}
 
@@ -108,43 +105,14 @@ public class Player extends ControlableHuman implements Serializable {
 	public void setInventoryStatus(boolean inventory) {
 
 		this.inventory = inventory;
-
 	}
 
-	@Override
-	public void setX(float x) {
-
-		lastX = this.x;
-
-		this.x = x;
-
-	}
-
-	@Override
-	public void setY(float y) {
-
-		lastY = this.y;
-
-		this.y = y;
-
-	}
-
-	public float getLastX() {
-
-		return lastX;
-
-	}
-
-	public float getLastY() {
-
-		return lastY;
-
-	}
 
 	@Override
 	public void applyResources() {
 		super.applyResources();
 
 	}
+
 
 }

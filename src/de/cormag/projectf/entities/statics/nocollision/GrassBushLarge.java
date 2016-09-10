@@ -19,9 +19,8 @@ public class GrassBushLarge extends NoCollision {
 		getBounds().height = 0;
 	}
 
-	@Override
 	public void render(Graphics g) {
-		super.render(g, Assets.grassBushLarge, WIDTH, HEIGHT);
+		super.render(g, Assets.grassBushLarge);
 
 	}
 
