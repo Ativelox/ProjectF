@@ -116,14 +116,14 @@ public class InventoryState extends State {
 
 		g.fillRoundRect(350, 220, (200 / player.getMaxHealth()) * player.getMaxHealth(), 15, 10, 10);
 		g.setColor(new Color(180, 50, 30));
-		g.fillRoundRect(350, 220, (200 / player.getMaxHealth()) * player.getHealth(), 15, 10, 10);
+		g.fillRoundRect(350, 220, (200 / player.getMaxHealth()) * player.getLifepoints(), 15, 10, 10);
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 23));
 		g.drawString("HP", 330, 220);
 
 		g.setColor(new Color(50, 50, 50));
-		g.drawString(player.getHealth() + "/" + player.getMaxHealth(), 410, 225);
+		g.drawString(player.getLifepoints() + "/" + player.getMaxHealth(), 410, 225);
 
 	}
 

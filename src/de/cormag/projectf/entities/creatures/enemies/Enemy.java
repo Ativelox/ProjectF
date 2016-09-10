@@ -12,25 +12,37 @@ import java.util.TimerTask;
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.properties.ILively;
+import de.cormag.projectf.entities.properties.offensive.IAttackable;
+import de.cormag.projectf.entities.properties.offensive.ICanAttack;
+import de.cormag.projectf.entities.properties.offensive.ICanOffensive;
 import de.cormag.projectf.entities.statics.skills.Skills;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.main.Handler;
 
-public abstract class Enemy extends Creature {
+public abstract class Enemy extends Creature implements ILively, IAttackable, ICanAttack, ICanOffensive{
 
 	private static final long serialVersionUID = 1L;
 
+	public static final int DEFAULT_HEALTH = 10;
+	
 	protected Rectangle visionField;
 	protected boolean seenPlayer;
 	protected boolean damagedOnce;
 	protected String name;
 	protected int awardedExp;
 	protected Player player;
+	protected int health;
+	protected int maxHealth;
+	protected boolean damaged;
+	protected int attackValue;
 
 	public Enemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-
+		
+		health = DEFAULT_HEALTH;
+		maxHealth = DEFAULT_HEALTH;
 		damaged = false;
 		damagedOnce = false;
 		seenPlayer = false;
@@ -249,6 +261,29 @@ public abstract class Enemy extends Creature {
 
 		super.render(g);
 	}
+	
+	public int getAttackPower(){
+		return attackValue;
+		
+	}
+	
+	public int getLifepoints(){
+		return health;
+		
+	}
+
+	public boolean isAlive(){
+		if(health > 0){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+
+	public void changeLifepoints(final int amount){
+		health = amount;
+	}
 
 	public boolean getSeenPlayer() {
 
@@ -266,5 +301,39 @@ public abstract class Enemy extends Creature {
 		return name;
 
 	}
+	
+	public int getHealth(){
+		return health;
+		
+	}
+	
+
+	public void setHealth(int health) {
+
+		this.health = health;
+	}
+
+	public int getAttackValue() {
+
+		return attackValue;
+
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+
+	}
+
+	public boolean getDamaged() {
+
+		return damaged;
+	}
+
+	public void setDamaged(boolean bool) {
+
+		this.damaged = bool;
+
+	}
+
 
 }

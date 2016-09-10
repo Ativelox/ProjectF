@@ -3,24 +3,20 @@ package de.cormag.projectf.entities.creatures;
 import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.Entity;
+import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
 
-public abstract class Creature extends Entity {
+public abstract class Creature extends Entity implements ICanMove{
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int DEFAULT_HEALTH = 10;
 	public static final float DEFAULT_SPEED = 4.0f;
 	public static final int DEFAULT_CREATURE_WIDTH = 64, DEFAULT_CREATURE_HEIGHT = 64;
-	public int health;
 	protected float speed;
 	protected float runningSpeed;
 	protected float xMove, yMove;
-	protected int maxHealth;
-	protected int attackValue;
-	protected boolean damaged;
 
 	protected transient Animation walkingAnimDown, walkingAnimUp, walkingAnimLeft, walkingAnimRight, runningAnimDown,
 			runningAnimUp, runningAnimLeft, runningAnimRight;
@@ -28,13 +24,31 @@ public abstract class Creature extends Entity {
 	protected boolean sprinting;
 
 	transient protected BufferedImage steadyAnimation;
+	
+	/**
+	 * Holds the x-coordinate relative to the camera, i.e. the world position,
+	 * of the last tick.
+	 */
+	private float mOldRelativeX;
+	/**
+	 * Holds the y-coordinate relative to the camera, i.e. the world position,
+	 * of the last tick.
+	 */
+	private float mOldRelativeY;
+	/**
+	 * Holds the current x-coordinate relative to the camera, i.e. the world
+	 * position.
+	 */
+	private float mRelativeX;
+	/**
+	 * Holds the current y-coordinate relative to the camera, i.e. the world
+	 * position.
+	 */
+	private float mRelativeY;
 
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
 		speed = DEFAULT_SPEED;
-		health = DEFAULT_HEALTH;
-		maxHealth = DEFAULT_HEALTH;
-		damaged = false;
 		sprinting = false;
 		runningSpeed = Creature.DEFAULT_SPEED * 2;
 		xMove = 0;
@@ -189,6 +203,17 @@ public abstract class Creature extends Entity {
 
 	public void update() {
 		super.update();
+		
+//		setOldRelativeX(getRelativeX());
+//		setOldRelativeY(getRelativeY());
+//
+//		super.update();
+//
+//		// Translate relative movement to absolute
+//		setX(getRelativeX() - xOffset);
+//		setY(getRelativeY() - yOffset);
+//
+//		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 
 	}
 
@@ -221,37 +246,87 @@ public abstract class Creature extends Entity {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-
-	public int getHealth() {
-
-		return health;
-
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeX()
+	 */
+	@Override
+	public float getOldRelativeX() {
+		return mOldRelativeX;
 	}
 
-	public void setHealth(int health) {
-
-		this.health = health;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getOldRelativeY()
+	 */
+	@Override
+	public float getOldRelativeY() {
+		return mOldRelativeY;
 	}
 
-	public int getAttackValue() {
-
-		return attackValue;
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeX()
+	 */
+	@Override
+	public float getRelativeX() {
+		return mRelativeX;
 	}
 
-	public int getMaxHealth() {
-		return maxHealth;
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#getRelativeY()
+	 */
+	@Override
+	public float getRelativeY() {
+		return mRelativeY;
 	}
 
-	public boolean getDamaged() {
-
-		return damaged;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeX(float)
+	 */
+	@Override
+	public void setOldRelativeX(float oldRelativeX) {
+		this.mOldRelativeX = oldRelativeX;
 	}
 
-	public void setDagamed(boolean bool) {
-
-		this.damaged = bool;
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.cormag.projectf.entities.properties.ISpatial#setOldRelativeY(float)
+	 */
+	@Override
+	public void setOldRelativeY(float oldRelativeY) {
+		this.mOldRelativeY = oldRelativeY;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeX(float)
+	 */
+	@Override
+	public void setRelativeX(float relativeX) {
+		this.mRelativeX = relativeX;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.ISpatial#setRelativeY(float)
+	 */
+	@Override
+	public void setRelativeY(float relativeY) {
+		this.mRelativeY = relativeY;
+	}
+
 }

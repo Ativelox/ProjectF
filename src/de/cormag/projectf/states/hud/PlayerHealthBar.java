@@ -25,7 +25,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 		this.player = handler.getPlayer();
 
-		playerHealth = player.getHealth();
+		playerHealth = player.getLifepoints();
 		playerMaxHealth = player.getMaxHealth();
 		playerStamina = player.getStamina();
 		playerMaxStamina = player.getMaxStamina();
@@ -36,7 +36,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 	public void tick() {
 
-		playerHealth = player.getHealth();
+		playerHealth = player.getLifepoints();
 		playerMaxHealth = player.getMaxHealth();
 		playerStamina = player.getStamina();
 		playerMaxStamina = player.getMaxStamina();
