@@ -1,8 +1,5 @@
 package de.cormag.projectf.utils.time;
 
-import java.time.Duration;
-import java.time.Instant;
-
 /**
  * Object which provides various information about the game time. For example
  * the time since last update. For creation, use factory methods like
@@ -12,25 +9,6 @@ import java.time.Instant;
  *
  */
 public final class GameTime {
-
-	/**
-	 * Constant which converts seconds to nanoseconds if multiplied with.
-	 */
-	private static final float SECONDS_TO_NANO = 1_000_000_000.0f;
-
-	/**
-	 * Converts a time unit given in nanoseconds to seconds, with float
-	 * precision.
-	 * 
-	 * @param nanoToConvert
-	 *            The time in nanoseconds to convert
-	 * @return A time unit given seconds which represents the input, with float
-	 *         precision
-	 */
-	public static float convertNanoToSeconds(final long nanoToConvert) {
-		return nanoToConvert / SECONDS_TO_NANO;
-	}
-
 	/**
 	 * Creates a new game time object which from the object used in the last
 	 * update. This object should be used for the second and all succeeding
@@ -38,10 +16,12 @@ public final class GameTime {
 	 * 
 	 * @param lastGameTime
 	 *            Game time object from the last game update cycle
+	 * @param lastUpdateEndTime
+	 *            Time snapshot from the end of the last update cycle.
 	 * @return A new game time object for the current update cycle
 	 */
-	public static GameTime createGameTimeSnapshotFromLast(final GameTime lastGameTime) {
-		GameTime time = new GameTime(lastGameTime.getGameStartTime(), Instant.now());
+	public static GameTime createGameTimeSnapshotFromLast(final GameTime lastGameTime, final Time lastUpdateEndTime) {
+		GameTime time = new GameTime(lastGameTime.getGameStartTime(), lastUpdateEndTime);
 		return time;
 	}
 
@@ -52,7 +32,7 @@ public final class GameTime {
 	 * @return A new game time object for the first update cycle
 	 */
 	public static GameTime createInitialGameTimeSnapshot() {
-		GameTime time = new GameTime(Instant.now(), Instant.now());
+		GameTime time = new GameTime(Time.now(), Time.now());
 		return time;
 	}
 
@@ -60,12 +40,12 @@ public final class GameTime {
 	 * Time snapshot from the start of the game, i.e. the start of the first
 	 * update.
 	 */
-	private final Instant mGameStartTime;
+	private final Time mGameStartTime;
 
 	/**
-	 * Time snapshot from the start of the current update.
+	 * Time snapshot from the end of the last update cycle.
 	 */
-	private final Instant mUpdateStartTime;
+	private final Time mLastUpdateEndTime;
 
 	/**
 	 * Creates a new game time object with given time snapshots.
@@ -73,21 +53,21 @@ public final class GameTime {
 	 * @param gameStartTime
 	 *            Time snapshot from the start of the game, i.e. the start of
 	 *            the first update
-	 * @param updateStartTime
-	 *            Time snapshot from the start of the current update
+	 * @param lastUpdateEndTime
+	 *            Time snapshot from the end of the last update cycle.
 	 */
-	private GameTime(final Instant gameStartTime, final Instant updateStartTime) {
+	private GameTime(final Time gameStartTime, final Time lastUpdateEndTime) {
 		mGameStartTime = gameStartTime;
-		mUpdateStartTime = updateStartTime;
+		mLastUpdateEndTime = lastUpdateEndTime;
 	}
 
 	/**
-	 * Gets the duration between the start of the current update and now.
+	 * Gets the duration between the end of the last update and now.
 	 * 
-	 * @return The duration between the start of the current update and now
+	 * @return The duration between the end of the last update and now
 	 */
-	public Duration getElapsedTime() {
-		return Duration.between(mUpdateStartTime, Instant.now());
+	public Time getElapsedTime() {
+		return Time.between(mLastUpdateEndTime, Time.now());
 	}
 
 	/**
@@ -97,8 +77,17 @@ public final class GameTime {
 	 * @return A time snapshot from the start of the game, i.e. the start of the
 	 *         first update
 	 */
-	public Instant getGameStartTime() {
+	public Time getGameStartTime() {
 		return mGameStartTime;
+	}
+
+	/**
+	 * Gets a time snapshot from the end of the last update cycle.
+	 * 
+	 * @return A time snapshot from the end of the last update cycle.
+	 */
+	public Time getLastUpdateEndTime() {
+		return mLastUpdateEndTime;
 	}
 
 	/**
@@ -108,16 +97,7 @@ public final class GameTime {
 	 * @return The duration between the start of the game, i.e. the start of the
 	 *         first update, and now.
 	 */
-	public Duration getTotalElapsedTime() {
-		return Duration.between(mUpdateStartTime, Instant.now());
-	}
-
-	/**
-	 * Gets a time snapshot from the start of the current update.
-	 * 
-	 * @return A time snapshot from the start of the current update
-	 */
-	public Instant getUpdateStartTime() {
-		return mUpdateStartTime;
+	public Time getTotalElapsedTime() {
+		return Time.between(mGameStartTime, Time.now());
 	}
 }

@@ -18,6 +18,7 @@ import de.cormag.projectf.states.GameState;
 import de.cormag.projectf.states.MenuState;
 import de.cormag.projectf.states.StateManager;
 import de.cormag.projectf.utils.time.GameTime;
+import de.cormag.projectf.utils.time.Time;
 import de.cormag.projectf.worlds.World;
 
 public class Game implements Runnable, IUpdateable {
@@ -171,6 +172,7 @@ public class Game implements Runnable, IUpdateable {
 		int timer = 0;
 		lastTime = System.nanoTime();
 		GameTime gameTime = null;
+		Time lastUpdateEndTime = null;
 
 		while (running) {
 
@@ -186,10 +188,11 @@ public class Game implements Runnable, IUpdateable {
 				} else {
 					// Create a game time snapshot using the object from the
 					// last update cycle
-					gameTime = GameTime.createGameTimeSnapshotFromLast(gameTime);
+					gameTime = GameTime.createGameTimeSnapshotFromLast(gameTime, lastUpdateEndTime);
 				}
 
 				update(gameTime);
+				lastUpdateEndTime = Time.now();
 				ticksProcessed++;
 				render(gameTime);
 				ticksToProcess--;

@@ -1,5 +1,7 @@
 package de.cormag.projectf.logic.offensive;
 
+import java.time.temporal.ChronoUnit;
+
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
 import de.cormag.projectf.entities.properties.offensive.ICanAttack;
@@ -48,8 +50,8 @@ public final class AttackBehavior implements IAttackBehavior {
 		if (target instanceof ILively) {
 			ILively targetAsLively = (ILively) target;
 
-			float lifepointLoss = mParent.getAttackPower()
-					* GameTime.convertNanoToSeconds(gameTime.getElapsedTime().toNanos());
+			float lifepointLoss = (float) (mParent.getAttackPower()
+					* gameTime.getElapsedTime().get(ChronoUnit.SECONDS));
 			targetAsLively.changeLifepoints(-lifepointLoss);
 
 			// TODO Maybe play some sounds or do different stuff
