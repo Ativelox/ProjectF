@@ -10,6 +10,7 @@ import de.cormag.projectf.logic.modes.particles.PassiveWobbleControl;
 import de.cormag.projectf.logic.movement.IMoveBehavior;
 import de.cormag.projectf.logic.movement.TeleportMoveBehavior;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Small glowing particle which slowly moves around the scene for ambiance.
@@ -68,7 +69,7 @@ public final class Glow extends Particle {
 	 */
 	
 	@Override
-	public void render(final Graphics g) {
+	public void render(final Graphics g, final GameTime gameTime) {
 		g.setColor(INNER_COLOR);
 		g.fillOval((int) getX(), (int) getY(), getWidth(), getHeight());
 		g.setColor(OUTLINE_COLOR);
@@ -81,8 +82,8 @@ public final class Glow extends Particle {
 	 * @see de.cormag.projectf.entities.Entity#tick()
 	 */
 	@Override
-	public void update() {
-		super.update();
-		mModeManager.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
+		mModeManager.update(gameTime);
 	}
 }

@@ -2,6 +2,8 @@ package de.cormag.projectf.entities.properties;
 
 import java.awt.Graphics;
 
+import de.cormag.projectf.utils.time.GameTime;
+
 /**
  * Interface for renderable objects which also supports layers.
  * 
@@ -53,6 +55,9 @@ public interface IRenderable {
 	 * 
 	 * @param g
 	 *            Graphics to render with
+	 * @param gameTime
+	 *            Object which provides various time methods and perspectives
+	 *            for the current update cycle.
 	 */
-	public void render(final Graphics g);
+	public void render(final Graphics g, final GameTime gameTime);
 }

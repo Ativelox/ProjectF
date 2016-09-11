@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class StaticEntity extends Entity {
 
@@ -15,14 +16,15 @@ public abstract class StaticEntity extends Entity {
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw) {
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
 		g.drawImage(imageToDraw, (int) getX(), (int) getY(), getWidth(), getHeight(), null);
-		super.render(g);
+		super.render(g, gameTime);
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 	}
 

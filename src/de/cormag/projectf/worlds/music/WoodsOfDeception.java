@@ -4,8 +4,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import de.cormag.projectf.entities.EntityManager;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class WoodsOfDeception extends MusicWorld {
 
@@ -35,19 +37,21 @@ public class WoodsOfDeception extends MusicWorld {
 		comingFromFieldOne = new Point(1 * Tile.TILEWIDTH + handler.getPlayer().getWidth() / 2, 1);
 	}
 
-	public void tick() {
-		super.tick();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		changeWorldIfDemanded(handler.getFieldOne().getComingFromWoodsOfDeception(),
 				Tile.grassTeleportFWoodsOfDeceptionTFieldOne);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 	}
 
 	@Override
@@ -58,6 +62,15 @@ public class WoodsOfDeception extends MusicWorld {
 	public Point getComingFromFieldOne() {
 		return comingFromFieldOne;
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

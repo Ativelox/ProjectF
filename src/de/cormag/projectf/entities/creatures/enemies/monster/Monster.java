@@ -8,6 +8,7 @@ import java.io.Serializable;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.hud.MonsterHealthBar;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Monster extends Enemy implements Serializable {
 
@@ -157,8 +158,9 @@ public abstract class Monster extends Enemy implements Serializable {
 		}
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		if (tickcounts >= 60) {
 
@@ -170,13 +172,14 @@ public abstract class Monster extends Enemy implements Serializable {
 
 		changeVisionField();
 
-		monsterHealthBar.tick();
+		monsterHealthBar.update(gameTime);
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw) {
-		super.render(g, imageToDraw);
+	@Override
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
+		super.render(g, gameTime, imageToDraw);
 		
-		monsterHealthBar.render(g);
+		monsterHealthBar.render(g, gameTime);
 		showDamagedNumbers(g, this, 0, 0);
 
 	}

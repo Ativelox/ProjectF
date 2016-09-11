@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.Utils;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public class SelectionMusicBehavior extends MusicBehavior {
@@ -39,9 +40,9 @@ public class SelectionMusicBehavior extends MusicBehavior {
 	}
 
 	@Override
-	public void tickBGM() {
+	public void updateBGM(final GameTime gameTime) {
 
-		soundPlayer.tick();
+		soundPlayer.update(gameTime);
 
 	}
 

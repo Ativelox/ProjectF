@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class MonsterHealthBar extends HUDElement {
 
@@ -19,7 +20,7 @@ public class MonsterHealthBar extends HUDElement {
 	}
 
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		seenPlayer = enemy.seenPlayer();
 		damagedOnce = enemy.damagedOnce();
@@ -27,7 +28,7 @@ public class MonsterHealthBar extends HUDElement {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, final GameTime gameTime) {
 
 		if (seenPlayer || damagedOnce) {
 

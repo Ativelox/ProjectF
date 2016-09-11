@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.Utils;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.LoadingScreen;
 
 public abstract class EnterableBuilding extends StaticEntity {
@@ -35,16 +36,18 @@ public abstract class EnterableBuilding extends StaticEntity {
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		doorHitbox =  new Rectangle((int) (getX() + doorX), (int) (getY() + doorY), doorWidth, doorHeight);
 		enterBuildingIfEntered();
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw) {
-		super.render(g, imageToDraw);
+	@Override
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
+		super.render(g, gameTime, imageToDraw);
 
 		if (checkPlayerDoorCollision()) {
 

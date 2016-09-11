@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class Piano extends MusicPlayingDevice {
 
@@ -27,8 +28,9 @@ public class Piano extends MusicPlayingDevice {
 		getBounds().height = HEIGHT - handler.getPlayer().getProperCollisionRectangle().height;
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		musicTriggerRect = new Rectangle((int) (x - handler.getGameCamera().getxOffset()),
 				(int) (y - handler.getGameCamera().getyOffset()
@@ -43,8 +45,9 @@ public class Piano extends MusicPlayingDevice {
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g, Assets.piano);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, Assets.piano);
 
 	}
 

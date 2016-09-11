@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class FemaleNPC extends TalkableHuman {
 
@@ -16,9 +17,10 @@ public class FemaleNPC extends TalkableHuman {
 
 	}
 	
-	public void render(Graphics g) {
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
 
-		super.render(g, Assets.female_NPC);
+		super.render(g, gameTime, Assets.female_NPC);
 
 	}
 

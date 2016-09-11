@@ -3,8 +3,10 @@ package de.cormag.projectf.worlds.buildings;
 import java.awt.Graphics;
 
 import de.cormag.projectf.entities.EntityManager;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class DefaultInn extends LeaveableBuilding {
 
@@ -22,16 +24,18 @@ public class DefaultInn extends LeaveableBuilding {
 		loadWorld(path);
 	}
 
-	public void tick() {
-		super.tick();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 
 	}
 
@@ -40,6 +44,11 @@ public class DefaultInn extends LeaveableBuilding {
 
 		return entityManager;
 
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

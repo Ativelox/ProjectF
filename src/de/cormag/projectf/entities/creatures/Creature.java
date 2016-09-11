@@ -8,6 +8,7 @@ import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Creature extends Entity implements ICanMove{
 
@@ -40,9 +41,9 @@ public abstract class Creature extends Entity implements ICanMove{
 		getBounds().height = 2 * height / 3;
 	}
 	
-	public void render(Graphics g, BufferedImage image){
+	public void render(Graphics g, final GameTime gameTime, BufferedImage image){
 		g.drawImage(image, (int) getX(), (int) getY(), getWidth(), getHeight(), null); 
-		super.render(g);
+		super.render(g, gameTime);
 
 		
 	}
@@ -184,8 +185,9 @@ public abstract class Creature extends Entity implements ICanMove{
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 	}
 

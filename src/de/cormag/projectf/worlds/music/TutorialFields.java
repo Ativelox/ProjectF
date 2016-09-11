@@ -8,11 +8,13 @@ import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.humans.talkable.Efis;
 import de.cormag.projectf.entities.creatures.humans.talkable.FemaleNPC;
 import de.cormag.projectf.entities.particles.Glow;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSemiFlat;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSharp;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class TutorialFields extends MusicWorld implements Serializable {
 
@@ -77,23 +79,23 @@ public class TutorialFields extends MusicWorld implements Serializable {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		changeWorldIfDemanded(handler.getTutorialDesert().getComingFromTutorialFields(),
 				Tile.snowTeleportFTutorialFieldsTTutorialDesert);
 		changeWorldIfDemanded(handler.getFieldOne().getComingFromTutorialFields(),
 				Tile.snowTeleportFTutorialFieldsTFieldOne);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 
 	}
 
 	@Override
-	public void render(Graphics g) {
-		super.render(g);
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 
 	}
 
@@ -112,5 +114,10 @@ public class TutorialFields extends MusicWorld implements Serializable {
 
 	public Point getComingFromFieldOne() {
 		return comingFromFieldOne;
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 }

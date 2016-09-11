@@ -8,6 +8,7 @@ import de.cormag.projectf.entities.statics.skills.Skills;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class LongRangeSwipe extends Skills {
 
@@ -31,8 +32,9 @@ public class LongRangeSwipe extends Skills {
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 		
 		if(borderAdjustment != null && (borderAdjustment.y + yOffset <= 0 || borderAdjustment.y + yOffset >= handler.getWorld().getHeight() * Tile.TILEHEIGHT
 				|| borderAdjustment.x + xOffset <= 0 || borderAdjustment.x + xOffset >= handler.getWorld().getWidth() * Tile.TILEWIDTH)){
@@ -54,7 +56,8 @@ public class LongRangeSwipe extends Skills {
 	
 	}
 
-	public void render(Graphics g) {
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
 		renderWeaponSkill(g);
 	}
 	

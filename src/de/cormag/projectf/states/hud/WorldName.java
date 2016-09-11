@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import de.cormag.projectf.main.Game;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class WorldName extends HUDElement {
 
@@ -30,7 +31,7 @@ public class WorldName extends HUDElement {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, final GameTime gameTime) {
 		g.setColor(new Color(0, 0, 0, 200));
 
 		if (rectXFadeOut <= 0) {
@@ -58,7 +59,7 @@ public class WorldName extends HUDElement {
 	}
 
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		if (rectXFadeOut <= 0) {
 			return;

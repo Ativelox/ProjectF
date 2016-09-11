@@ -8,8 +8,10 @@ import java.util.TimerTask;
 import javax.sound.sampled.Clip;
 
 import de.cormag.projectf.entities.EntityManager;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public class LoadingScreen extends World {
@@ -108,7 +110,12 @@ public class LoadingScreen extends World {
 
 	}
 
-	public void render(Graphics g) {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.worlds.World#render(java.awt.Graphics, de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void render(final Graphics g, final GameTime gameTime) {
 
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 50));
 		g.drawString("Loading", 50, 600);
@@ -135,6 +142,15 @@ public class LoadingScreen extends World {
 	@Override
 	public EntityManager getEntityManager() {
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

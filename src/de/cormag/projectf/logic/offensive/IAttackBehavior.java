@@ -1,6 +1,7 @@
 package de.cormag.projectf.logic.offensive;
 
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Interface for objects that define the logic how to attack others.
@@ -14,8 +15,11 @@ public interface IAttackBehavior {
 	 * 
 	 * @param target
 	 *            The target object to attack
+	 * @param gameTime
+	 *            Object which provides various time methods and perspectives
+	 *            for the current update cycle.
 	 */
-	public void Attack(final IAttackable target);
+	public void attack(final IAttackable target, final GameTime gameTime);
 
 	/**
 	 * Whether the object is currently attacking others.

@@ -14,7 +14,7 @@ public interface ILively {
 	 * 
 	 * @return The current lifepoints of the object
 	 */
-	public int getLifepoints();
+	public float getLifepoints();
 
 	/**
 	 * Whether the object is alive.
@@ -31,15 +31,15 @@ public interface ILively {
 	 *            Amount to change lifepoints. Decreases if negative and
 	 *            increases if positive.
 	 */
-	public void changeLifepoints(final int amount);
+	public void changeLifepoints(final float amount);
 	
 	/**
 	 * Sets the lifepoints of the object to the given amount.
 	 * 
 	 * @param amount
-	 * 			Amount to set lifepoints to.
+	 * 			Amount to set lifepoints to
 	 */
-	public void setLifepoints(final int amount); 
+	void setLifepoints(final float amount); 
 	
 	/**
 	 * Gets the maximum lifepoints this unit can possess.
@@ -47,5 +47,5 @@ public interface ILively {
 	 * 
 	 * @return The maximum lifepoints of the object
 	 */
-	public int getMaxLifepoints();
+	public float getMaxLifepoints();
 }

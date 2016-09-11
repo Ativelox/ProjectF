@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class GrassBushLarge extends NoCollision {
 
@@ -19,8 +20,9 @@ public class GrassBushLarge extends NoCollision {
 		getBounds().height = 0;
 	}
 
-	public void render(Graphics g) {
-		super.render(g, Assets.grassBushLarge);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, Assets.grassBushLarge);
 
 	}
 

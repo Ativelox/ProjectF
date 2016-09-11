@@ -6,9 +6,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.saves.SavedGame;
 import de.cormag.projectf.states.hud.HUDState;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.World;
 import de.cormag.projectf.worlds.buildings.DefaultHouse;
 import de.cormag.projectf.worlds.music.TutorialDesert;
@@ -56,14 +58,25 @@ public class GameState extends State implements Serializable {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
 	@Override
-	public void tick() {
-		handler.getWorld().tick();
+	public void update(final GameTime gameTime) {
+		handler.getWorld().update(gameTime);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics)
+	 */
 	@Override
-	public void render(Graphics g) {
-		handler.getWorld().render(g);
+	public void render(final Graphics g, final GameTime gameTime) {
+		handler.getWorld().render(g, gameTime);
 	}
 
 	public void createHUD() {
@@ -102,6 +115,16 @@ public class GameState extends State implements Serializable {
 	public boolean renderLower() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

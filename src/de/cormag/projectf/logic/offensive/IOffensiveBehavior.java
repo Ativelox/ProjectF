@@ -2,6 +2,7 @@ package de.cormag.projectf.logic.offensive;
 
 import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.entities.properties.offensive.IOffensiveable;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Interface for objects that define the logic how to do offensive actions.
@@ -24,6 +25,9 @@ public interface IOffensiveBehavior extends IUpdateable {
 	 * 
 	 * @param target
 	 *            Target to be offensive to
+	 * @param gameTime
+	 *            Object which provides various time methods and perspectives
+	 *            for the current update cycle.
 	 */
-	public void offensiveAction(final IOffensiveable target);
+	public void offensiveAction(final IOffensiveable target, final GameTime gameTime);
 }

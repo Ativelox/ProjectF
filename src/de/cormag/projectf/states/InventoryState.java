@@ -7,8 +7,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class InventoryState extends State {
 
@@ -28,8 +30,13 @@ public class InventoryState extends State {
 		this.player = player;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		if (handler.getKeyManager().escape && player.getInventoryStatus()) {
 
@@ -51,8 +58,14 @@ public class InventoryState extends State {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics)
+	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(final Graphics g, final GameTime gameTime) {
 
 		g.setColor(new Color(0, 0, 0, 180));
 		g.fillRect(0, 0, 1000, 700);
@@ -114,9 +127,9 @@ public class InventoryState extends State {
 
 		g.setColor(Color.black);
 
-		g.fillRoundRect(350, 220, (200 / player.getMaxLifepoints()) * player.getMaxLifepoints(), 15, 10, 10);
+		g.fillRoundRect(350, 220, (int) ((200 / player.getMaxLifepoints()) * player.getMaxLifepoints()), 15, 10, 10);
 		g.setColor(new Color(180, 50, 30));
-		g.fillRoundRect(350, 220, (200 / player.getMaxLifepoints()) * player.getLifepoints(), 15, 10, 10);
+		g.fillRoundRect(350, 220, (int) ((200 / player.getMaxLifepoints()) * player.getLifepoints()), 15, 10, 10);
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 23));
@@ -137,6 +150,16 @@ public class InventoryState extends State {
 	public boolean renderLower() {
 
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

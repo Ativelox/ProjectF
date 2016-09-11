@@ -6,11 +6,12 @@ import java.awt.Graphics;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class BossHealthBar extends HUDElement {
 
 	private Enemy enemy;
-	private int health, maxHealth;
+	private float health, maxHealth;
 	private String name;
 	private transient Handler handler;
 	private boolean damaged;
@@ -28,7 +29,7 @@ public class BossHealthBar extends HUDElement {
 	}
 
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		health = enemy.getLifepoints();
 		maxHealth = enemy.getMaxLifepoints();
@@ -38,17 +39,17 @@ public class BossHealthBar extends HUDElement {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, final GameTime gameTime) {
 
 		g.setColor(Color.WHITE);
 		g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(25f));
 		g.drawString(name, 100, 625);
 
 		g.setColor(new Color(200, 200, 200, 100));
-		g.fillRect(100, 640, ((800 / maxHealth) * maxHealth), 20);
+		g.fillRect(100, 640, (int) ((800 / maxHealth) * maxHealth), 20);
 
 		g.setColor(new Color(150, 0, 0));
-		g.fillRect(100, 640, ((800 / maxHealth) * health), 20);
+		g.fillRect(100, 640, (int) ((800 / maxHealth) * health), 20);
 
 		g.setColor(new Color(250, 0, 0));
 		g.drawLine(98, 638, 901, 638);
@@ -81,7 +82,7 @@ public class BossHealthBar extends HUDElement {
 				}
 
 				g.setColor(Color.black);
-				g.drawLine(((800 / maxHealth) * (i * 10)) + 100, 640, ((800 / maxHealth) * (i * 10)) + 100, 659);
+				g.drawLine((int) ((800 / maxHealth) * (i * 10)) + 100, 640, (int) (((800 / maxHealth) * (i * 10)) + 100), 659);
 
 			}
 		}

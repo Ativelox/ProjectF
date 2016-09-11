@@ -7,6 +7,7 @@ import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.hud.BossHealthBar;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class VikingBoss extends Boss {
 
@@ -40,13 +41,14 @@ public class VikingBoss extends Boss {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g, getCurrentAnimationFrame(Assets.mattiBoss_left[1], Assets.mattiBoss_right[1], Assets.mattiBoss_up[1],
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.mattiBoss_left[1], Assets.mattiBoss_right[1], Assets.mattiBoss_up[1],
 				Assets.mattiBoss_down[1]));
 
 	}

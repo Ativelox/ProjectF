@@ -8,6 +8,7 @@ import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.hud.BossHealthBar;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class DemonBoss extends Boss implements Serializable {
 
@@ -35,15 +36,10 @@ public class DemonBoss extends Boss implements Serializable {
 		applyResources();
 
 	}
-
-	public void update() {
-		super.update();
-
-	}
 	
-	
-	public void render(Graphics g) {
-		super.render(g, getCurrentAnimationFrame(Assets.demonBoss_left[1], Assets.demonBoss_right[1], Assets.demonBoss_up[1],
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.demonBoss_left[1], Assets.demonBoss_right[1], Assets.demonBoss_up[1],
 				Assets.demonBoss_down[1]));
 
 	}

@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.gfx.ImageLoader;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class MenuState extends State {
 
@@ -32,8 +34,13 @@ public class MenuState extends State {
 		isRunning = false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		if (!isRunning) {
 
@@ -43,7 +50,7 @@ public class MenuState extends State {
 
 		}
 
-		soundPlayer.tick();
+		soundPlayer.update(gameTime);
 
 		if (handler.getKeyManager().o) {
 
@@ -75,8 +82,14 @@ public class MenuState extends State {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics)
+	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(final Graphics g, final GameTime gameTime) {
 
 		if (mainMenu) {
 
@@ -164,6 +177,16 @@ public class MenuState extends State {
 	public boolean renderLower() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

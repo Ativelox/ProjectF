@@ -1,6 +1,7 @@
 package de.cormag.projectf.worlds.music;
 
 import de.cormag.projectf.sound.BGMPlayer;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.World;
 
 public abstract class MusicWorld extends World {
@@ -20,7 +21,12 @@ public abstract class MusicWorld extends World {
 		isRunning = false;
 	}
 
-	public void tick() {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.worlds.World#update(de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
 
 		if (!isRunning) {
 

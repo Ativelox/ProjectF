@@ -4,6 +4,7 @@ import de.cormag.projectf.entities.particles.Particle;
 import de.cormag.projectf.logic.modes.AModeManager;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.modes.UnsupportedModeException;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Manages a particles modes. Transitions between modes when necessary and
@@ -59,8 +60,8 @@ public final class ParticleModeManager extends AModeManager {
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
-		getCurrentModeControl().update();
+	public void update(final GameTime gameTime) {
+		getCurrentModeControl().update(gameTime);
 	}
 
 	/*

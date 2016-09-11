@@ -4,6 +4,7 @@ import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.logic.modes.AModeManager;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.modes.UnsupportedModeException;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Manages a enemy modes. Transitions between modes when necessary and forwards
@@ -71,12 +72,13 @@ public final class EnemyModeManager extends AModeManager {
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
-		getCurrentModeControl().update();
+	public void update(final GameTime gameTime) {
+		getCurrentModeControl().update(gameTime);
 
-//		if(mParent.seenPlayer() || mParent.damagedOnce()){
-//			mDefensiveControl.terminate();
-//			mAggressiveControl.activate();
+//		if(getCurrentMode() != EEnemyMode.AGGRESSIVE && (mParent.seenPlayer() || mParent.damagedOnce())){
+//			getCurrentModeControl.terminate();
+//		    mCurrentMode = EEnemyMode.AGGRESSIVE;
+//			getCurrentModeControl.activate();
 //		}
 		
 	}

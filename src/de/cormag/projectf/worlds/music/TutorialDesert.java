@@ -7,9 +7,11 @@ import java.io.Serializable;
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.enemies.bosses.music.DragonBoss;
 import de.cormag.projectf.entities.creatures.humans.talkable.FemaleNPC;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.statics.buildings.StoneHouseSemiFlat;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class TutorialDesert extends MusicWorld implements Serializable {
 
@@ -48,21 +50,21 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		changeWorldIfDemanded(handler.getTutorialFields().getComingFromDesert(),
 				Tile.sandTeleportFTutorialDesertTTutorialFields);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 
 	}
 
 	@Override
-	public void render(Graphics g) {
-		super.render(g);
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 
 	}
 
@@ -77,6 +79,11 @@ public class TutorialDesert extends MusicWorld implements Serializable {
 
 		return comingFromTutorialFields;
 
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

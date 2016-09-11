@@ -7,6 +7,7 @@ import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Class for particle effect entities. Those entities have no collision and are
@@ -161,11 +162,11 @@ public abstract class Particle extends Entity implements ISpatial, ICanMove {
 	 * @see de.cormag.projectf.entities.Entity#update()
 	 */
 	@Override
-	public void update() {
+	public void update(final GameTime gameTime) {
 		setOldRelativeX(getRelativeX());
 		setOldRelativeY(getRelativeY());
 
-		super.update();
+		super.update(gameTime);
 
 		// Translate relative movement to absolute
 		setX(getRelativeX() - xOffset);

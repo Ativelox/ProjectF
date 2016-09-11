@@ -17,11 +17,13 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.World;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
-public class BGMPlayer {
+public class BGMPlayer implements IUpdateable {
 
 	private Clip clip;
 	private AudioInputStream audioInputStream;
@@ -40,7 +42,12 @@ public class BGMPlayer {
 
 	}
 
-	public void tick() {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
 
 		// if(handler.getKeyManager().arrowUp && gainControl.getValue() + 0.2 <
 		// gainControl.getMaximum()){

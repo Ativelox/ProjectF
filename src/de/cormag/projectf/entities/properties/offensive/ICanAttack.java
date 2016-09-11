@@ -8,9 +8,9 @@ package de.cormag.projectf.entities.properties.offensive;
  */
 public interface ICanAttack extends ICanOffensive {
 	/**
-	 * Gets the attack power of this object.
+	 * Gets the attack power of this object as DPS (damage per second).
 	 * 
-	 * @return The attack power of this object
+	 * @return The attack power of this object as DPS (damage per second)
 	 */
-	public int getAttackPower();
+	public float getAttackPower();
 }

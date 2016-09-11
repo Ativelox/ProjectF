@@ -3,9 +3,11 @@ package de.cormag.projectf.states;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class GameOverState extends State {
 
@@ -30,8 +32,13 @@ public class GameOverState extends State {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		if (!isRunning) {
 			soundPlayer.setSound("GameOver.pfsf");
@@ -39,12 +46,18 @@ public class GameOverState extends State {
 			isRunning = true;
 		}
 
-		soundPlayer.tick();
+		soundPlayer.update(gameTime);
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics)
+	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, final GameTime gameTime) {
 
 		if (x < 255) {
 
@@ -113,6 +126,15 @@ public class GameOverState extends State {
 	@Override
 	public boolean renderLower() {
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

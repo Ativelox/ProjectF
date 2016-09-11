@@ -8,6 +8,7 @@ import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class Zombie extends Monster implements Serializable {
 
@@ -35,13 +36,13 @@ public class Zombie extends Monster implements Serializable {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g, getCurrentAnimationFrame(Assets.zombie_left[1], Assets.zombie_right[1], Assets.zombie_up[1], Assets.zombie_down[1]));
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.zombie_left[1], Assets.zombie_right[1], Assets.zombie_up[1], Assets.zombie_down[1]));
 	}
 
 	@Override

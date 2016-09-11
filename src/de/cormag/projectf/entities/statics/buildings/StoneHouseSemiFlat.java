@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class StoneHouseSemiFlat extends EnterableBuilding {
 
@@ -27,14 +28,9 @@ public class StoneHouseSemiFlat extends EnterableBuilding {
 
 	}
 
-	public void update() {
-		super.update();
-
-	}
-
-	public void render(Graphics g) {
-		super.render(g, Assets.stoneHouseSemiFlat);
-
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, Assets.stoneHouseSemiFlat);
 	}
 
 }

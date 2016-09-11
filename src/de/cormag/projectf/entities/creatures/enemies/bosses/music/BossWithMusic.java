@@ -6,6 +6,7 @@ import de.cormag.projectf.entities.creatures.enemies.bosses.Boss;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.ICanPlayMusic;
 import de.cormag.projectf.sound.StandardMusicBehavior;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public abstract class BossWithMusic extends Boss implements ICanPlayMusic {
@@ -25,8 +26,9 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic {
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		if ((damagedOnce || seenPlayer)) {
 
@@ -40,7 +42,7 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic {
 
 		}
 
-		tickBGM();
+		updateBGM(gameTime);
 	}
 
 	@Override
@@ -58,9 +60,9 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic {
 	}
 
 	@Override
-	public void tickBGM() {
+	public void updateBGM(final GameTime gameTime) {
 
-		standardMusicBehavior.tickBGM();
+		standardMusicBehavior.updateBGM(gameTime);
 
 	}
 

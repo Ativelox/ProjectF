@@ -8,14 +8,15 @@ import java.io.Serializable;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class PlayerHealthBar extends HUDElement implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Player player;
-	private int playerHealth;
-	private int playerMaxHealth;
+	private float playerHealth;
+	private float playerMaxHealth;
 	private float playerStamina;
 	private float playerMaxStamina;
 	private int playerMagic;
@@ -34,7 +35,8 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 	}
 
-	public void tick() {
+	@Override
+	public void update(final GameTime gameTime) {
 
 		playerHealth = player.getLifepoints();
 		playerMaxHealth = player.getMaxLifepoints();
@@ -45,7 +47,8 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 	}
 
-	public void render(Graphics g) {
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
 
 		g.setFont(new Font(Font.MONOSPACED, 1, 20));
 		g.setColor(Color.WHITE);
@@ -53,10 +56,10 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 
 		g.setColor(new Color(153, 0, 0, 180));
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 15));
-		g.fillRect(100, 35, 9999 / playerMaxHealth * (playerHealth / 30), 15);
+		g.fillRect(100, 35, (int) (9999 / playerMaxHealth * (playerHealth / 30)), 15);
 		g.setColor(Color.red);
 		g.drawString(playerHealth + "/" + playerMaxHealth, 105, 46);
-		g.drawRect(99, 34, (9999 / playerMaxHealth * (playerMaxHealth / 30)) + 1, 16);
+		g.drawRect(99, 34, (int) ((9999 / playerMaxHealth * (playerMaxHealth / 30)) + 1), 16);
 
 		g.setColor(new Color(0, 127, 0, 180));
 		g.fillRect(100, 55, (int) (999 / playerMaxStamina * (playerStamina / 5)), 15);

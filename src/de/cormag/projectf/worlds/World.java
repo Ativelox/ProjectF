@@ -10,6 +10,8 @@ import java.util.Iterator;
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.entities.statics.FenceXBottomAlign;
 import de.cormag.projectf.entities.statics.FenceXTopAlign;
 import de.cormag.projectf.entities.statics.FenceYLeftAlign;
@@ -23,8 +25,9 @@ import de.cormag.projectf.states.hud.WorldName;
 import de.cormag.projectf.tiles.Tile;
 import de.cormag.projectf.tiles.teleport.TeleportTile;
 import de.cormag.projectf.utils.Utils;
+import de.cormag.projectf.utils.time.GameTime;
 
-public abstract class World implements Serializable {
+public abstract class World implements Serializable, IUpdateable, IRenderable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -310,10 +313,21 @@ public abstract class World implements Serializable {
 
 	}
 
-	public void tick() {
-	};
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
+		
+	}
 
-	public void render(Graphics g) {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.Graphics, de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void render(final Graphics g, final GameTime gameTime) {
 
 		renderWorld(g, handler);
 		renderTeleportTileHitbox(g);

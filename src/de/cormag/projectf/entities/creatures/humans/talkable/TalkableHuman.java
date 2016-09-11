@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import de.cormag.projectf.entities.creatures.humans.Human;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class TalkableHuman extends Human implements ICanTalk {
 
@@ -40,9 +41,9 @@ public abstract class TalkableHuman extends Human implements ICanTalk {
 
 	}
 
-	public void renderSpeechbubble(Graphics g) {
+	public void renderSpeechbubble(Graphics g, final GameTime gameTime) {
 
-		standardTalkBehavior.getSpeechBubble().render(g);
+		standardTalkBehavior.getSpeechBubble().render(g, gameTime);
 
 	}
 

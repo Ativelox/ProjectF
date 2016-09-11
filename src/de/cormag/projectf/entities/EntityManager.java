@@ -8,9 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
-public class EntityManager implements Serializable {
+public class EntityManager implements Serializable, IUpdateable, IRenderable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -91,9 +94,14 @@ public class EntityManager implements Serializable {
 
 	}
 
-	public void render(Graphics g) {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.Graphics, de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void render(final Graphics g, final GameTime gameTime) {
 		for (Entity e : entities) {
-			e.render(g);
+			e.render(g, gameTime);
 
 		}
 	}
@@ -106,12 +114,17 @@ public class EntityManager implements Serializable {
 		this.player = player;
 	}
 
-	public void tick() {
+	/*
+	 * (non-Javadoc)
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.projectf.utils.time.GameTime)
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
 
 		isCurrentlyTicking = true;
 
 		for (Entity e : entities) {
-			e.update();
+			e.update(gameTime);
 		}
 
 		for (Entity e : entitiesToRemove) {
@@ -128,6 +141,11 @@ public class EntityManager implements Serializable {
 		entities.sort(comparator);
 
 		isCurrentlyTicking = false;
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

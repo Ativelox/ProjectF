@@ -4,9 +4,11 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 import de.cormag.projectf.entities.EntityManager;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.statics.music.Piano;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class DefaultHouse extends LeaveableBuilding implements Serializable {
 
@@ -32,22 +34,29 @@ public class DefaultHouse extends LeaveableBuilding implements Serializable {
 		loadWorld(path);
 	}
 
-	public void tick() {
-		super.tick();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 
 	}
 
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 }

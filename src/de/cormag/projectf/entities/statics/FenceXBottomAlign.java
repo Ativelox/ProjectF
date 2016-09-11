@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class FenceXBottomAlign extends StaticEntity {
 
@@ -19,8 +20,9 @@ public class FenceXBottomAlign extends StaticEntity {
 		getBounds().y = HEIGHT - getBounds().height;
 	}
 
-	public void render(Graphics g) {
-		super.render(g, Assets.fenceX);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, Assets.fenceX);
 
 	}
 

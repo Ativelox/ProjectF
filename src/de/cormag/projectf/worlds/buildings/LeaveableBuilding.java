@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.LoadingScreen;
 import de.cormag.projectf.worlds.World;
 
@@ -31,8 +32,9 @@ public abstract class LeaveableBuilding extends World {
 
 	}
 
-	public void tick() {
-		super.tick();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		leaveableTileHitbox = new Rectangle((int) (leaveableTileX - handler.getGameCamera().getxOffset()),
 				(int) (leaveableTileY - handler.getGameCamera().getyOffset()), TILE_WIDTH, TILE_HEIGHT);
@@ -46,8 +48,9 @@ public abstract class LeaveableBuilding extends World {
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
 		g.setColor(Color.RED);
 

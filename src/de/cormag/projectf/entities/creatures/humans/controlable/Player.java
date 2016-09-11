@@ -9,6 +9,7 @@ import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.InventoryState;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class Player extends ControlableHuman implements Serializable {
 
@@ -30,8 +31,8 @@ public class Player extends ControlableHuman implements Serializable {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 		
 		handler.getGameCamera().centerOnEntity(this);
 
@@ -41,8 +42,9 @@ public class Player extends ControlableHuman implements Serializable {
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
 				Assets.player_down[1]));
 		
 		renderTalkNotification(g);

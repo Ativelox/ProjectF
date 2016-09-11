@@ -2,6 +2,7 @@ package de.cormag.projectf.sound;
 
 import java.awt.Graphics;
 
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public interface ICanPlayMusic {
@@ -12,7 +13,7 @@ public interface ICanPlayMusic {
 
 	public void stopBGM();
 
-	public void tickBGM();
+	public void updateBGM(final GameTime gameTime);
 
 	public void renderMusicChooseArea(String[] paths);
 

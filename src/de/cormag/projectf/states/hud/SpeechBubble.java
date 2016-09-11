@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import de.cormag.projectf.utils.time.GameTime;
+
 public class SpeechBubble extends HUDElement {
 
 	private String content;
@@ -20,11 +22,12 @@ public class SpeechBubble extends HUDElement {
 	}
 
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 	}
 
-	public void render(Graphics g) {
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
 
 		g.setColor(Color.WHITE);
 		g.fillRect(left, top, width, height);

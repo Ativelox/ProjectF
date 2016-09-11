@@ -1,11 +1,12 @@
 package de.cormag.projectf.states;
 
-import java.awt.Graphics;
 import java.io.Serializable;
 
+import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.main.Handler;
 
-public abstract class State implements Serializable {
+public abstract class State implements Serializable, IUpdateable, IRenderable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,9 +22,5 @@ public abstract class State implements Serializable {
 	public abstract boolean tickLower();
 
 	public abstract boolean renderLower();
-
-	public abstract void tick();
-
-	public abstract void render(Graphics g);
 
 }

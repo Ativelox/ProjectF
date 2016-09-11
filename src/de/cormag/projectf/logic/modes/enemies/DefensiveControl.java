@@ -15,6 +15,7 @@ import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.movement.IMoveBehavior;
 import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Controls the behavior of objects defensively. It will attack other objects
@@ -111,10 +112,10 @@ public final class DefensiveControl implements IModeControl {
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
+	public void update(final GameTime gameTime) {
 		// Pass update call to the receivers
-		mMoveReceiver.update();
-		mOffensiveReceiver.update();
+		mMoveReceiver.update(gameTime);
+		mOffensiveReceiver.update(gameTime);
 
 		// Do not do update the control if not activated
 		if (!mIsActive) {
@@ -163,7 +164,7 @@ public final class DefensiveControl implements IModeControl {
 				if (target instanceof ILively && ((ILively) target).isAlive()) {
 					// Stop movement and cast an offensive attack
 					mMoveReceiver.stopMovement();
-					mOffensiveReceiver.offensiveAction(target);
+					mOffensiveReceiver.offensiveAction(target, gameTime);
 				} else {
 					// Target died, deselect it and stop movement.
 					mOffensiveTarget = Optional.empty();

@@ -2,6 +2,7 @@ package de.cormag.projectf.sound;
 
 import java.awt.Graphics;
 
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public class StandardMusicBehavior extends MusicBehavior {
@@ -38,9 +39,9 @@ public class StandardMusicBehavior extends MusicBehavior {
 	}
 
 	@Override
-	public void tickBGM() {
+	public void updateBGM(final GameTime gameTime) {
 
-		soundPlayer.tick();
+		soundPlayer.update(gameTime);
 
 	}
 

@@ -1,11 +1,16 @@
 package de.cormag.projectf.states.hud;
 
-import java.awt.Graphics;
+import de.cormag.projectf.entities.properties.IRenderable;
+import de.cormag.projectf.entities.properties.IUpdateable;
 
-public abstract class HUDElement {
-
-	public abstract void render(Graphics g);
-
-	public abstract void tick();
-
+public abstract class HUDElement implements IUpdateable, IRenderable {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.HUD_LAYER;
+	}
 }

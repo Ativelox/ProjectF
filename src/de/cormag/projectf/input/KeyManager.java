@@ -5,7 +5,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyManager implements KeyListener, FocusListener {
+import de.cormag.projectf.entities.properties.IUpdateable;
+import de.cormag.projectf.utils.time.GameTime;
+
+public class KeyManager implements KeyListener, FocusListener, IUpdateable {
 
 	private boolean[] keys;
 	private boolean[] notAffectedKeys;
@@ -19,7 +22,13 @@ public class KeyManager implements KeyListener, FocusListener {
 
 	}
 
-	public void tick() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
 
 		up = notAffectedKeys[KeyEvent.VK_W];
 		down = notAffectedKeys[KeyEvent.VK_S];

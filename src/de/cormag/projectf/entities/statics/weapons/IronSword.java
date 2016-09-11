@@ -6,6 +6,7 @@ import java.io.Serializable;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class IronSword extends Weapon implements Serializable {
 
@@ -23,13 +24,15 @@ public class IronSword extends Weapon implements Serializable {
 		applyResources();
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 	}
 
-	public void render(Graphics g) {
-		super.render(g);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
 	}
 

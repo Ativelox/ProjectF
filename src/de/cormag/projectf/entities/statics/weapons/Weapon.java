@@ -9,6 +9,7 @@ import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Weapon extends StaticEntity {
 
@@ -22,7 +23,7 @@ public abstract class Weapon extends StaticEntity {
 	protected boolean attack;
 	protected boolean dispose;
 
-	private int attackValue;
+	private float attackValue;
 	protected int staminaUsage;
 
 	private Handler handler;
@@ -65,8 +66,9 @@ public abstract class Weapon extends StaticEntity {
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		if (tickcount >= Math.floor(TICKS_TO_DISPOSE)) {
 			disposeWeapon();
@@ -89,14 +91,16 @@ public abstract class Weapon extends StaticEntity {
 
 	}
 
-	public void render(Graphics g) {
-		update();
-		
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		// TODO Never mix update and render cycle, never ever! This was intended
+		// as preliminary workaround.
+		update(gameTime);
+
 		g.drawImage(this.getCurrentAnimationFrame(), (int) getX(), (int) getY(), null);
-		renderHitBox(g);
+		renderHitBox(g, gameTime);
 
 	}
-
 
 	protected void updateWeaponPosition(float playerArmX, float playerArmY) {
 		setX(playerArmX);
@@ -220,12 +224,12 @@ public abstract class Weapon extends StaticEntity {
 
 	}
 
-	public int getAttackValue() {
+	public float getAttackValue() {
 		return attackValue;
 
 	}
 
-	public void setAttackValue(int attackValue) {
+	public void setAttackValue(float attackValue) {
 		this.attackValue = attackValue;
 
 	}

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.statics.StaticEntity;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class NoCollision extends StaticEntity {
 
@@ -18,7 +19,7 @@ public abstract class NoCollision extends StaticEntity {
 	}
 
 	@Override
-	protected void renderHitBox(Graphics g) {
+	protected void renderHitBox(Graphics g, final GameTime gameTime) {
 
 	}
 	

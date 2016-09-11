@@ -10,6 +10,7 @@ import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.sound.BGMPlayer;
 import de.cormag.projectf.sound.ICanPlayMusic;
 import de.cormag.projectf.sound.SelectionMusicBehavior;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.music.MusicWorld;
 
 public abstract class MusicPlayingDevice extends StaticEntity implements ICanPlayMusic {
@@ -35,21 +36,23 @@ public abstract class MusicPlayingDevice extends StaticEntity implements ICanPla
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		if (handler.getPlayer().getProperCollisionRectangle().intersects(musicTriggerRect)) {
 
 			renderMusicChooseArea(allBGMS);
-			tickBGM();
+			updateBGM(gameTime);
 			playBGM();
 
 		}
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDrawTo) {
-		super.render(g, imageToDrawTo);
+	@Override
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDrawTo) {
+		super.render(g, gameTime, imageToDrawTo);
 
 		if (handler.getPlayer().getProperCollisionRectangle().intersects(musicTriggerRect)) {
 
@@ -83,9 +86,9 @@ public abstract class MusicPlayingDevice extends StaticEntity implements ICanPla
 	}
 
 	@Override
-	public void tickBGM() {
+	public void updateBGM(final GameTime gameTime) {
 
-		selectionMusicBehavior.tickBGM();
+		selectionMusicBehavior.updateBGM(gameTime);
 
 	}
 

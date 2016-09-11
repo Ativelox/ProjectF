@@ -5,6 +5,7 @@ import de.cormag.projectf.entities.properties.offensive.ICanAttack;
 import de.cormag.projectf.entities.properties.offensive.ICanOffensive;
 import de.cormag.projectf.entities.properties.offensive.IOffensiveable;
 import de.cormag.projectf.logic.modes.UnsupportedModeException;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Behavior which resolves offensive actions by choosing from offensive modes
@@ -81,11 +82,11 @@ public final class OffensiveBehavior implements IOffensiveBehavior {
 	 * cormag.projectf.entities.properties.offensive.IOffensiveable)
 	 */
 	@Override
-	public void offensiveAction(final IOffensiveable target) {
+	public void offensiveAction(final IOffensiveable target, final GameTime gameTime) {
 		if (mMode == OffensiveMode.ATTACK) {
 			if (target instanceof IAttackable) {
 				IAttackable targetAsAttackable = (IAttackable) target;
-				mAttackBehavior.Attack(targetAsAttackable);
+				mAttackBehavior.attack(targetAsAttackable, gameTime);
 			}
 		} else {
 			throw new UnsupportedModeException(ERROR_UNKNOWN_MODE);
@@ -98,7 +99,7 @@ public final class OffensiveBehavior implements IOffensiveBehavior {
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
+	public void update(final GameTime gameTime) {
 
 	}
 

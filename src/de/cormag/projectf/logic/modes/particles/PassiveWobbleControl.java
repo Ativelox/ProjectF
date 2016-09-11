@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.movement.IMoveBehavior;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Control for a passive mode where the parent object floats and wobbles
@@ -101,9 +102,9 @@ public final class PassiveWobbleControl implements IModeControl {
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
+	public void update(final GameTime gameTime) {
 		// Pass update call to movement receiver
-		mMoveReceiver.update();
+		mMoveReceiver.update(gameTime);
 
 		// Do not do update the control if not activated
 		if (!mIsActive) {

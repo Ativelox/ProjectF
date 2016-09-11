@@ -23,6 +23,7 @@ import de.cormag.projectf.logic.movement.TeleportMoveBehavior;
 import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
 import de.cormag.projectf.logic.offensive.OffensiveBehavior;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Enemy extends Creature implements ILively, IAttackable, ICanAttack{
 
@@ -36,8 +37,8 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	protected String name;
 	protected int awardedExp;
 	protected Player player;
-	protected int health;
-	protected int maxHealth;
+	protected float health;
+	protected float maxHealth;
 	protected boolean damaged;
 	protected int attackValue;
 	
@@ -235,10 +236,10 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 		
-		mModeManager.update();
+		mModeManager.update(gameTime);
 
 //		calculateDamageTaken(handler);
 
@@ -265,9 +266,9 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw) {
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
 		renderVisionField(g);
-		super.render(g, imageToDraw);
+		super.render(g, gameTime, imageToDraw);
 		
 	}
 	
@@ -276,16 +277,19 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		
 	}
 	
-	public int getAttackPower(){
+	@Override
+	public float getAttackPower(){
 		return attackValue;
 		
 	}
 	
-	public int getLifepoints(){
+	@Override
+	public float getLifepoints(){
 		return health;
 		
 	}
 
+	@Override
 	public boolean isAlive(){
 		if(health > 0){
 			return true;
@@ -295,7 +299,8 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		
 	}
 
-	public void changeLifepoints(final int amount){
+	@Override
+	public void changeLifepoints(final float amount){
 		if(health + amount > maxHealth){
 			health = maxHealth;
 			
@@ -306,7 +311,7 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	}
 	
 	@Override
-	public void setLifepoints(int amount) {
+	public void setLifepoints(float amount) {
 		if(amount > maxHealth){
 			health = maxHealth;
 		}else{
@@ -316,7 +321,7 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	}
 
 	@Override
-	public int getMaxLifepoints() {
+	public float getMaxLifepoints() {
 		return maxHealth;
 	}
 

@@ -5,8 +5,10 @@ import java.awt.Point;
 
 import de.cormag.projectf.entities.EntityManager;
 import de.cormag.projectf.entities.creatures.enemies.monster.Zombie;
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class FieldOne extends RespawnableWorld {
 
@@ -36,23 +38,23 @@ public class FieldOne extends RespawnableWorld {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		changeWorldIfDemanded(handler.getTutorialFields().getComingFromFieldOne(),
 				Tile.dirtTeleportFFieldOneTTutorialFields);
 		changeWorldIfDemanded(handler.getWoodsOfDeception().getComingFromFieldOne(),
 				Tile.grassTeleportFFieldOneTWoodsOfDeception);
 
-		entityManager.tick();
+		entityManager.update(gameTime);
 
 	}
 
 	@Override
-	public void render(Graphics g) {
-		super.render(g);
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime);
 
-		entityManager.render(g);
+		entityManager.render(g, gameTime);
 
 	}
 
@@ -102,6 +104,11 @@ public class FieldOne extends RespawnableWorld {
 
 		this.entityManager = entityManager;
 
+	}
+
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

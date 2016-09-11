@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import de.cormag.projectf.display.Display;
 import de.cormag.projectf.entities.Entity;
+import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.gfx.GameCamera;
 import de.cormag.projectf.input.KeyManager;
@@ -16,9 +17,10 @@ import de.cormag.projectf.saves.SavedGame;
 import de.cormag.projectf.states.GameState;
 import de.cormag.projectf.states.MenuState;
 import de.cormag.projectf.states.StateManager;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.World;
 
-public class Game implements Runnable {
+public class Game implements Runnable, IUpdateable {
 
 	private Display display;
 	public String title;
@@ -106,9 +108,15 @@ public class Game implements Runnable {
 
 	}
 
-	private void tick() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
+	@Override
+	public void update(final GameTime gameTime) {
 
-		keyManager.tick();
+		keyManager.update(gameTime);
 
 		if (keyManager.s && keyManager.ctrl) {
 			String name = JOptionPane.showInputDialog("Enter name for the save file");
@@ -129,11 +137,11 @@ public class Game implements Runnable {
 			return;
 		}
 
-		stateManager.tick();
+		stateManager.update(gameTime);
 
 	}
 
-	private void render() {
+	private void render(GameTime gameTime) {
 
 		bs = display.getCanvas().getBufferStrategy();
 		if (bs == null) {
@@ -145,7 +153,7 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 		// Draw Here!
 
-		stateManager.render(g);
+		stateManager.render(g, gameTime);
 
 		// End Drawing!
 		bs.show();
@@ -162,6 +170,7 @@ public class Game implements Runnable {
 		int ticksProcessed = 0;
 		int timer = 0;
 		lastTime = System.nanoTime();
+		GameTime gameTime = null;
 
 		while (running) {
 
@@ -171,9 +180,18 @@ public class Game implements Runnable {
 			lastTime = now;
 
 			if (ticksToProcess >= 1) {
-				tick();
+				if (gameTime == null) {
+					// This indicates the initial first update cycle
+					gameTime = GameTime.createInitialGameTimeSnapshot();
+				} else {
+					// Create a game time snapshot using the object from the
+					// last update cycle
+					gameTime = GameTime.createGameTimeSnapshotFromLast(gameTime);
+				}
+
+				update(gameTime);
 				ticksProcessed++;
-				render();
+				render(gameTime);
 				ticksToProcess--;
 			}
 

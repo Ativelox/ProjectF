@@ -4,8 +4,10 @@ import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.State;
+import de.cormag.projectf.utils.time.GameTime;
 import de.cormag.projectf.worlds.LoadingScreen;
 
 public class HUDState extends State {
@@ -31,12 +33,17 @@ public class HUDState extends State {
 		addHUDElement(new PlayerHealthBar(handler));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
+	 */
 	@Override
-	public void tick() {
+	public void update(final GameTime gameTime) {
 
 		for (HUDElement e : hudElements) {
 
-			e.tick();
+			e.update(gameTime);
 
 		}
 
@@ -47,13 +54,19 @@ public class HUDState extends State {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics)
+	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(final Graphics g, final GameTime gameTime) {
 
 		if (!(handler.getWorld() instanceof LoadingScreen)) {
 
 			for (HUDElement e : hudElements) {
-				e.render(g);
+				e.render(g, gameTime);
 
 			}
 		}
@@ -113,6 +126,16 @@ public class HUDState extends State {
 
 		return hudElements.contains(hudElementToCheck);
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
+	 */
+	@Override
+	public int getLayer() {
+		return IRenderable.DEFAULT_LAYER;
 	}
 
 }

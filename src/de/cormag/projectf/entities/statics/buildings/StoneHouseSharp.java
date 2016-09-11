@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public class StoneHouseSharp extends EnterableBuilding {
 
@@ -27,13 +28,9 @@ public class StoneHouseSharp extends EnterableBuilding {
 
 	}
 
-	public void update() {
-		super.update();
-
-	}
-
-	public void render(Graphics g) {
-		super.render(g, Assets.stoneHouseSharp);
+	@Override
+	public void render(Graphics g, final GameTime gameTime) {
+		super.render(g, gameTime, Assets.stoneHouseSharp);
 
 	}
 

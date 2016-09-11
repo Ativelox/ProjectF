@@ -3,6 +3,7 @@ package de.cormag.projectf.logic.offensive;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
 import de.cormag.projectf.entities.properties.offensive.ICanAttack;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Behavior which implements a basic attack logic for objects.
@@ -39,7 +40,7 @@ public final class AttackBehavior implements IAttackBehavior {
 	 * projectf.entities.properties.offensive.IAttackable)
 	 */
 	@Override
-	public void Attack(final IAttackable target) {
+	public void attack(final IAttackable target, final GameTime gameTime) {
 		// TODO Some logic to determine if units are on different sides or not
 
 		mIsAttacking = true;
@@ -47,7 +48,8 @@ public final class AttackBehavior implements IAttackBehavior {
 		if (target instanceof ILively) {
 			ILively targetAsLively = (ILively) target;
 
-			int lifepointLoss = mParent.getAttackPower();
+			float lifepointLoss = mParent.getAttackPower()
+					* GameTime.convertNanoToSeconds(gameTime.getElapsedTime().toNanos());
 			targetAsLively.changeLifepoints(-lifepointLoss);
 
 			// TODO Maybe play some sounds or do different stuff

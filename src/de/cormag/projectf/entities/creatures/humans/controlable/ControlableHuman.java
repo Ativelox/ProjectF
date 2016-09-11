@@ -18,6 +18,7 @@ import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.GameOverState;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class ControlableHuman extends Human implements ILively, IAttackable, ICanAttack{
 
@@ -36,8 +37,8 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	private int level;
 	private int experience;
 	
-	private int health;
-	private int maxHealth;
+	private float health;
+	private float maxHealth;
 
 	private IronSword ironSword;
 
@@ -78,8 +79,8 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		updateSteadyAnimation();
 
@@ -103,9 +104,10 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 	}
 
-	public void render(Graphics g, BufferedImage imageToDraw) {
+	@Override
+	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
 		
-		super.render(g, imageToDraw);
+		super.render(g, gameTime, imageToDraw);
 
 		drawLevelUpIfApplicable(g);
 		
@@ -320,9 +322,8 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		}
 	}
 	
-	public int getAttackPower(){
+	public float getAttackPower(){
 		return getCurrentWeapon().getAttackValue();
-		
 	}
 
 	public Weapon getCurrentWeapon() {
@@ -394,14 +395,15 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 	}
 
-	public int getLifepoints(){
+	@Override
+	public float getLifepoints(){
 		return health;
 		
 	}
 	
 
 	@Override
-	public void setLifepoints(int amount) {
+	public void setLifepoints(float amount) {
 		if(amount > maxHealth){
 			health = maxHealth;
 		}else{
@@ -410,7 +412,7 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 
 	@Override
-	public int getMaxLifepoints() {
+	public float getMaxLifepoints() {
 		return maxHealth;
 	}
 
@@ -423,7 +425,8 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		
 	}
 
-	public void changeLifepoints(final int amount){
+	@Override
+	public void changeLifepoints(final float amount){
 		if(health + amount > maxHealth ){
 			health = maxHealth;
 		}else{

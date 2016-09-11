@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.hud.BossHealthBar;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Boss extends Enemy {
 
@@ -18,8 +19,9 @@ public abstract class Boss extends Enemy {
 
 	}
 
-	public void update() {
-		super.update();
+	@Override
+	public void update(final GameTime gameTime) {
+		super.update(gameTime);
 
 		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2,
 				height * 2);

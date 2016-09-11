@@ -12,6 +12,7 @@ import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.entities.properties.IUpdateable;
 import de.cormag.projectf.main.Handler;
+import de.cormag.projectf.utils.time.GameTime;
 
 public abstract class Entity implements Serializable, IRenderable, IUpdateable, ISpatial {
 
@@ -182,9 +183,9 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	 * Graphics)
 	 */
 	@Override
-	public void render(Graphics g) {
+	public void render(final Graphics g, final GameTime gameTime) {
 		
-		renderHitBox(g);
+		renderHitBox(g, gameTime);
 
 	}
 
@@ -242,7 +243,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	 * @see de.cormag.projectf.entities.properties.IUpdateable#update()
 	 */
 	@Override
-	public void update() {
+	public void update(final GameTime gameTime) {
 
 		setOldRelativeX(getRelativeX());
 		setOldRelativeY(getRelativeY());
@@ -257,7 +258,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 		hasMoved = getOldRelativeX() != getRelativeX() || getOldRelativeY() != getRelativeY();
 	}
 
-	protected void renderHitBox(Graphics g) {
+	protected void renderHitBox(final Graphics g, final GameTime gameTime) {
 
 		g.setColor(Color.orange);
 		g.drawRect((int) getX() + bounds.x, (int) getY() + bounds.y, bounds.width, bounds.height);
