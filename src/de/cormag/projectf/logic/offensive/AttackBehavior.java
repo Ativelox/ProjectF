@@ -50,8 +50,7 @@ public final class AttackBehavior implements IAttackBehavior {
 		if (target instanceof ILively) {
 			ILively targetAsLively = (ILively) target;
 
-			float lifepointLoss = (float) (mParent.getAttackPower()
-					* gameTime.getElapsedTime().get(ChronoUnit.SECONDS));
+			float lifepointLoss = (float) (mParent.getAttackPower() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS));
 			targetAsLively.changeLifepoints(-lifepointLoss);
 
 			// TODO Maybe play some sounds or do different stuff

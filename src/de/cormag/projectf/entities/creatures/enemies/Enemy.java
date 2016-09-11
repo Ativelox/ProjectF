@@ -78,142 +78,6 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		}
 	}
 
-//	public void calculateDamageTaken(Handler handler) {
-//
-//		if (handler.getWorld().getEntityManager() != null) {
-//
-//			Weapon currentWeapon = handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon();
-//			
-//			Iterator <Entity> entities = handler.getWorld().getEntityManager().getEntities();
-//			
-//			while(entities.hasNext()){
-//				Entity e = entities.next();
-//				
-//				if(e instanceof Skills){
-//					if(this.getProperCollisionRectangle().intersects(e.getProperCollisionRectangle())){
-//						if (!damaged) {
-//
-//							if (this.getHealth() > 0) {
-//
-//								this.health -= ((Skills) e).getDMG();
-//								damaged = true;
-//
-//								if (damaged) {
-//
-//									Timer timer = new Timer();
-//									timer.schedule(new TimerTask() {
-//
-//										@Override
-//										public void run() {
-//
-//											damaged = false;
-//
-//										}
-//									}, 400);
-//
-//								}
-//
-//							} else {
-//
-//								this.health = 0;
-//
-//							}
-//						}
-//						
-//					}
-//					
-//					
-//				}
-//				
-//				
-//			}
-//			
-//
-//			if (currentWeapon != null && handler.getWorld().getEntityManager().contains(currentWeapon)) {
-//
-//				if (this.getProperCollisionRectangle().intersects(currentWeapon.getProperCollisionRectangle())) {
-//
-//					if (!damaged) {
-//
-//						if (this.getHealth() > 0) {
-//
-//							this.health -= currentWeapon.getAttackValue();
-//							damaged = true;
-//
-//							if (damaged) {
-//
-//								Timer timer = new Timer();
-//								timer.schedule(new TimerTask() {
-//
-//									@Override
-//									public void run() {
-//
-//										damaged = false;
-//
-//									}
-//								}, 400);
-//
-//							}
-//
-//						} else {
-//
-//							this.health = 0;
-//
-//						}
-//					}
-//
-//				}
-//
-//			}
-//		}
-//
-//	}
-
-//	protected void basicAI() {
-//
-//		if (seenPlayer || damagedOnce) {
-//
-//			int playerX = player.getEntityCenter(xOffset, yOffset).x;
-//			int playerY = player.getEntityCenter(xOffset, yOffset).y;
-//			int monsterX = this.getEntityCenter(xOffset, yOffset).x;
-//			int monsterY = this.getEntityCenter(xOffset, yOffset).y;
-//
-//			if (playerX > monsterX - 5) {
-//
-//				this.xMove = 0;
-//
-//			} else if (playerX < monsterX) {
-//
-//				this.xMove = -speed;
-//
-//			}
-//
-//			if (playerX > monsterX) {
-//
-//				this.xMove = speed;
-//
-//			}
-//
-//			if (playerY > monsterY - 5) {
-//
-//				this.yMove = 0;
-//
-//			} else if (playerY < monsterY) {
-//
-//				this.yMove = -speed;
-//
-//			}
-//
-//			if (playerY > monsterY) {
-//
-//				this.yMove = speed;
-//
-//			}
-//
-//			move();
-//		}
-//	}
-
 	protected void checkIfEnemySeenPlayer() {
 
 		if (visionField.intersects(player.getProperCollisionRectangle())) {
@@ -241,8 +105,6 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		
 		mModeManager.update(gameTime);
 
-//		calculateDamageTaken(handler);
-
 		if (damaged) {
 
 			damagedOnce = true;
@@ -262,7 +124,6 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		walkingAnimRight.tick();
 
 		checkIfEnemySeenPlayer();
-//		basicAI();
 
 	}
 

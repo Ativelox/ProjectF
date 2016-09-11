@@ -263,4 +263,9 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 	public void runLeft(boolean isMoving) {
 		
 	}
+
+	@Override
+	public void searchForTargets(final GameTime gameTime) {
+		
+	}
 }

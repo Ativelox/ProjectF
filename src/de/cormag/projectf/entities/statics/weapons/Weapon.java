@@ -93,8 +93,6 @@ public abstract class Weapon extends StaticEntity {
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		// TODO Never mix update and render cycle, never ever! This was intended
-		// as preliminary workaround.
 		update(gameTime);
 
 		g.drawImage(this.getCurrentAnimationFrame(), (int) getX(), (int) getY(), null);

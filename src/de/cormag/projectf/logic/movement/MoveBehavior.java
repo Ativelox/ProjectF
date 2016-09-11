@@ -2,6 +2,7 @@ package de.cormag.projectf.logic.movement;
 
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import de.cormag.projectf.entities.Entity;
@@ -40,6 +41,8 @@ public class MoveBehavior implements IMoveBehavior{
 	 * Whether the object is currently moving.
 	 */
 	private boolean mIsMoving;
+	
+	private double elapsedTime;
 
 	/**
 	 * Creates a new behavior which belongs to the given parent.
@@ -52,6 +55,8 @@ public class MoveBehavior implements IMoveBehavior{
 		mParentAsCreature = (Creature) parent;
 		mFollowTarget = Optional.empty();
 		mCurrentDestination = Optional.empty();
+		
+		elapsedTime = 0;
 		
 		mIsMoving = false;
 	}
@@ -158,11 +163,10 @@ public class MoveBehavior implements IMoveBehavior{
 			if (destinationCenter.getY() > positionCenter.getY()) {
 				moveDown(true);
 
-			}
-
+			}	
 			move();
-			
 		}
+	
 	}
 	
 	/*
@@ -396,6 +400,28 @@ public class MoveBehavior implements IMoveBehavior{
 			mParent.setXMove(0f);
 		}
 		
+	}
+
+	@Override
+	public void searchForTargets(final GameTime gameTime) {
+		
+		elapsedTime += gameTime.getElapsedTime().get(ChronoUnit.SECONDS);
+		
+		if(elapsedTime >= 1){
+			if (Math.round(Math.random()) == 0) {
+				mParent.setYMove(0f);
+				mParent.setXMove(((int) Math.round((Math.random() * 2) - 1)) * mParent.getMovementSpeed());
+	
+			}else {
+				mParent.setXMove(0f);
+				mParent.setYMove(((int) Math.round((Math.random() * 2) - 1)) * mParent.getMovementSpeed());
+	
+			}
+			
+			elapsedTime = 0;
+		}
+		
+		move();
 	}
 }
 

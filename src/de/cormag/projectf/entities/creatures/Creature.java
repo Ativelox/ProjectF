@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.properties.ICanMove;
+import de.cormag.projectf.entities.properties.IHaveAnimations;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.main.Handler;
-import de.cormag.projectf.tiles.Tile;
 import de.cormag.projectf.utils.time.GameTime;
 
-public abstract class Creature extends Entity implements ICanMove{
+public abstract class Creature extends Entity implements ICanMove, IHaveAnimations{
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,155 +47,83 @@ public abstract class Creature extends Entity implements ICanMove{
 
 		
 	}
-
-	public void move() {
-		if (!checkEntityCollisions(xMove, 0f))
-			moveX();
-		if (!checkEntityCollisions(0f, yMove))
-			moveY();
-	}
-
-	public void moveX() {
-		if (xMove > 0) {// Moving right
-			int tx = (int) (getRelativeX() + xMove + getBounds().x + getBounds().width) / Tile.TILEWIDTH;
-
-			if (!collisionWithTile(tx, (int) (getRelativeY() + getBounds().y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (getRelativeY() + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
-				setRelativeX(getRelativeX() + xMove);
-			} else {
-				setRelativeX(tx * Tile.TILEWIDTH - getBounds().x - getBounds().width - 1);
-			}
-
-		} else if (xMove < 0) {// Moving left
-			int tx = (int) (getRelativeX() + xMove + getBounds().x) / Tile.TILEWIDTH;
-
-			if (!collisionWithTile(tx, (int) (getRelativeY() + getBounds().y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (getRelativeY() + getBounds().y + getBounds().height) / Tile.TILEHEIGHT)) {
-				setRelativeX(getRelativeX() + xMove);
-			} else {
-				setRelativeX(tx * Tile.TILEWIDTH + Tile.TILEWIDTH - getBounds().x);
-			}
-
-		}
-	}
-
-	public void moveY() {
-		if (yMove < 0) {// Up
-			int ty = (int) (getRelativeY() + yMove + getBounds().y) / Tile.TILEHEIGHT;
-
-			if (!collisionWithTile((int) (getRelativeX() + getBounds().x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (getRelativeX() + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
-				setRelativeY(getRelativeY() + yMove);
-			} else {
-				setRelativeY(ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - getBounds().y);
-			}
-
-		} else if (yMove > 0) {// Down
-			int ty = (int) (getRelativeY() + yMove + getBounds().y + getBounds().height) / Tile.TILEHEIGHT;
-
-			if (!collisionWithTile((int) (getRelativeX() + getBounds().x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (getRelativeX() + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
-				setRelativeY(getRelativeY() + yMove);
-			} else {
-				setRelativeY(ty * Tile.TILEHEIGHT - getBounds().y - getBounds().height - 1);
-			}
-
-		}
-	}
-
-	protected BufferedImage getCurrentAnimationFrame(BufferedImage left, BufferedImage right, BufferedImage up,
-			BufferedImage down) {
-
-		if (sprinting) {
-
-			if (xMove < 0) {
-				steadyAnimation = left;
-				return runningAnimLeft.getCurrentFrame();
-
-			} else if (xMove > 0) {
-				steadyAnimation = right;
-				return runningAnimRight.getCurrentFrame();
-
-			} else if (yMove < 0) {
-				steadyAnimation = up;
-				return runningAnimUp.getCurrentFrame();
-
-			} else if (yMove > 0) {
-				steadyAnimation = down;
-				return runningAnimDown.getCurrentFrame();
-
-			} else {
-				return steadyAnimation;
-			}
-
-		} else {
-
-			if (xMove < 0) {
-				steadyAnimation = left;
-				return walkingAnimLeft.getCurrentFrame();
-
-			} else if (xMove > 0) {
-				steadyAnimation = right;
-				return walkingAnimRight.getCurrentFrame();
-
-			} else if (yMove < 0) {
-				steadyAnimation = up;
-				return walkingAnimUp.getCurrentFrame();
-
-			} else if (yMove > 0) {
-				steadyAnimation = down;
-				return walkingAnimDown.getCurrentFrame();
-
-			} else {
-				return steadyAnimation;
-			}
-		}
-	}
-
-	protected void getInput(boolean up, boolean down, boolean left, boolean right) {
-
-		xMove = 0;
-		yMove = 0;
-
-		if (sprinting) {
-
-			if (up)
-				yMove = -runningSpeed;
-			if (down)
-				yMove = runningSpeed;
-			if (left)
-				xMove = -runningSpeed;
-			if (right)
-				xMove = runningSpeed;
-
-		} else {
-
-			if (up)
-				yMove = -speed;
-			if (down)
-				yMove = speed;
-			if (left)
-				xMove = -speed;
-			if (right)
-				xMove = speed;
-		}
-	}
-
-	public boolean collisionWithTile(int x, int y) {
-		return handler.getWorld().getTile(x, y).isSolid();
-	}
-
+	
 	@Override
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 
 	}
+	
+	@Override
+	public BufferedImage getCurrentAnimationFrame(BufferedImage steadyLeft, BufferedImage steadyRight, BufferedImage steadyUp,
+			BufferedImage steadyDown){
+		
+		if (sprinting) {
 
+			if (xMove < 0) {
+				setSteadyAnimation(steadyLeft);
+				return runningAnimLeft.getCurrentFrame();
+
+			} else if (xMove > 0) {
+				setSteadyAnimation(steadyRight);
+				return runningAnimRight.getCurrentFrame();
+
+			} else if (yMove < 0) {
+				setSteadyAnimation(steadyUp);
+				return runningAnimUp.getCurrentFrame();
+
+			} else if (yMove > 0) {
+				setSteadyAnimation(steadyDown);
+				return runningAnimDown.getCurrentFrame();
+
+			} else {
+				return getSteadyAnimation();
+			}
+
+		} else {
+
+			if (xMove < 0) {
+				setSteadyAnimation(steadyLeft);
+				return walkingAnimLeft.getCurrentFrame();
+
+			} else if (xMove > 0) {
+				setSteadyAnimation(steadyRight);
+				return walkingAnimRight.getCurrentFrame();
+
+			} else if (yMove < 0) {
+				setSteadyAnimation(steadyUp);
+				return walkingAnimUp.getCurrentFrame();
+
+			} else if (yMove > 0) {
+				setSteadyAnimation(steadyDown);
+				return walkingAnimDown.getCurrentFrame();
+
+			} else {
+				return getSteadyAnimation();
+			}
+		}
+		
+	}
+	
+
+	@Override
+	public void setSteadyAnimation(BufferedImage imageToSet) {
+		steadyAnimation = imageToSet;
+		
+	}
+	
+	@Override
 	public BufferedImage getSteadyAnimation() {
-
 		return steadyAnimation;
 
 	}
+	
+
+	public boolean collisionWithTile(int x, int y) {
+		return handler.getWorld().getTile(x, y).isSolid();
+	}
+
+
 
 	@Override
 	public float getMovementSpeed() {

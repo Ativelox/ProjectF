@@ -6,6 +6,7 @@ import java.util.Optional;
 import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
+import de.cormag.projectf.entities.creatures.humans.controlable.Player;
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.ISpatial;
@@ -121,6 +122,8 @@ public final class AggressiveControl implements IModeControl {
 		// Case 1: Object is not attacking and chasing another object.
 		if (!mOffensiveTarget.isPresent() && !mMoveReceiver.isMoving()) {
 			
+			mMoveReceiver.searchForTargets(gameTime);
+			
 			IOffensiveable target = null;
 			
 			if(mHandler.getWorld().getEntityManager() != null){
@@ -128,7 +131,7 @@ public final class AggressiveControl implements IModeControl {
 				List<Entity> entityList = mHandler.getWorld().getEntityManager().getEntityList();
 				
 				for(Entity e : entityList){
-					if(e instanceof IOffensiveable){
+					if(e instanceof Player){
 						if(((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())){
 							target = (IOffensiveable) e;
 							

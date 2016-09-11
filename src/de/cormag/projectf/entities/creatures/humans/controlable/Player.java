@@ -25,6 +25,8 @@ public class Player extends ControlableHuman implements Serializable {
 	private TalkableHuman lastEncountered;
 	private Handler handler;
 	
+	private float mOldRelativeX, mOldRelativeY;
+	
 	private PlayerModeManager mPlayerModeManager;
 
 	public Player(Handler handler, float x, float y) {
@@ -121,7 +123,22 @@ public class Player extends ControlableHuman implements Serializable {
 
 		this.inventory = inventory;
 	}
+	
+	public void setOldX(float newPosX){
+		mOldRelativeX = newPosX;
+	}
+	
+	public void setOldY(float newPosY){
+		mOldRelativeY = newPosY;
+	}
+	
+	public float getOldX(){
+		return mOldRelativeX;
+	}
 
+	public float getOldY(){
+		return mOldRelativeY;
+	}
 
 	@Override
 	public void applyResources() {

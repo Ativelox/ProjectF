@@ -2,6 +2,7 @@ package de.cormag.projectf.logic.movement;
 
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.IUpdateable;
+import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * Interface for objects that define the logic how to move.
@@ -118,4 +119,9 @@ public interface IMoveBehavior extends IUpdateable {
 	 * @see de.cormag.projectf.entities.properties.IHaveSpeed#setYMove(float)
 	 */
 	public void stopVerticalMovement();
+	
+	/**
+	 * Makes the object randomly move around so it can actively search for targets
+	 */
+	public void searchForTargets(final GameTime gameTime);
 }

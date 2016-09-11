@@ -70,4 +70,5 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 		return bossHealthBar;
 	}
 
+
 }
