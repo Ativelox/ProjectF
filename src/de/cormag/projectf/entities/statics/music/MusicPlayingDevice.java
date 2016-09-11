@@ -114,7 +114,6 @@ public abstract class MusicPlayingDevice extends StaticEntity implements ICanPla
 
 	@Override
 	public void recoverLastMusic(MusicWorld world) {
-		// TODO Auto-generated method stub
 
 	}
 

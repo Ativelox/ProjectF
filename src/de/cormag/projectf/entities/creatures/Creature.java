@@ -97,7 +97,7 @@ public abstract class Creature extends Entity implements ICanMove{
 					&& !collisionWithTile((int) (getRelativeX() + getBounds().x + getBounds().width) / Tile.TILEWIDTH, ty)) {
 				setRelativeY(getRelativeY() + yMove);
 			} else {
-				setRelativeY(y = ty * Tile.TILEHEIGHT - getBounds().y - getBounds().height - 1);
+				setRelativeY(ty * Tile.TILEHEIGHT - getBounds().y - getBounds().height - 1);
 			}
 
 		}
@@ -181,7 +181,7 @@ public abstract class Creature extends Entity implements ICanMove{
 		}
 	}
 
-	protected boolean collisionWithTile(int x, int y) {
+	public boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 
@@ -197,30 +197,55 @@ public abstract class Creature extends Entity implements ICanMove{
 
 	}
 
-	public float getxMove() {
-		return xMove;
-	}
-
-	public void setxMove(float xMove) {
-		this.xMove = xMove;
-	}
-
-	public float getyMove() {
-		return yMove;
-	}
-
-	public void setyMove(float yMove) {
-		this.yMove = yMove;
-	}
-
-	public float getSpeed() {
+	@Override
+	public float getMovementSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(float speed) {
-		this.speed = speed;
+	@Override
+	public void setMovementSpeed(float amount) {
+		this.speed = amount;
+		
+	}
+
+	@Override
+	public float getRunningSpeed() {
+		return runningSpeed;
+	}
+
+	@Override
+	public void setRunningSpeed(float amount) {
+		runningSpeed = amount;
+		
 	}
 	
+	@Override
+	public float getXMove() {
+		return xMove;
+	}
+
+	@Override
+	public void setXMove(float amount) {
+		xMove = amount;
+		
+	}
+
+	@Override
+	public float getYMove() {
+		return yMove;
+	}
+
+	@Override
+	public void setYMove(float amount) {
+		yMove = amount;
+		
+	}
+
+	@Override
+	public boolean isSprinting() {
+		return sprinting;
+	}
+
 	
 
 }

@@ -45,7 +45,7 @@ public class DemonBoss extends Boss implements Serializable {
 	}
 
 	@Override
-	protected boolean collisionWithTile(int x, int y) {
+	public boolean collisionWithTile(int x, int y) {
 		return false;
 	}
 
@@ -67,5 +67,7 @@ public class DemonBoss extends Boss implements Serializable {
 
 		return bossHealthBar;
 	}
+
+
 
 }

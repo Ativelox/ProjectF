@@ -169,13 +169,11 @@ public class MenuState extends State {
 
 	@Override
 	public boolean tickLower() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean renderLower() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

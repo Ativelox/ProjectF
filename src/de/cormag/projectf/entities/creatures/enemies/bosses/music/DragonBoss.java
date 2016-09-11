@@ -25,7 +25,7 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 		this.health = 20;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 9999;
+		attackValue = 500;
 
 		speed = Player.DEFAULT_SPEED - 1f;
 

@@ -86,4 +86,50 @@ public final class Glow extends Particle {
 		super.update(gameTime);
 		mModeManager.update(gameTime);
 	}
+	
+
+	@Override
+	public float getMovementSpeed() {
+		return 0;
+	}
+
+	@Override
+	public void setMovementSpeed(float amount) {
+
+	}
+
+	@Override
+	public float getRunningSpeed() {
+		return 0;
+	}
+
+	@Override
+	public void setRunningSpeed(float amount) {
+		
+	}
+
+	@Override
+	public float getXMove() {
+		return 0;
+	}
+
+	@Override
+	public void setXMove(float amount) {
+		
+	}
+
+	@Override
+	public float getYMove() {
+		return 0;
+	}
+
+	@Override
+	public void setYMove(float amount) {
+		
+	}
+
+	@Override
+	public boolean isSprinting() {
+		return false;
+	}
 }

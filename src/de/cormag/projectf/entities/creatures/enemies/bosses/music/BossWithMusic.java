@@ -86,13 +86,11 @@ public abstract class BossWithMusic extends Boss implements ICanPlayMusic {
 
 	@Override
 	public void playBGM() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void renderMusicChooseArea(String[] paths) {
-		// TODO Auto-generated method stub
 
 	}
 

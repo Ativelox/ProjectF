@@ -79,21 +79,12 @@ public class Assets {
 		SpriteSheet mattiBoss_sheet = new SpriteSheet(ImageLoader.loadImage("Matti.pfpf"));
 		SpriteSheet dragonBoss_sheet = new SpriteSheet(ImageLoader.loadImage("dragonSprite.pfpf"));
 		SpriteSheet king_sheet = new SpriteSheet(ImageLoader.loadImage("king.pfpf"));
-		SpriteSheet terrain_celianna = new SpriteSheet(ImageLoader.loadImage("CeliannaSpriteSheet.png")); // TODO:
-																											// change
-																											// png
-																											// to
-																											// pfpf
-		SpriteSheet characterSprites = new SpriteSheet(ImageLoader.loadImage("charactersprites.png")); // TODO:
-																										// SAME
-																										// ^
-		SpriteSheet house_sheet = new SpriteSheet(ImageLoader.loadImage("Houses.png"));// TODO:SAME
-																						// ^
-		SpriteSheet modernage = new SpriteSheet(ImageLoader.loadImage("modernage.png")); // TODO:SAME
-																							// ^
-		SpriteSheet treesAndBushes = new SpriteSheet(ImageLoader.loadImage("TreesAndBushes.png")); // TODO:SAME
-																									// ^
-		SpriteSheet weaponSkills = new SpriteSheet(ImageLoader.loadImage("Weapon Skills/WeaponSkillOne.png")); // TODO:SAME^
+		SpriteSheet terrain_celianna = new SpriteSheet(ImageLoader.loadImage("CeliannaSpriteSheet.png")); // TODO change png to pfpf
+		SpriteSheet characterSprites = new SpriteSheet(ImageLoader.loadImage("charactersprites.png")); // TODO change png to pfpf
+		SpriteSheet house_sheet = new SpriteSheet(ImageLoader.loadImage("Houses.png"));// TODO change png to pfpf
+		SpriteSheet modernage = new SpriteSheet(ImageLoader.loadImage("modernage.png")); // TODO change png to pfpf
+		SpriteSheet treesAndBushes = new SpriteSheet(ImageLoader.loadImage("TreesAndBushes.png")); // TODO change png to pfpf
+		SpriteSheet weaponSkills = new SpriteSheet(ImageLoader.loadImage("Weapon Skills/WeaponSkillOne.png")); // TODO change png to pfpf
 
 		background = ImageLoader.loadImage("background.pfpf");
 

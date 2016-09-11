@@ -7,6 +7,12 @@ import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
 import de.cormag.projectf.gfx.Assets;
+import de.cormag.projectf.logic.modes.IModeControl;
+import de.cormag.projectf.logic.modes.players.EPlayerMode;
+import de.cormag.projectf.logic.modes.players.LocalPlayerControl;
+import de.cormag.projectf.logic.modes.players.PlayerModeManager;
+import de.cormag.projectf.logic.movement.IMoveBehavior;
+import de.cormag.projectf.logic.movement.MoveBehavior;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.InventoryState;
 import de.cormag.projectf.utils.time.GameTime;
@@ -18,6 +24,8 @@ public class Player extends ControlableHuman implements Serializable {
 	private transient boolean inventory;
 	private TalkableHuman lastEncountered;
 	private Handler handler;
+	
+	private PlayerModeManager mPlayerModeManager;
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y);
@@ -25,6 +33,10 @@ public class Player extends ControlableHuman implements Serializable {
 		this.handler = handler;
 
 		inventory = false;
+		
+		IMoveBehavior moveBehavior = new MoveBehavior(this);
+		IModeControl localPlayerControl = new LocalPlayerControl(this, moveBehavior, handler.getKeyManager());
+		mPlayerModeManager = new PlayerModeManager(this, localPlayerControl, EPlayerMode.LOCAL_PLAYER_MODE);
 
 		applyResources();
 
@@ -33,6 +45,7 @@ public class Player extends ControlableHuman implements Serializable {
 	@Override
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
+		mPlayerModeManager.update(gameTime);
 		
 		handler.getGameCamera().centerOnEntity(this);
 

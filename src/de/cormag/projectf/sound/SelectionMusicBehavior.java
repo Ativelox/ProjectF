@@ -86,7 +86,6 @@ public class SelectionMusicBehavior extends MusicBehavior {
 
 	@Override
 	public void recoverLastMusic(MusicWorld world) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -67,8 +67,6 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		level = 1;
 		experience = 0;
 
-		sprinting = false;
-
 		sheathAble = true;
 
 		leveledUp = false;
@@ -97,10 +95,6 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		dieIfDead();
 
 		tickAnimations();
-
-		getInput(handler.getKeyManager().up, handler.getKeyManager().down, handler.getKeyManager().left,
-				handler.getKeyManager().right);
-		move();
 
 	}
 
@@ -329,18 +323,6 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	public Weapon getCurrentWeapon() {
 
 		return ironSword;
-
-	}
-
-	public float getxMove() {
-
-		return xMove;
-
-	}
-
-	public float getyMove() {
-
-		return yMove;
 
 	}
 

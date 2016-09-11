@@ -1,10 +1,10 @@
 package de.cormag.projectf.logic.modes.enemies;
 
-import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Optional;
 
 import de.cormag.projectf.entities.Entity;
+import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.entities.properties.ILively;
@@ -25,10 +25,6 @@ import de.cormag.projectf.utils.time.GameTime;
  *
  */
 public final class DefensiveControl implements IModeControl {
-	/**
-	 * Minimal distance to target in pixel for an offensive action.
-	 */
-	private static final float MINIMAL_TRIGGER_DISTANCE = 50;
 
 	/**
 	 * Error message when trying to pass a object that is missing interfaces.
@@ -127,15 +123,19 @@ public final class DefensiveControl implements IModeControl {
 
 			IOffensiveable target = null;
 			
-			List<Entity> entityList = mHandler.getWorld().getEntityManager().getEntityList();
+			if(mHandler.getWorld().getEntityManager() != null){
 			
-			for(Entity e : entityList){
-				if(e instanceof IOffensiveable){
-					if(((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())){
-						target = (IOffensiveable) e;
-						
+				List<Entity> entityList = mHandler.getWorld().getEntityManager().getEntityList();
+				
+				for(Entity e : entityList){
+					if(e instanceof IOffensiveable){
+						if(((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())){
+							target = (IOffensiveable) e;
+							
+						}
 					}
 				}
+			
 			}
 			
 			if (target != null) {
@@ -148,22 +148,30 @@ public final class DefensiveControl implements IModeControl {
 		// Case 2: Object is trying to attack another object.
 		if (mOffensiveTarget.isPresent()) {
 			IOffensiveable target = mOffensiveTarget.get();
-			boolean isCloseEnough = false;
 			
-			if (target instanceof ISpatial) {
-				ISpatial targetAsSpatial = (ISpatial) target;
-				Point2D targetPos = new Point2D.Float(targetAsSpatial.getRelativeX(), targetAsSpatial.getRelativeY());
-				Point2D parentPos = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
-				double distance = targetPos.distance(parentPos);
-				System.out.println(distance);
-				isCloseEnough = distance <= MINIMAL_TRIGGER_DISTANCE;
+			boolean isCloseEnough = true;
+			
+			if (target instanceof Creature) {
+				Creature targetAsCreature = (Creature) target;
+				
+				if(targetAsCreature.checkEntityCollisions(0f, 10f) || targetAsCreature.checkEntityCollisions(10f, 0f) ||
+					targetAsCreature.checkEntityCollisions(0f, -10f) || targetAsCreature.checkEntityCollisions(-10f, 0f)){
+					
+					if(targetAsCreature.getCollidingEntity().equals(mParent)){
+						isCloseEnough = true;
+						
+					}
+
+				}else{
+					isCloseEnough = false;
+					
+				}
 			}
 
 			// Trigger offensive action if close enough
 			if (isCloseEnough && !mOffensiveReceiver.isOffensive()) {
 				if (target instanceof ILively && ((ILively) target).isAlive()) {
-					// Stop movement and cast an offensive attack
-					mMoveReceiver.stopMovement();
+					
 					mOffensiveReceiver.offensiveAction(target, gameTime);
 				} else {
 					// Target died, deselect it and stop movement.

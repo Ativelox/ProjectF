@@ -18,6 +18,8 @@ public abstract class Monster extends Enemy implements Serializable {
 	private int tickcounts;
 
 	private String lastMove;
+	
+	private boolean isBugged;
 
 	public Monster(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -25,8 +27,12 @@ public abstract class Monster extends Enemy implements Serializable {
 		tickcounts = 0;
 
 		this.handler = handler;
+		
+		isBugged = false;
+		
+		//TODO: temporary fix, visionfield clipping into the hitbox of its own entity, resulting in the entity hitting itself
 
-		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2,
+		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height + 20), width * 2,
 				height * 2);
 
 		monsterHealthBar = new MonsterHealthBar(this);
@@ -167,9 +173,17 @@ public abstract class Monster extends Enemy implements Serializable {
 			tickcounts = 0;
 
 		}
-
-		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2, height * 2);
-
+		
+		//TODO: remove this stupid ass code lmao
+		
+		if(!isBugged){
+			visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height + 20), width * 2, height * 2);
+			
+		}else{
+			visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2, height * 2);
+			
+		}
+		
 		changeVisionField();
 
 		monsterHealthBar.update(gameTime);

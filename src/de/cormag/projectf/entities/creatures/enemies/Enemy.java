@@ -19,7 +19,7 @@ import de.cormag.projectf.logic.modes.enemies.DefensiveControl;
 import de.cormag.projectf.logic.modes.enemies.EEnemyMode;
 import de.cormag.projectf.logic.modes.enemies.EnemyModeManager;
 import de.cormag.projectf.logic.movement.IMoveBehavior;
-import de.cormag.projectf.logic.movement.TeleportMoveBehavior;
+import de.cormag.projectf.logic.movement.MoveBehavior;
 import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
 import de.cormag.projectf.logic.offensive.OffensiveBehavior;
 import de.cormag.projectf.main.Handler;
@@ -56,7 +56,7 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		name = this.getClass().getName();
 		player = handler.getPlayer();
 		
-		IMoveBehavior moveBehavior = new TeleportMoveBehavior(this);
+		IMoveBehavior moveBehavior = new MoveBehavior(this);
 		IOffensiveBehavior offensiveBehavior = new OffensiveBehavior(this);
 		IModeControl aggresiveControl = new AggressiveControl(this, moveBehavior, offensiveBehavior, handler);
 		IModeControl defensiveControl = new DefensiveControl(this, moveBehavior, offensiveBehavior, handler);

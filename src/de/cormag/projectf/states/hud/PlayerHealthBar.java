@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
-import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.time.GameTime;
 
@@ -22,7 +21,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 	private int playerMagic;
 	private int playerMaxMagic;
 
-	public PlayerHealthBar(Handler handler) {
+	PlayerHealthBar(Handler handler) {
 
 		this.player = handler.getPlayer();
 
@@ -58,8 +57,8 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 15));
 		g.fillRect(100, 35, (int) (9999 / playerMaxHealth * (playerHealth / 30)), 15);
 		g.setColor(Color.red);
-		g.drawString(playerHealth + "/" + playerMaxHealth, 105, 46);
-		g.drawRect(99, 34, (int) ((9999 / playerMaxHealth * (playerMaxHealth / 30)) + 1), 16);
+		g.drawString(((int)playerHealth) + "/" + ((int)playerMaxHealth), 105, 46);
+		g.drawRect(99, 34, (int) ((9999 / playerMaxHealth * (playerMaxHealth) / 30)) + 1, 16);
 
 		g.setColor(new Color(0, 127, 0, 180));
 		g.fillRect(100, 55, (int) (999 / playerMaxStamina * (playerStamina / 5)), 15);
@@ -76,27 +75,10 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 		g.setColor(Color.black);
 		g.drawRoundRect(10, 10, 80, 80, 10, 10);
 
-		if (this.playerHealth == playerMaxHealth) {
 
-			g.drawImage(Assets.avatar_standard, 10, 10, 80, 80, null);
+//		g.drawImage(Assets.avatar_very_sad, 10, 10, 80, 80, null);
 
-		} else if (this.playerHealth >= playerMaxHealth * 0.625 && this.playerHealth <= playerMaxHealth * 0.875) {
-
-			g.drawImage(Assets.avatar_sad, 10, 10, 80, 80, null);
-
-		} else if (this.playerHealth >= playerMaxHealth * 0.25 && this.playerHealth <= playerMaxHealth * 0.5) {
-
-			g.drawImage(Assets.avatar_depressed, 10, 10, 80, 80, null);
-
-		} else if (this.playerHealth == 1) {
-
-			g.drawImage(Assets.avatar_sad_cry, 10, 10, 80, 80, null);
-
-		} else {
-
-			g.drawImage(Assets.avatar_very_sad, 10, 10, 80, 80, null);
-
-		}
+		
 
 	}
 

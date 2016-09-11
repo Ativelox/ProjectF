@@ -23,7 +23,7 @@ public abstract class Boss extends Enemy {
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 
-		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height), width * 2,
+		visionField = new Rectangle((int) (getX() - width / 2 + 20), (int) (getY() + height), width * 2,
 				height * 2);
 
 		if ((seenPlayer || damagedOnce) && !handler.getGame().getStateManager().getGameState().getHUDState()
