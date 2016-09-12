@@ -120,19 +120,19 @@ public abstract class Weapon extends StaticEntity {
 		lowerArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
 		lowerArmY = (int) handler.getPlayer().getY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
 
-		if (handler.getPlayer().getXMove() > 0 || steadyAnimation.equals(noAttackRight)) {
+		if (handler.getPlayer().getHorizontalDirection() > 0 || steadyAnimation.equals(noAttackRight)) {
 
 			updateWeaponPosition(rightArmX, rightArmY);
 
-		} else if (handler.getPlayer().getXMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
+		} else if (handler.getPlayer().getHorizontalDirection() < 0 || steadyAnimation.equals(noAttackLeft)) {
 
 			updateWeaponPosition(leftArmX, leftArmY);
 
-		} else if (handler.getPlayer().getYMove() < 0 || steadyAnimation.equals(noAttackUp)) {
+		} else if (handler.getPlayer().getVerticalDirection() < 0 || steadyAnimation.equals(noAttackUp)) {
 
 			updateWeaponPosition(upperArmX, upperArmY);
 
-		} else if (handler.getPlayer().getYMove() > 0 || steadyAnimation.equals(noAttackDown)) {
+		} else if (handler.getPlayer().getVerticalDirection() > 0 || steadyAnimation.equals(noAttackDown)) {
 
 			updateWeaponPosition(lowerArmX, lowerArmY);
 
@@ -142,19 +142,19 @@ public abstract class Weapon extends StaticEntity {
 
 	protected BufferedImage getCurrentAnimationFrame() {
 
-		if (handler.getPlayer().getXMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
+		if (handler.getPlayer().getHorizontalDirection() < 0 || steadyAnimation.equals(noAttackLeft)) {
 
 			return attackAnimationLeft.getCurrentFrame();
 
-		} else if (handler.getPlayer().getXMove() > 0 || steadyAnimation.equals(noAttackRight)) {
+		} else if (handler.getPlayer().getHorizontalDirection() > 0 || steadyAnimation.equals(noAttackRight)) {
 
 			return attackAnimationRight.getCurrentFrame();
 
-		} else if (handler.getPlayer().getYMove() < 0 || steadyAnimation.equals(noAttackUp)) {
+		} else if (handler.getPlayer().getVerticalDirection() < 0 || steadyAnimation.equals(noAttackUp)) {
 
 			return attackAnimationUp.getCurrentFrame();
 
-		} else if (handler.getPlayer().getYMove() > 0 || steadyAnimation.equals(noAttackDown)) {
+		} else if (handler.getPlayer().getVerticalDirection() > 0 || steadyAnimation.equals(noAttackDown)) {
 
 			return attackAnimationDown.getCurrentFrame();
 
@@ -167,25 +167,25 @@ public abstract class Weapon extends StaticEntity {
 
 	protected void updateHitbox() {
 
-		if (handler.getPlayer().getXMove() > 0 || steadyAnimation.equals(noAttackRight)) {
+		if (handler.getPlayer().getHorizontalDirection() > 0 || steadyAnimation.equals(noAttackRight)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = 20;
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 
-		} else if (handler.getPlayer().getXMove() < 0 || steadyAnimation.equals(noAttackLeft)) {
+		} else if (handler.getPlayer().getHorizontalDirection() < 0 || steadyAnimation.equals(noAttackLeft)) {
 			getBounds().x = 0;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT + DEFAULT_WEAPON_HEIGHT / 2;
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 
-		} else if (handler.getPlayer().getYMove() < 0 || steadyAnimation.equals(noAttackUp)) {
+		} else if (handler.getPlayer().getVerticalDirection() < 0 || steadyAnimation.equals(noAttackUp)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = 0;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;
 			getBounds().width = DEFAULT_WEAPON_WIDTH * 2;
 
-		} else if (handler.getPlayer().getYMove() > 0 || steadyAnimation.equals(noAttackDown)) {
+		} else if (handler.getPlayer().getVerticalDirection() > 0 || steadyAnimation.equals(noAttackDown)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
 			getBounds().y = DEFAULT_WEAPON_HEIGHT;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT;

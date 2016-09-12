@@ -189,7 +189,7 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		if (handler.getWorld().getEntityManager() != null) {
 			if (handler.getKeyManager().shift
 					&& !handler.getWorld().getEntityManager().contains(handler.getPlayer().getCurrentWeapon())
-					&& (xMove != 0 || yMove != 0)) {
+					&& (horizontalDirection != 0 || verticalDirection != 0)) {
 
 				if (stamina == 0 || stamina < 0) {
 
@@ -277,19 +277,19 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 	public void updateSteadyAnimation() {
 
-		if (yMove > 0) {
+		if (verticalDirection == 1) {
 			lastMovement = "down";
 
 		}
-		if (yMove < 0) {
+		if (verticalDirection == -1) {
 			lastMovement = "top";
 
 		}
-		if (xMove > 0) {
+		if (horizontalDirection == 1) {
 			lastMovement = "right";
 
 		}
-		if (xMove < 0) {
+		if (horizontalDirection == -1) {
 			lastMovement = "left";
 
 		}

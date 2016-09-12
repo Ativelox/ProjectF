@@ -39,4 +39,37 @@ public interface IHaveAnimations {
 	 * @param imageToSet specifies the image which should be used as steady animation
 	 */
 	public void setSteadyAnimation(BufferedImage imageToSet);
+	
+	
+	/**
+	 * Gets the horizontal movement of the object. 
+	 * Positive values resemble movement to the right, negative values resemble movement to the left.
+	 * 
+	 * @return <tt>1</tt> if the object walks to the right, <tt>-1</tt> if the object walks to the left
+	 */
+	public int getHorizontalDirection();
+	
+	/**
+	 * Sets the horizontal movement of the object.
+	 * Positive values resemble movement to the right, negative values resemble movement to the left.
+	 * 
+	 * @param amount should be set <tt>1</tt> if the object walks to the right, <tt>-1</tt> if it walks to the left
+	 */
+	public void setHorizontalDirection(int direction);
+	
+	/**
+	 * Gets the vertical movement of the object.
+	 * Positive values resemble movement downwards, negative values resemble movement upwards.
+	 * 
+	 * @return <tt>1</tt> if the object walks downwards, <tt>-1</tt> if the object walks upwards
+	 */
+	public int getVerticalDirection();
+	
+	/**
+	 * Sets the vertical movement of the object.
+	 * Positive values resemble movement downwards, negative values resemble movement upwards.
+	 * 
+	 * @param amount should be set <tt>1</tt> if the object walks downwards, <tt>-1</tt> if it walks upwards
+	 */
+	public void setVerticalDirection(int direction);
 }

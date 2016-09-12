@@ -112,28 +112,4 @@ public final class Glow extends Particle {
 	public boolean isSprinting() {
 		return false;
 	}
-
-	@Override
-	public double getXMove() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setXMove(double amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getYMove() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setYMove(double amount) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -1,13 +1,12 @@
 package de.cormag.projectf.logic.movement;
 
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.properties.ICanMove;
-import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.entities.properties.IHaveAnimations;
 import de.cormag.projectf.utils.Utils;
 import de.cormag.projectf.utils.time.GameTime;
 
@@ -132,32 +131,46 @@ public class MoveBehavior implements IMoveBehavior{
 		
 		if (mFollowTarget.isPresent()) {
 			ICanMove target = mFollowTarget.get();
-			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX() 
-//					+ ((Entity) target).getWidth() / 2
-					, target.getRelativeY() 
-//					+ ((Entity) target).getHeight() / 2
-					));
+			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX(), target.getRelativeY()));
 		}
 		
 		//got a target to follow or a position to move to
 		if (mCurrentDestination.isPresent()) {
 			Point2D position = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
 			Point2D destination = mCurrentDestination.get();
-			
+
 			Point2D newPos = Utils.normalizeVector(position, destination);
+			Point2D movementPerCall = new Point2D.Double(newPos.getX(), newPos.getY());
 			
-			mParent.setXMove(newPos.getX());
-			mParent.setYMove(newPos.getY());
+			if(mParent instanceof IHaveAnimations){
+				
+				if(movementPerCall.getX() > 0){
+					((IHaveAnimations) mParent).setHorizontalDirection(1);
+					
+				}
+				if(movementPerCall.getX() < 0){
+					((IHaveAnimations) mParent).setHorizontalDirection(-1);
+					
+				}
+				if(movementPerCall.getY() > 0){
+					((IHaveAnimations) mParent).setVerticalDirection(1);
+					
+				}
+				if(movementPerCall.getY() < 0){
+					((IHaveAnimations) mParent).setVerticalDirection(-1);
+					
+				}
+			}
 			
 			newPos.setLocation(position.getX() + (newPos.getX() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))),
 					position.getY() + (newPos.getY() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))));
 
 			
-			if (!mParentAsCreature.checkEntityCollisions(mParent.getXMove() * PRECAUTIOUS_COLLISION_PADDING, 0f)){
+			if (!mParentAsCreature.checkEntityCollisions(movementPerCall.getX() * PRECAUTIOUS_COLLISION_PADDING, 0f)){
 				mParent.setRelativeX((float) newPos.getX());
 
 			}
-			if (!mParentAsCreature.checkEntityCollisions(0f, mParent.getYMove() * PRECAUTIOUS_COLLISION_PADDING)){
+			if (!mParentAsCreature.checkEntityCollisions(0f, movementPerCall.getY() * PRECAUTIOUS_COLLISION_PADDING)){
 				mParent.setRelativeY((float) newPos.getY());
 
 			}
@@ -198,211 +211,6 @@ public class MoveBehavior implements IMoveBehavior{
 
 	}
 	
-	@Override
-	public void move() {
-		if (!mParentAsCreature.checkEntityCollisions(mParent.getXMove(), 0f))
-			moveX();
-		if (!mParentAsCreature.checkEntityCollisions(0f, mParent.getYMove()))
-			moveY();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveX();
-	 */
-	@Override
-	public void moveX() {
-		
-		Rectangle bounds = mParentAsCreature.getBounds();
-		
-		if (mParent.getXMove() > 0) {// Moving right
-			int tx = (int) (mParent.getRelativeX() + mParent.getXMove() + bounds.x + bounds.width) / Tile.TILEWIDTH;
-
-			if (!mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y) / Tile.TILEHEIGHT)
-					&& !mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-				mParent.setRelativeX((float) (mParent.getRelativeX() + mParent.getXMove()));
-			} else {
-				mParent.setRelativeX(tx * Tile.TILEWIDTH - bounds.x - bounds.width - 1);
-			}
-
-		} else if (mParent.getXMove() < 0) {// Moving left
-			int tx = (int) (mParent.getRelativeX() + mParent.getXMove() + bounds.x) / Tile.TILEWIDTH;
-
-			if (!mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y) / Tile.TILEHEIGHT)
-					&& !mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-				mParent.setRelativeX((float) (mParent.getRelativeX() + mParent.getXMove()));
-			} else {
-				mParent.setRelativeX(tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x);
-			}
-
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveY();
-	 */
-	@Override
-	public void moveY() {
-		
-		Rectangle bounds = mParentAsCreature.getBounds();
-		
-		if (mParent.getYMove() < 0) {// Up
-			int ty = (int) (mParent.getRelativeY() + mParent.getYMove() + bounds.y) / Tile.TILEHEIGHT;
-
-			if (!mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
-				mParent.setRelativeY((float) (mParent.getRelativeY() + mParent.getYMove()));
-			} else {
-				mParent.setRelativeY(ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y);
-			}
-
-		} else if (mParent.getYMove() > 0) {// Down
-			int ty = (int) (mParent.getRelativeY() + mParent.getYMove() + bounds.y + bounds.height) / Tile.TILEHEIGHT;
-
-			if (!mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
-				mParent.setRelativeY((float) (mParent.getRelativeY() + mParent.getYMove()));
-			} else {
-				mParent.setRelativeY(ty * Tile.TILEHEIGHT - bounds.y - bounds.height - 1);
-			}
-
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveUp(boolean isMoving);
-	 */
-	public void moveUp(boolean isMoving){
-		if(isMoving){
-			mParent.setYMove(-mParent.getMovementSpeed());
-		}else if(mParent.getYMove() > 0){
-			return;
-		}else{
-			mParent.setYMove(0f);
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveDown(boolean isMoving);
-	 */
-	@Override
-	public void moveDown(boolean isMoving){
-		if(isMoving){
-			mParent.setYMove(mParent.getMovementSpeed());
-		}else if(mParent.getYMove() < 0){
-			return;
-		}else{
-			mParent.setYMove(0f);
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveLeft(boolean isMoving);
-	 */
-	@Override
-	public void moveLeft(boolean isMoving){
-		if(isMoving){
-			mParent.setXMove(-mParent.getMovementSpeed());
-		}else if(mParent.getXMove() > 0){
-			return;
-		}else{
-			mParent.setXMove(0f);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveRight(boolean isMoving);
-	 */
-	@Override
-	public void moveRight(boolean isMoving){
-		if(isMoving){
-			mParent.setXMove(mParent.getMovementSpeed());
-		}else if(mParent.getXMove() < 0){
-			return;
-		}else{
-			mParent.setXMove(0f);
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runUp(boolean isMoving);
-	 */
-	@Override
-	public void runUp(boolean isMoving) {
-		if(isMoving){
-			mParent.setYMove(-mParent.getRunningSpeed());
-		}else if(mParent.getYMove() > 0){
-			return;
-		}else{
-			mParent.setYMove(0f);
-		}
-		
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runDown(boolean isMoving);
-	 */
-	@Override
-	public void runDown(boolean isMoving) {
-		if(isMoving){
-			mParent.setYMove(mParent.getRunningSpeed());
-		}else if(mParent.getYMove() < 0){
-			return;
-		}else{
-			mParent.setYMove(0f);
-		}
-		
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runRight(boolean isMoving);
-	 */
-	@Override
-	public void runRight(boolean isMoving) {
-		if(isMoving){
-			mParent.setXMove(mParent.getRunningSpeed());
-		}else if(mParent.getXMove() < 0){
-			return;
-		}else{
-			mParent.setXMove(0f);
-		}
-		
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runLeft(boolean isMoving);
-	 */
-	@Override
-	public void runLeft(boolean isMoving) {
-		if(isMoving){
-			mParent.setXMove(-mParent.getRunningSpeed());
-		}else if(mParent.getXMove() > 0){
-			return;
-		}else{
-			mParent.setXMove(0f);
-		}
-		
-	}
-
 
 }
 

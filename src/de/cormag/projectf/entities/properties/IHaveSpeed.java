@@ -39,37 +39,6 @@ public interface IHaveSpeed {
 	 */			
 	public void setRunningSpeed(float amount);
 	
-	/**
-	 * Gets the horizontal movement of the object. The greater the number the faster the object moves. 
-	 * Positive values resemble movement to the right, negative values resemble movement to the left.
-	 * 
-	 * @return the horizontal movement value.
-	 */
-	public double getXMove();
-	
-	/**
-	 * Sets the horizontal movement of the object. The greater the number the faster the object moves. 
-	 * Positive values resemble movement to the right, negative values resemble movement to the left.
-	 * 
-	 * @param amount the horizontal movement value to be set
-	 */
-	public void setXMove(double amount);
-	
-	/**
-	 * Gets the vertical movement of the object. The greater the number the faster the object moves. 
-	 * Positive values resemble movement downwards, negative values resemble movement upwards.
-	 * 
-	 * @return the horizontal movement value.
-	 */
-	public double getYMove();
-	
-	/**
-	 * Sets the vertical movement of the object. The greater the number the faster the object moves. 
-	 * Positive values resemble movement downwards, negative values resemble movement upwards.
-	 * 
-	 * @param amount the vertical movement value to be set
-	 */
-	public void setYMove(double amount);
 		
 	/**
 	 * Gets whether the object is sprinting or not

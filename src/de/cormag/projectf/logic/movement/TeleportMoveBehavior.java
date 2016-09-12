@@ -133,84 +133,9 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 			}
 		}
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveUp(boolean isMoving);
-	 */
-	@Override
-	public void moveUp(boolean isMoving) {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveDown(boolean isMoving)
-	 */
-	@Override
-	public void moveDown(boolean isMoving) {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveRight(boolean isMoving)
-	 */
-	@Override
-	public void moveRight(boolean isMoving) {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveLeft(boolean isMoving)
-	 */
-	@Override
-	public void moveLeft(boolean isMoving) {
-		
-	}
 
 	@Override
 	public void roam(final GameTime gameTime) {
-		
-	}
-
-	@Override
-	public void runUp(boolean isMoving) {
-		
-	}
-
-	@Override
-	public void runDown(boolean isMoving) {
-		
-	}
-
-	@Override
-	public void runRight(boolean isMoving) {
-		
-	}
-
-	@Override
-	public void runLeft(boolean isMoving) {
-		
-	}
-
-	@Override
-	public void move() {
-		
-	}
-
-	@Override
-	public void moveX() {
-		
-	}
-
-	@Override
-	public void moveY() {
 		
 	}
 }

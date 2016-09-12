@@ -46,28 +46,28 @@ public abstract class Monster extends Enemy implements Serializable {
 
 	protected void changeVisionField() {
 
-		if (this.xMove > 0) {
+		if (horizontalDirection == 1) {
 
 			visionField.setBounds((int) (getX() + getBounds().x + getBounds().width + padding),
 					(int) (getY() - height / 2), height * 2, width * 2);
 
 			lastMove = "right";
 
-		} else if (this.xMove < 0) {
+		} else if (horizontalDirection == -1) {
 
 			visionField.setBounds((int) (getX() - width * 2 + getBounds().x - padding), (int) (getY() - height / 2),
 					height * 2, width * 2);
 
 			lastMove = "left";
 
-		} else if (this.yMove > 0) {
+		} else if (verticalDirection == 1) {
 
 			visionField.setBounds((int) (getX() - width / 2),
 					(int) (getY() + getBounds().height + getBounds().y + padding), width * 2, height * 2);
 
 			lastMove = "down";
 
-		} else if (this.yMove < 0) {
+		} else if (verticalDirection == -1) {
 
 			visionField.setBounds((int) (getX() - width / 2), (int) (getY() - height * 2 + getBounds().y - padding),
 					height * 2, width * 2);

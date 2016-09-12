@@ -3,7 +3,7 @@ package de.cormag.projectf.logic.modes.players;
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.input.KeyManager;
 import de.cormag.projectf.logic.modes.IModeControl;
-import de.cormag.projectf.logic.movement.IMoveBehavior;
+import de.cormag.projectf.logic.movement.IPlayerMovementBehavior;
 import de.cormag.projectf.utils.time.GameTime;
 
 /**
@@ -22,7 +22,7 @@ public class LocalPlayerControl implements IModeControl{
 	/**
 	 * move order receiving behavior object
 	 */
-	private final IMoveBehavior mMoveReceiver;
+	private final IPlayerMovementBehavior mMoveReceiver;
 	
 	/**
 	 * the key manager that is used to set the controls for this object
@@ -42,40 +42,44 @@ public class LocalPlayerControl implements IModeControl{
 	 * @param moveReceiver Move order receiving behavior object
 	 * @param keyManager the key manager that is used to set the controls for this object
 	 */
-	public LocalPlayerControl(final ICanMove parent, final IMoveBehavior moveReceiver, final KeyManager keyManager) {
+	public LocalPlayerControl(final ICanMove parent, final IPlayerMovementBehavior moveReceiver, final KeyManager keyManager) {
 		
 		mParent = parent;
 		mMoveReceiver = moveReceiver;
 		mKeyManager = keyManager;
 		
 		mIsActive = false;
-
-		
 	}
 
 	@Override
 	public void update(GameTime gameTime) {
+		
+		if(!(mKeyManager.up || mKeyManager.down || mKeyManager.left || mKeyManager.right)){
+			mMoveReceiver.stopMovement();
+			
+		}
 		
 		mMoveReceiver.update(gameTime);
 		
 		if(!mIsActive){
 			return;
 		}
-		
-		mMoveReceiver.moveUp(mKeyManager.up);
-		mMoveReceiver.moveDown(mKeyManager.down);
-		mMoveReceiver.moveRight(mKeyManager.right);
-		mMoveReceiver.moveLeft(mKeyManager.left);
+	
 		
 		if(mParent.isSprinting()){
-			mMoveReceiver.runUp(mKeyManager.up);
 			mMoveReceiver.runDown(mKeyManager.down);
+			mMoveReceiver.runUp(mKeyManager.up);
 			mMoveReceiver.runLeft(mKeyManager.left);
 			mMoveReceiver.runRight(mKeyManager.right);
 			
+		}else{
+			mMoveReceiver.moveDown(mKeyManager.down);
+			mMoveReceiver.moveUp(mKeyManager.up);
+			mMoveReceiver.moveLeft(mKeyManager.left);
+			mMoveReceiver.moveRight(mKeyManager.right);
+		
 		}
 		
-		mMoveReceiver.move();
 	}
 
 	@Override

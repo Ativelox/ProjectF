@@ -20,21 +20,20 @@ public class LoadingScreen extends World {
 
 	private int countRenderTicks;
 
-	/**
-	 * @return used if change worlds
-	 */
+	
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY) {
 		super(null);
 
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;
+		
 
+		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-
 				handler.getPlayer().setRelativeX(spawnX);
 				handler.getPlayer().setRelativeY(spawnY);
 
@@ -48,7 +47,6 @@ public class LoadingScreen extends World {
 			public void run() {
 
 				handler.setWorld(queuedWorld);
-
 			}
 
 		}, 1000);
@@ -101,6 +99,7 @@ public class LoadingScreen extends World {
 
 					}
 				} else {
+
 					handler.setWorld(queuedWorld);
 
 				}

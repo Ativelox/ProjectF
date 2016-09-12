@@ -18,7 +18,7 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	public static final int DEFAULT_CREATURE_WIDTH = 64, DEFAULT_CREATURE_HEIGHT = 64;
 	protected float speed;
 	protected float runningSpeed;
-	protected double xMove, yMove;
+	protected int verticalDirection, horizontalDirection;
 
 	protected transient Animation walkingAnimDown, walkingAnimUp, walkingAnimLeft, walkingAnimRight, runningAnimDown,
 			runningAnimUp, runningAnimLeft, runningAnimRight;
@@ -32,8 +32,9 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 		speed = DEFAULT_SPEED;
 		sprinting = false;
 		runningSpeed = Creature.DEFAULT_SPEED * 2;
-		xMove = 0;
-		yMove = 0;
+		
+		verticalDirection = 0;
+		horizontalDirection = 0;
 
 		getBounds().x = width / 3;
 		getBounds().y = height / 3;
@@ -60,19 +61,19 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 		
 		if (sprinting) {
 
-			if (xMove < 0) {
+			if (horizontalDirection == -1) {
 				setSteadyAnimation(steadyLeft);
 				return runningAnimLeft.getCurrentFrame();
 
-			} else if (xMove > 0) {
+			} else if (horizontalDirection == 1) {
 				setSteadyAnimation(steadyRight);
 				return runningAnimRight.getCurrentFrame();
 
-			} else if (yMove < 0) {
+			} else if (verticalDirection == -1) {
 				setSteadyAnimation(steadyUp);
 				return runningAnimUp.getCurrentFrame();
 
-			} else if (yMove > 0) {
+			} else if (verticalDirection == 1) {
 				setSteadyAnimation(steadyDown);
 				return runningAnimDown.getCurrentFrame();
 
@@ -82,19 +83,19 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 
 		} else {
 
-			if (xMove < 0) {
+			if (horizontalDirection == -1) {
 				setSteadyAnimation(steadyLeft);
 				return walkingAnimLeft.getCurrentFrame();
 
-			} else if (xMove > 0) {
+			} else if (horizontalDirection == 1) {
 				setSteadyAnimation(steadyRight);
 				return walkingAnimRight.getCurrentFrame();
 
-			} else if (yMove < 0) {
+			} else if (verticalDirection == -1) {
 				setSteadyAnimation(steadyUp);
 				return walkingAnimUp.getCurrentFrame();
 
-			} else if (yMove > 0) {
+			} else if (verticalDirection == 1) {
 				setSteadyAnimation(steadyDown);
 				return walkingAnimDown.getCurrentFrame();
 
@@ -148,24 +149,24 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	}
 	
 	@Override
-	public double getXMove() {
-		return xMove;
+	public int getHorizontalDirection() {
+		return horizontalDirection;
 	}
 
 	@Override
-	public void setXMove(double amount) {
-		xMove = amount;
+	public void setHorizontalDirection(int direction) {
+		horizontalDirection = direction;
 		
 	}
 
 	@Override
-	public double getYMove() {
-		return yMove;
+	public int getVerticalDirection() {
+		return verticalDirection;
 	}
 
 	@Override
-	public void setYMove(double amount) {
-		yMove = amount;
+	public void setVerticalDirection(int direction) {
+		verticalDirection = direction;
 		
 	}
 
