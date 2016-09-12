@@ -137,36 +137,6 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#move();
-	 */
-	@Override
-	public void move() {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveX();
-	 */
-	@Override
-	public void moveX() {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveY();
-	 */
-	@Override
-	public void moveY() {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveUp(boolean isMoving);
 	 */
 	@Override
@@ -203,69 +173,44 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 	public void moveLeft(boolean isMoving) {
 		
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#stopHorizontalMovement();
-	 */
+
 	@Override
-	public void stopHorizontalMovement() {
+	public void roam(final GameTime gameTime) {
 		
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#stopVerticalMovement();
-	 */
-	@Override
-	public void stopVerticalMovement() {
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runUp(boolean isMoving)
-	 */
+
 	@Override
 	public void runUp(boolean isMoving) {
 		
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runDown(boolean isMoving)
-	 */
+
 	@Override
 	public void runDown(boolean isMoving) {
-
+		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runRight(boolean isMoving)
-	 */
 	@Override
 	public void runRight(boolean isMoving) {
 		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#runLeft(boolean isMoving)
-	 */
 	@Override
 	public void runLeft(boolean isMoving) {
 		
 	}
 
 	@Override
-	public void searchForTargets(final GameTime gameTime) {
+	public void move() {
+		
+	}
+
+	@Override
+	public void moveX() {
+		
+	}
+
+	@Override
+	public void moveY() {
 		
 	}
 }

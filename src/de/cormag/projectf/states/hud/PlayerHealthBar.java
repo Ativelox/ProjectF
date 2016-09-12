@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.time.GameTime;
 
@@ -76,7 +77,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 		g.drawRoundRect(10, 10, 80, 80, 10, 10);
 
 
-//		g.drawImage(Assets.avatar_very_sad, 10, 10, 80, 80, null);
+		g.drawImage(Assets.avatar_standard, 10, 10, 80, 80, null);
 
 		
 

@@ -45,7 +45,7 @@ public interface IHaveSpeed {
 	 * 
 	 * @return the horizontal movement value.
 	 */
-	public float getXMove();
+	public double getXMove();
 	
 	/**
 	 * Sets the horizontal movement of the object. The greater the number the faster the object moves. 
@@ -53,7 +53,7 @@ public interface IHaveSpeed {
 	 * 
 	 * @param amount the horizontal movement value to be set
 	 */
-	public void setXMove(float amount);
+	public void setXMove(double amount);
 	
 	/**
 	 * Gets the vertical movement of the object. The greater the number the faster the object moves. 
@@ -61,7 +61,7 @@ public interface IHaveSpeed {
 	 * 
 	 * @return the horizontal movement value.
 	 */
-	public float getYMove();
+	public double getYMove();
 	
 	/**
 	 * Sets the vertical movement of the object. The greater the number the faster the object moves. 
@@ -69,7 +69,7 @@ public interface IHaveSpeed {
 	 * 
 	 * @param amount the vertical movement value to be set
 	 */
-	public void setYMove(float amount);
+	public void setYMove(double amount);
 		
 	/**
 	 * Gets whether the object is sprinting or not

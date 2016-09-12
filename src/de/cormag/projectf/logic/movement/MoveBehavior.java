@@ -5,10 +5,10 @@ import java.awt.geom.Point2D;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.properties.ICanMove;
 import de.cormag.projectf.tiles.Tile;
+import de.cormag.projectf.utils.Utils;
 import de.cormag.projectf.utils.time.GameTime;
 
 /**
@@ -19,7 +19,12 @@ import de.cormag.projectf.utils.time.GameTime;
  */
 
 public class MoveBehavior implements IMoveBehavior{
-
+	
+	/**
+	 * The number of update calls this entity will predict his movement for, if any collision 
+	 * were to occur in the predicted update calls, the object won't move.
+	 */
+	private final static int PRECAUTIOUS_COLLISION_PADDING = 10;
 	/**
 	 * If present, the target to follow.
 	 */
@@ -56,7 +61,7 @@ public class MoveBehavior implements IMoveBehavior{
 		mFollowTarget = Optional.empty();
 		mCurrentDestination = Optional.empty();
 		
-		elapsedTime = 0;
+		elapsedTime = 0.8;
 		
 		mIsMoving = false;
 	}
@@ -127,53 +132,72 @@ public class MoveBehavior implements IMoveBehavior{
 		
 		if (mFollowTarget.isPresent()) {
 			ICanMove target = mFollowTarget.get();
-			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX(), target.getRelativeY()));
+			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX() 
+//					+ ((Entity) target).getWidth() / 2
+					, target.getRelativeY() 
+//					+ ((Entity) target).getHeight() / 2
+					));
 		}
 		
+		//got a target to follow or a position to move to
 		if (mCurrentDestination.isPresent()) {
 			Point2D position = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
 			Point2D destination = mCurrentDestination.get();
 			
-			Point2D positionCenter = new Point2D.Double(position.getX() + ((Entity)mParent).getWidth() / 2, 
-														position.getY() + ((Entity)mParent).getHeight() / 2);
+			Point2D newPos = Utils.normalizeVector(position, destination);
 			
-			Point2D destinationCenter = new Point2D.Double(destination.getX() + ((Entity)mFollowTarget.get()).getWidth() / 2,
-														   destination.getY() + ((Entity)mFollowTarget.get()).getHeight() / 2);
+			mParent.setXMove(newPos.getX());
+			mParent.setYMove(newPos.getY());
 			
-			if (destinationCenter.getX() > positionCenter.getX() - 5) {
-				stopHorizontalMovement();
+			newPos.setLocation(position.getX() + (newPos.getX() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))),
+					position.getY() + (newPos.getY() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))));
 
-			} else if (destinationCenter.getX() < positionCenter.getX()) {
-				moveLeft(true);
-
-			}
-			if (destinationCenter.getX() > positionCenter.getX()) {
-				moveRight(true);
+			
+			if (!mParentAsCreature.checkEntityCollisions(mParent.getXMove() * PRECAUTIOUS_COLLISION_PADDING, 0f)){
+				mParent.setRelativeX((float) newPos.getX());
 
 			}
-			if (destinationCenter.getY() > positionCenter.getY() - 5) {
-				stopVerticalMovement();
-				
-
-			} else if (destinationCenter.getY() < positionCenter.getY()) {
-				moveUp(true);
-				
+			if (!mParentAsCreature.checkEntityCollisions(0f, mParent.getYMove() * PRECAUTIOUS_COLLISION_PADDING)){
+				mParent.setRelativeY((float) newPos.getY());
 
 			}
-			if (destinationCenter.getY() > positionCenter.getY()) {
-				moveDown(true);
-
-			}	
-			move();
-		}
 	
+		}
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#move();
-	 */
+	@Override
+	public void roam(final GameTime gameTime) {
+		if(mFollowTarget.isPresent()){
+			mFollowTarget = Optional.empty();
+		}
+		
+		elapsedTime += gameTime.getElapsedTime().get(ChronoUnit.SECONDS);
+		
+		float newPosX = mParent.getRelativeX();
+		float newPosY = mParent.getRelativeY();
+		
+		if(elapsedTime >= 1){
+			
+			if(Math.round(Math.random()) == 0){
+				//50% chance to move horizontal
+				short horizontalDirection = (short) Math.round(Math.random() * 2 - 1);
+				newPosX = mParent.getRelativeX() * mParent.getMovementSpeed() * horizontalDirection;
+				
+			}else{
+				//50% chance to move vertical
+				short verticalDirection = (short) Math.round(Math.random() * 2 - 1);
+				newPosY = mParent.getRelativeY() * mParent.getMovementSpeed() * verticalDirection;
+		
+			}
+			
+			mCurrentDestination = Optional.of(new Point2D.Float(newPosX, newPosY));
+			
+			mIsMoving = true;
+			elapsedTime = 0;
+		}
+
+	}
+	
 	@Override
 	public void move() {
 		if (!mParentAsCreature.checkEntityCollisions(mParent.getXMove(), 0f))
@@ -197,7 +221,7 @@ public class MoveBehavior implements IMoveBehavior{
 
 			if (!mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y) / Tile.TILEHEIGHT)
 					&& !mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-				mParent.setRelativeX(mParent.getRelativeX() + mParent.getXMove());
+				mParent.setRelativeX((float) (mParent.getRelativeX() + mParent.getXMove()));
 			} else {
 				mParent.setRelativeX(tx * Tile.TILEWIDTH - bounds.x - bounds.width - 1);
 			}
@@ -207,7 +231,7 @@ public class MoveBehavior implements IMoveBehavior{
 
 			if (!mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y) / Tile.TILEHEIGHT)
 					&& !mParentAsCreature.collisionWithTile(tx, (int) (mParent.getRelativeY() + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
-				mParent.setRelativeX(mParent.getRelativeX() + mParent.getXMove());
+				mParent.setRelativeX((float) (mParent.getRelativeX() + mParent.getXMove()));
 			} else {
 				mParent.setRelativeX(tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x);
 			}
@@ -230,7 +254,7 @@ public class MoveBehavior implements IMoveBehavior{
 
 			if (!mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x) / Tile.TILEWIDTH, ty)
 					&& !mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
-				mParent.setRelativeY(mParent.getRelativeY() + mParent.getYMove());
+				mParent.setRelativeY((float) (mParent.getRelativeY() + mParent.getYMove()));
 			} else {
 				mParent.setRelativeY(ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y);
 			}
@@ -240,7 +264,7 @@ public class MoveBehavior implements IMoveBehavior{
 
 			if (!mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x) / Tile.TILEWIDTH, ty)
 					&& !mParentAsCreature.collisionWithTile((int) (mParent.getRelativeX() + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
-				mParent.setRelativeY(mParent.getRelativeY() + mParent.getYMove());
+				mParent.setRelativeY((float) (mParent.getRelativeY() + mParent.getYMove()));
 			} else {
 				mParent.setRelativeY(ty * Tile.TILEHEIGHT - bounds.y - bounds.height - 1);
 			}
@@ -253,7 +277,6 @@ public class MoveBehavior implements IMoveBehavior{
 	 * 
 	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#moveUp(boolean isMoving);
 	 */
-	@Override
 	public void moveUp(boolean isMoving){
 		if(isMoving){
 			mParent.setYMove(-mParent.getMovementSpeed());
@@ -310,28 +333,6 @@ public class MoveBehavior implements IMoveBehavior{
 		}else{
 			mParent.setXMove(0f);
 		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#stopHorizontalMovement();
-	 */
-	@Override
-	public void stopHorizontalMovement(){
-		mParent.setXMove(0f);
-		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.cormag.projectf.logic.movement.IMoveBehavior#stopVerticalMovement();
-	 */
-	@Override
-	public void stopVerticalMovement(){
-		mParent.setYMove(0f);
-		
 	}
 	
 	/*
@@ -402,26 +403,6 @@ public class MoveBehavior implements IMoveBehavior{
 		
 	}
 
-	@Override
-	public void searchForTargets(final GameTime gameTime) {
-		
-		elapsedTime += gameTime.getElapsedTime().get(ChronoUnit.SECONDS);
-		
-		if(elapsedTime >= 1){
-			if (Math.round(Math.random()) == 0) {
-				mParent.setYMove(0f);
-				mParent.setXMove(((int) Math.round((Math.random() * 2) - 1)) * mParent.getMovementSpeed());
-	
-			}else {
-				mParent.setXMove(0f);
-				mParent.setYMove(((int) Math.round((Math.random() * 2) - 1)) * mParent.getMovementSpeed());
-	
-			}
-			
-			elapsedTime = 0;
-		}
-		
-		move();
-	}
+
 }
 

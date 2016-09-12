@@ -60,7 +60,7 @@ public abstract class Particle extends Entity implements ISpatial, ICanMove {
 	 * float)
 	 */
 	@Override
-	public boolean checkEntityCollisions(float xOffset, float yOffset) {
+	public boolean checkEntityCollisions(double xOffset, double yOffset) {
 		return false;
 	}
 

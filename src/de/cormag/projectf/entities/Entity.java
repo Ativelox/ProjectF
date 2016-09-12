@@ -73,7 +73,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	public void applyResources() {
 	}
 
-	public boolean checkEntityCollisions(float xOffset, float yOffset) {
+	public boolean checkEntityCollisions(double xOffset, double yOffset) {
 
 		if (handler.getWorld().getEntityManager() != null) {
 
@@ -111,7 +111,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 
 	}
 
-	public Rectangle getCollisionBounds(float xOffset, float yOffset) {
+	public Rectangle getCollisionBounds(double xOffset, double yOffset) {
 		return new Rectangle((int) (getRelativeX() + getBounds().x + xOffset), (int) (getRelativeY() + getBounds().y + yOffset),
 				getBounds().width, getBounds().height);
 	}

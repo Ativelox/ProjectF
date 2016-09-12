@@ -109,27 +109,31 @@ public final class Glow extends Particle {
 	}
 
 	@Override
-	public float getXMove() {
-		return 0;
-	}
-
-	@Override
-	public void setXMove(float amount) {
-		
-	}
-
-	@Override
-	public float getYMove() {
-		return 0;
-	}
-
-	@Override
-	public void setYMove(float amount) {
-		
-	}
-
-	@Override
 	public boolean isSprinting() {
 		return false;
+	}
+
+	@Override
+	public double getXMove() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setXMove(double amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getYMove() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setYMove(double amount) {
+		// TODO Auto-generated method stub
+		
 	}
 }

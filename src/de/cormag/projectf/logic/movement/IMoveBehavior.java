@@ -11,13 +11,6 @@ import de.cormag.projectf.utils.time.GameTime;
  *
  */
 public interface IMoveBehavior extends IUpdateable {
-	/**
-	 * Follows the given target indefinitely.
-	 * 
-	 * @param target
-	 *            A move-able object to follow.
-	 */
-	public void follow(final ICanMove target);
 
 	/**
 	 * Whether the object is currently moving.
@@ -36,11 +29,25 @@ public interface IMoveBehavior extends IUpdateable {
 	 *            Y-coordinate absolute in the world to move to
 	 */
 	public void moveTo(final float x, final float y);
+	
+	/**
+	 * Follows the given target indefinitely.
+	 * 
+	 * @param target
+	 *            A move-able object to follow.
+	 */
+	public void follow(final ICanMove target);
+	
+	/**
+	 * Makes the object randomly move around.
+	 */
+	public void roam(final GameTime gameTime);
 
 	/**
 	 * Stops the movement of the object.
 	 */
 	public void stopMovement();
+	
 
 	/**
 	 * Calls the moveX and moveY methods. Moves the object as long as there won't occur any collision with other objects.
@@ -107,21 +114,6 @@ public interface IMoveBehavior extends IUpdateable {
 	 * @param isMoving </br><tt>true:</tt> the target will run to the left </br><tt>false:</tt> the running motion to the left will be blocked
 	 */
 	public void runLeft(boolean isMoving);
-	
-	/**
-	 * Stops the horizontal movement of the object for as long as xMove doesn't get set
-	 * @see de.cormag.projectf.entities.properties.IHaveSpeed#setXMove(float)
-	 */
-	public void stopHorizontalMovement();
-	
-	/**
-	 * Stops the vertical movement of the object for as long as yMove doesn't get set
-	 * @see de.cormag.projectf.entities.properties.IHaveSpeed#setYMove(float)
-	 */
-	public void stopVerticalMovement();
-	
-	/**
-	 * Makes the object randomly move around so it can actively search for targets
-	 */
-	public void searchForTargets(final GameTime gameTime);
+
+
 }

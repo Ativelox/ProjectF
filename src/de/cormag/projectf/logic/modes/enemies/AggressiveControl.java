@@ -120,9 +120,9 @@ public final class AggressiveControl implements IModeControl {
 		}
 
 		// Case 1: Object is not attacking and chasing another object.
-		if (!mOffensiveTarget.isPresent() && !mMoveReceiver.isMoving()) {
+		if (!mOffensiveTarget.isPresent()) {
 			
-			mMoveReceiver.searchForTargets(gameTime);
+			mMoveReceiver.roam(gameTime);
 			
 			IOffensiveable target = null;
 			

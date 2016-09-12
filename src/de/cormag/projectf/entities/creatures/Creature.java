@@ -18,7 +18,7 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	public static final int DEFAULT_CREATURE_WIDTH = 64, DEFAULT_CREATURE_HEIGHT = 64;
 	protected float speed;
 	protected float runningSpeed;
-	protected float xMove, yMove;
+	protected double xMove, yMove;
 
 	protected transient Animation walkingAnimDown, walkingAnimUp, walkingAnimLeft, walkingAnimRight, runningAnimDown,
 			runningAnimUp, runningAnimLeft, runningAnimRight;
@@ -148,23 +148,23 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	}
 	
 	@Override
-	public float getXMove() {
+	public double getXMove() {
 		return xMove;
 	}
 
 	@Override
-	public void setXMove(float amount) {
+	public void setXMove(double amount) {
 		xMove = amount;
 		
 	}
 
 	@Override
-	public float getYMove() {
+	public double getYMove() {
 		return yMove;
 	}
 
 	@Override
-	public void setYMove(float amount) {
+	public void setYMove(double amount) {
 		yMove = amount;
 		
 	}

@@ -3,6 +3,7 @@ package de.cormag.projectf.utils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,5 +53,34 @@ public class Utils {
 		return new BigDecimal(numberToRound).setScale(scale, BigDecimal.ROUND_FLOOR).doubleValue();
 
 	}
+	
+	public static Point2D differenceVector(Point2D src, Point2D dest){
+		double srcX = src.getX();
+		double srcY = src.getY();
+		double destX = dest.getX();
+		double destY = dest.getY();
+		
+		return  new Point2D.Double(destX - srcX, destY - srcY);
+	}
+	
+	public static double lengthVector(Point2D vector){
+		double vectorX = vector.getX();
+		double vectorY = vector.getY();
+		
+		return Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2));
+	}
+	
+	public static Point2D multiplyScalarVector(Point2D vector, double scalar){
+		
+		return new Point2D.Double((1 / scalar) * vector.getX(), (1 / scalar) * vector.getY()); 
+	}
+	
 
+	public static Point2D normalizeVector(Point2D src, Point2D dest){
+		Point2D differenceVector = differenceVector(src, dest);
+		double length = lengthVector(differenceVector);
+		Point2D normalizedVector = multiplyScalarVector(differenceVector, length);
+		
+		return normalizedVector;
+	}
 }
