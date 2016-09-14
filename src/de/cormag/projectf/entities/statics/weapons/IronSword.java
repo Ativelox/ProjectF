@@ -12,7 +12,7 @@ public class IronSword extends Weapon implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int DEFAULT_IRON_SWORD_POWER = 5;
+	public static final int DEFAULT_IRON_SWORD_POWER = 20;
 
 	public IronSword(Handler handler, float x, float y) {
 		super(handler, x, y, DEFAULT_WEAPON_WIDTH, DEFAULT_WEAPON_HEIGHT, DEFAULT_IRON_SWORD_POWER);

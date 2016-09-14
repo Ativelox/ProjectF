@@ -228,7 +228,7 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 			g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(25f));
 
-			g.drawString("Level Up!", (int) (x - xOffset) - 15, (int) (y - yOffset) - 20);
+			g.drawString("Level Up!", (int) (x) - 15, (int) (y) - 20);
 
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
@@ -248,7 +248,7 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 	private void drawSword(boolean key) {
 
-		if (key && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
+		if (key && handler.getWorld().getEntityManager() != null && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
 				&& stamina >= 50) {
 
 			ironSword = new IronSword(handler, handler.getPlayer().getX(), handler.getPlayer().getY());

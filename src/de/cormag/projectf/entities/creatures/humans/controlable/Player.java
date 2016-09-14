@@ -9,10 +9,13 @@ import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.modes.players.EPlayerMode;
+import de.cormag.projectf.logic.modes.players.LocalPlayerAttackBehavior;
 import de.cormag.projectf.logic.modes.players.LocalPlayerControl;
 import de.cormag.projectf.logic.modes.players.PlayerModeManager;
 import de.cormag.projectf.logic.movement.IPlayerMovementBehavior;
 import de.cormag.projectf.logic.movement.LocalPlayerMovementBehavior;
+import de.cormag.projectf.logic.offensive.IOffensiveBehavior;
+import de.cormag.projectf.logic.offensive.OffensiveBehavior;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.InventoryState;
 import de.cormag.projectf.utils.time.GameTime;
@@ -36,8 +39,10 @@ public class Player extends ControlableHuman implements Serializable {
 
 		inventory = false;
 		
+		IOffensiveBehavior offensiveBehavior = new OffensiveBehavior(this);
 		IPlayerMovementBehavior localMoveBehavior = new LocalPlayerMovementBehavior(this);
-		IModeControl localPlayerControl = new LocalPlayerControl(this, localMoveBehavior, handler.getKeyManager());
+		LocalPlayerAttackBehavior localPlayerAttackBehavior = new LocalPlayerAttackBehavior(this, offensiveBehavior, handler);
+		IModeControl localPlayerControl = new LocalPlayerControl(this, localMoveBehavior, localPlayerAttackBehavior, handler.getKeyManager());
 		mPlayerModeManager = new PlayerModeManager(this, localPlayerControl, EPlayerMode.LOCAL_PLAYER_MODE);
 
 		applyResources();

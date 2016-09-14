@@ -34,6 +34,8 @@ public class LocalPlayerControl implements IModeControl{
 	 * {@link #activate()} and {@link #terminate()}
 	 */
 	private boolean mIsActive;
+	
+	private final LocalPlayerAttackBehavior mLocalPlayerAttackBehavior;
 
 	/**
 	 * Creates a new local player control object, which lets the object move by using w, a, s, d.
@@ -42,10 +44,11 @@ public class LocalPlayerControl implements IModeControl{
 	 * @param moveReceiver Move order receiving behavior object
 	 * @param keyManager the key manager that is used to set the controls for this object
 	 */
-	public LocalPlayerControl(final ICanMove parent, final IPlayerMovementBehavior moveReceiver, final KeyManager keyManager) {
+	public LocalPlayerControl(final ICanMove parent, final IPlayerMovementBehavior moveReceiver, final LocalPlayerAttackBehavior localPlayerAttackbehavior, final KeyManager keyManager) {
 		
 		mParent = parent;
 		mMoveReceiver = moveReceiver;
+		mLocalPlayerAttackBehavior = localPlayerAttackbehavior;
 		mKeyManager = keyManager;
 		
 		mIsActive = false;
@@ -53,12 +56,12 @@ public class LocalPlayerControl implements IModeControl{
 
 	@Override
 	public void update(GameTime gameTime) {
-		
-		if(!(mKeyManager.up || mKeyManager.down || mKeyManager.left || mKeyManager.right)){
+
+		if(!(mKeyManager.up || mKeyManager.down || mKeyManager.left || mKeyManager.right || mKeyManager.shift)){
 			mMoveReceiver.stopMovement();
 			
 		}
-		
+		mLocalPlayerAttackBehavior.update(gameTime);
 		mMoveReceiver.update(gameTime);
 		
 		if(!mIsActive){

@@ -20,8 +20,8 @@ public class Piano extends MusicPlayingDevice {
 
 		this.handler = handler;
 
-		musicTriggerRect = new Rectangle((int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()
+		musicTriggerRect = new Rectangle((int) (getRelativeX() - handler.getGameCamera().getxOffset()),
+				(int) (getRelativeY() - handler.getGameCamera().getyOffset()
 						+ (HEIGHT - handler.getPlayer().getProperCollisionRectangle().height)),
 				WIDTH, handler.getPlayer().getProperCollisionRectangle().height);
 
@@ -32,8 +32,8 @@ public class Piano extends MusicPlayingDevice {
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 
-		musicTriggerRect = new Rectangle((int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()
+		musicTriggerRect = new Rectangle((int) (getRelativeX() - handler.getGameCamera().getxOffset()),
+				(int) (getRelativeY() - handler.getGameCamera().getyOffset()
 						+ (HEIGHT - handler.getPlayer().getProperCollisionRectangle().height)),
 				WIDTH, handler.getPlayer().getProperCollisionRectangle().height);
 

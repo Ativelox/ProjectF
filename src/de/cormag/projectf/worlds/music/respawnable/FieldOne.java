@@ -28,7 +28,7 @@ public class FieldOne extends RespawnableWorld {
 
 		loadWorld(path);
 
-		defaultSoundtrack = "BattleTheme.pfsf";
+		defaultSoundtrack = "Lufia.pfsf";
 
 		isRunning = false;
 

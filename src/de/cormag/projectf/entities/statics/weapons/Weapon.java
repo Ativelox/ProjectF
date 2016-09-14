@@ -101,24 +101,24 @@ public abstract class Weapon extends StaticEntity {
 	}
 
 	protected void updateWeaponPosition(float playerArmX, float playerArmY) {
-		setX(playerArmX);
-		setY(playerArmY);
+		setRelativeX(playerArmX);
+		setRelativeY(playerArmY);
 
 	}
 
 	protected void updateCorrespondingPlayerArms() {
 
-		rightArmX = (int) handler.getPlayer().getX() + ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
-		rightArmY = (int) handler.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 4));
+		rightArmX = (int) handler.getPlayer().getRelativeX() + ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
+		rightArmY = (int) handler.getPlayer().getRelativeY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 4));
 
-		leftArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
-		leftArmY = (int) handler.getPlayer().getY() - (Creature.DEFAULT_CREATURE_HEIGHT / 4);
+		leftArmX = (int) handler.getPlayer().getRelativeX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2) + 8);
+		leftArmY = (int) handler.getPlayer().getRelativeY() - (Creature.DEFAULT_CREATURE_HEIGHT / 4);
 
-		upperArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
-		upperArmY = (int) handler.getPlayer().getY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 2) + 5);
+		upperArmX = (int) handler.getPlayer().getRelativeX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
+		upperArmY = (int) handler.getPlayer().getRelativeY() - ((Creature.DEFAULT_CREATURE_HEIGHT / 2) + 5);
 
-		lowerArmX = (int) handler.getPlayer().getX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
-		lowerArmY = (int) handler.getPlayer().getY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
+		lowerArmX = (int) handler.getPlayer().getRelativeX() - ((Creature.DEFAULT_CREATURE_WIDTH / 2));
+		lowerArmY = (int) handler.getPlayer().getRelativeY() + ((Creature.DEFAULT_CREATURE_HEIGHT) - 15);
 
 		if (handler.getPlayer().getHorizontalDirection() > 0 || steadyAnimation.equals(noAttackRight)) {
 
@@ -169,13 +169,13 @@ public abstract class Weapon extends StaticEntity {
 
 		if (handler.getPlayer().getHorizontalDirection() > 0 || steadyAnimation.equals(noAttackRight)) {
 			getBounds().x = DEFAULT_WEAPON_WIDTH;
-			getBounds().y = 20;
+			getBounds().y = 30;
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 
 		} else if (handler.getPlayer().getHorizontalDirection() < 0 || steadyAnimation.equals(noAttackLeft)) {
 			getBounds().x = 0;
-			getBounds().y = DEFAULT_WEAPON_HEIGHT + DEFAULT_WEAPON_HEIGHT / 2;
+			getBounds().y = 30;
 			getBounds().width = DEFAULT_WEAPON_WIDTH;
 			getBounds().height = DEFAULT_WEAPON_HEIGHT * 2;
 

@@ -60,7 +60,7 @@ public class MusicList extends JPanel implements ListSelectionListener {
 
 		this.setBackground(Color.WHITE);
 
-		this.setBounds(50, Game.HEIGHT - 200 - 75, 285, 200);
+		this.setBounds(50, Game.HEIGHT - 200 - 75, 300, 200);
 	}
 
 	public String getClickedSoundtrack() {
