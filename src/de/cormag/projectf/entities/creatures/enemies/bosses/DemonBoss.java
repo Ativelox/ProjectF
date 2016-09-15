@@ -25,7 +25,6 @@ public class DemonBoss extends Boss implements Serializable {
 		this.health = 20;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 50;
 
 		awardedExp = 20;
 
@@ -36,11 +35,11 @@ public class DemonBoss extends Boss implements Serializable {
 		applyResources();
 
 	}
-	
+
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.demonBoss_left[1], Assets.demonBoss_right[1], Assets.demonBoss_up[1],
-				Assets.demonBoss_down[1]));
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.demonBoss_left[1], Assets.demonBoss_right[1],
+				Assets.demonBoss_up[1], Assets.demonBoss_down[1]));
 
 	}
 
@@ -67,7 +66,5 @@ public class DemonBoss extends Boss implements Serializable {
 
 		return bossHealthBar;
 	}
-
-
 
 }

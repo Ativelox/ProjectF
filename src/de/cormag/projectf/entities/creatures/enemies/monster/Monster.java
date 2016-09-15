@@ -18,7 +18,7 @@ public abstract class Monster extends Enemy implements Serializable {
 	private int tickcounts;
 
 	private String lastMove;
-	
+
 	private boolean isBugged;
 	private int padding;
 
@@ -28,14 +28,15 @@ public abstract class Monster extends Enemy implements Serializable {
 		tickcounts = 0;
 
 		this.handler = handler;
-		
+
 		isBugged = false;
-		if(!isBugged){
+		if (!isBugged) {
 			padding = 20;
-		}else{
-			padding = 0;	
+		} else {
+			padding = 0;
 		}
-		//TODO: temporary fix, visionfield clipping into the hitbox of its own entity, resulting in the entity hitting itself
+		// TODO: temporary fix, visionfield clipping into the hitbox of its own
+		// entity, resulting in the entity hitting itself
 
 		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height + padding), width * 2,
 				height * 2);
@@ -86,8 +87,8 @@ public abstract class Monster extends Enemy implements Serializable {
 					break;
 
 				case "left":
-					visionField.setBounds((int) (getX() - width * 2 + getBounds().x - padding), (int) (getY() - height / 2),
-							height * 2, width * 2);
+					visionField.setBounds((int) (getX() - width * 2 + getBounds().x - padding),
+							(int) (getY() - height / 2), height * 2, width * 2);
 					break;
 
 				case "down":
@@ -96,8 +97,8 @@ public abstract class Monster extends Enemy implements Serializable {
 					break;
 
 				case "up":
-					visionField.setBounds((int) (getX() - width / 2), (int) (getY() - height * 2 + getBounds().y - padding),
-							height * 2, width * 2);
+					visionField.setBounds((int) (getX() - width / 2),
+							(int) (getY() - height * 2 + getBounds().y - padding), height * 2, width * 2);
 					break;
 
 				default:
@@ -120,8 +121,9 @@ public abstract class Monster extends Enemy implements Serializable {
 
 		}
 
-		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height + padding), width * 2, height * 2);
-		
+		visionField = new Rectangle((int) (getX() - width / 2), (int) (getY() + height + padding), width * 2,
+				height * 2);
+
 		changeVisionField();
 
 		monsterHealthBar.update(gameTime);
@@ -130,7 +132,7 @@ public abstract class Monster extends Enemy implements Serializable {
 	@Override
 	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
 		super.render(g, gameTime, imageToDraw);
-		
+
 		monsterHealthBar.render(g, gameTime);
 		showDamagedNumbers(g, this, 0, 0);
 

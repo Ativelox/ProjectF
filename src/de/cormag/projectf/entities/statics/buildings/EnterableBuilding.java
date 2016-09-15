@@ -40,7 +40,7 @@ public abstract class EnterableBuilding extends StaticEntity {
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 
-		doorHitbox =  new Rectangle((int) (getX() + doorX), (int) (getY() + doorY), doorWidth, doorHeight);
+		doorHitbox = new Rectangle((int) (getX() + doorX), (int) (getY() + doorY), doorWidth, doorHeight);
 		enterBuildingIfEntered();
 
 	}

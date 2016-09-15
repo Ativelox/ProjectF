@@ -11,6 +11,7 @@ import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
 import de.cormag.projectf.entities.properties.IRenderable;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.entities.properties.IUpdateable;
+import de.cormag.projectf.entities.statics.weapons.AWeapon;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.time.GameTime;
 
@@ -51,7 +52,6 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	 */
 	private float mRelativeY;
 
-
 	public Entity(Handler handler, float x, float y, int width, int height) {
 		this.handler = handler;
 		this.x = x;
@@ -63,7 +63,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 		yOffset = 0;
 
 		setBounds(new Rectangle(0, 0, width, height));
-		
+
 		setOldRelativeX(x);
 		setOldRelativeY(y);
 		setRelativeX(x);
@@ -84,7 +84,8 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 
 				if (e.equals(this))
 					continue;
-				if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
+				if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))
+						&& !(e instanceof AWeapon))
 					return true;
 			}
 			return false;
@@ -95,10 +96,10 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 
 		}
 	}
-	
-	public Iterator<Entity> getEntityIterator(){
+
+	public Iterator<Entity> getEntityIterator() {
 		return handler.getWorld().getEntityManager().getEntities();
-		
+
 	}
 
 	public Rectangle getBounds() {
@@ -112,8 +113,8 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	}
 
 	public Rectangle getCollisionBounds(double xOffset, double yOffset) {
-		return new Rectangle((int) (getRelativeX() + getBounds().x + xOffset), (int) (getRelativeY() + getBounds().y + yOffset),
-				getBounds().width, getBounds().height);
+		return new Rectangle((int) (getRelativeX() + getBounds().x + xOffset),
+				(int) (getRelativeY() + getBounds().y + yOffset), getBounds().width, getBounds().height);
 	}
 
 	public Point getCollisionCenter(float xOffset, float yOffset) {
@@ -184,7 +185,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 	 */
 	@Override
 	public void render(final Graphics g, final GameTime gameTime) {
-		
+
 		renderHitBox(g, gameTime);
 
 	}
@@ -251,7 +252,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 		xOffset = handler.getGameCamera().getxOffset();
 		yOffset = handler.getGameCamera().getyOffset();
 
-//		// Translate relative movement to absolute
+		// // Translate relative movement to absolute
 		setX(getRelativeX() - xOffset);
 		setY(getRelativeY() - yOffset);
 
@@ -264,7 +265,7 @@ public abstract class Entity implements Serializable, IRenderable, IUpdateable, 
 		g.drawRect((int) getX() + bounds.x, (int) getY() + bounds.y, bounds.width, bounds.height);
 
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

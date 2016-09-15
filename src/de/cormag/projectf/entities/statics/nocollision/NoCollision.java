@@ -22,10 +22,10 @@ public abstract class NoCollision extends StaticEntity {
 	protected void renderHitBox(Graphics g, final GameTime gameTime) {
 
 	}
-	
+
 	@Override
-	public int getLayer(){
+	public int getLayer() {
 		return IRenderable.BACK_LAYER;
-		
+
 	}
 }

@@ -32,18 +32,18 @@ public interface ILively {
 	 *            increases if positive.
 	 */
 	public void changeLifepoints(final float amount);
-	
+
 	/**
 	 * Sets the lifepoints of the object to the given amount.
 	 * 
 	 * @param amount
-	 * 			Amount to set lifepoints to
+	 *            Amount to set lifepoints to
 	 */
-	void setLifepoints(final float amount); 
-	
+	void setLifepoints(final float amount);
+
 	/**
-	 * Gets the maximum lifepoints this unit can possess.
-	 * Lifepoints cannot exceed the maximum lifepoints.
+	 * Gets the maximum lifepoints this unit can possess. Lifepoints cannot
+	 * exceed the maximum lifepoints.
 	 * 
 	 * @return The maximum lifepoints of the object
 	 */

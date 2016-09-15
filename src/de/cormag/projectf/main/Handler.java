@@ -94,11 +94,11 @@ public class Handler {
 		if (!(this.world instanceof LoadingScreen)) {
 			lastWorld = this.world;
 		}
-		
-		if(!(this.world instanceof LeaveableBuilding) && world instanceof LoadingScreen){
+
+		if (!(this.world instanceof LeaveableBuilding) && world instanceof LoadingScreen) {
 			getPlayer().setOldX(getPlayer().getRelativeX());
 			getPlayer().setOldY(getPlayer().getRelativeY());
-			
+
 		}
 
 		if (world instanceof RespawnableWorld) {

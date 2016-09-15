@@ -7,6 +7,7 @@ import de.cormag.projectf.entities.Entity;
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.enemies.Enemy;
 import de.cormag.projectf.entities.properties.ICanMove;
+import de.cormag.projectf.entities.properties.IHaveWeapon;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.ISpatial;
 import de.cormag.projectf.entities.properties.offensive.ICanOffensive;
@@ -29,7 +30,7 @@ public final class DefensiveControl implements IModeControl {
 	/**
 	 * Error message when trying to pass a object that is missing interfaces.
 	 */
-	protected static final String ERROR_MISSING_INTERFACE = "The given object must implement ICanOffensive and ICanMove, see the documentation for more information.";
+	protected static final String ERROR_MISSING_INTERFACE = "The given object must implement IHaveWeapon and ICanMove, see the documentation for more information.";
 
 	/**
 	 * Whether the mode currently is active or not. Controlled by
@@ -53,7 +54,7 @@ public final class DefensiveControl implements IModeControl {
 	 * The entity which is controlled by this object.
 	 */
 	private final ISpatial mParent;
-	
+
 	private final Handler mHandler;
 
 	/**
@@ -77,7 +78,7 @@ public final class DefensiveControl implements IModeControl {
 		mIsActive = false;
 		mOffensiveTarget = Optional.empty();
 
-		if (!(mParent instanceof ICanOffensive && mParent instanceof ICanMove)) {
+		if (!(mParent instanceof ICanMove && mParent instanceof IHaveWeapon)) {
 			throw new IllegalArgumentException(ERROR_MISSING_INTERFACE);
 		}
 	}
@@ -122,56 +123,52 @@ public final class DefensiveControl implements IModeControl {
 		if (!mOffensiveTarget.isPresent() && !mMoveReceiver.isMoving()) {
 
 			IOffensiveable target = null;
-			
-			if(mHandler.getWorld().getEntityManager() != null){
-			
+
+			if (mHandler.getWorld().getEntityManager() != null) {
+
 				List<Entity> entityList = mHandler.getWorld().getEntityManager().getEntityList();
-				
-				for(Entity e : entityList){
-					if(e instanceof IOffensiveable){
-						if(((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())){
+
+				for (Entity e : entityList) {
+					if (e instanceof IOffensiveable) {
+						if (((Enemy) mParent).getVisionField().intersects(e.getProperCollisionRectangle())) {
 							target = (IOffensiveable) e;
-							
+
 						}
 					}
 				}
-			
+
 			}
-			
+
 			if (target != null) {
 				mOffensiveTarget = Optional.of(target);
-				
+
 			}
-				
+
 		}
 
 		// Case 2: Object is trying to attack another object.
 		if (mOffensiveTarget.isPresent()) {
 			IOffensiveable target = mOffensiveTarget.get();
-			
+
 			boolean isCloseEnough = true;
-			
+
 			if (target instanceof Creature) {
 				Creature targetAsCreature = (Creature) target;
-				
-				if(targetAsCreature.checkEntityCollisions(0f, 10f) || targetAsCreature.checkEntityCollisions(10f, 0f) ||
-					targetAsCreature.checkEntityCollisions(0f, -10f) || targetAsCreature.checkEntityCollisions(-10f, 0f)){
-					
-					if(targetAsCreature.getCollidingEntity().equals(mParent)){
-						isCloseEnough = true;
-						
-					}
+				IHaveWeapon parentAsIHaveWeapon = (IHaveWeapon) mParent;
 
-				}else{
+				if (targetAsCreature.getProperCollisionRectangle()
+						.intersects(parentAsIHaveWeapon.getWeapon().getProperCollisionRectangle())) {
+					isCloseEnough = true;
+
+				} else {
 					isCloseEnough = false;
-					
 				}
 			}
 
 			// Trigger offensive action if close enough
 			if (isCloseEnough && !mOffensiveReceiver.isOffensive()) {
 				if (target instanceof ILively && ((ILively) target).isAlive()) {
-					
+
 					mOffensiveReceiver.offensiveAction(target, gameTime);
 				} else {
 					// Target died, deselect it and stop movement.

@@ -53,34 +53,33 @@ public class Utils {
 		return new BigDecimal(numberToRound).setScale(scale, BigDecimal.ROUND_FLOOR).doubleValue();
 
 	}
-	
-	public static Point2D differenceVector(Point2D src, Point2D dest){
+
+	public static Point2D differenceVector(Point2D src, Point2D dest) {
 		double srcX = src.getX();
 		double srcY = src.getY();
 		double destX = dest.getX();
 		double destY = dest.getY();
-		
-		return  new Point2D.Double(destX - srcX, destY - srcY);
+
+		return new Point2D.Double(destX - srcX, destY - srcY);
 	}
-	
-	public static double lengthVector(Point2D vector){
+
+	public static double lengthVector(Point2D vector) {
 		double vectorX = vector.getX();
 		double vectorY = vector.getY();
-		
+
 		return Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2));
 	}
-	
-	public static Point2D multiplyScalarVector(Point2D vector, double scalar){
-		
-		return new Point2D.Double((1 / scalar) * vector.getX(), (1 / scalar) * vector.getY()); 
-	}
-	
 
-	public static Point2D normalizeVector(Point2D src, Point2D dest){
+	public static Point2D multiplyScalarVector(Point2D vector, double scalar) {
+
+		return new Point2D.Double((1 / scalar) * vector.getX(), (1 / scalar) * vector.getY());
+	}
+
+	public static Point2D normalizeVector(Point2D src, Point2D dest) {
 		Point2D differenceVector = differenceVector(src, dest);
 		double length = lengthVector(differenceVector);
 		Point2D normalizedVector = multiplyScalarVector(differenceVector, length);
-		
+
 		return normalizedVector;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.humans.talkable.TalkableHuman;
+import de.cormag.projectf.entities.statics.weapons.ASword;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.logic.modes.IModeControl;
 import de.cormag.projectf.logic.modes.players.EPlayerMode;
@@ -27,9 +28,9 @@ public class Player extends ControlableHuman implements Serializable {
 	private transient boolean inventory;
 	private TalkableHuman lastEncountered;
 	private Handler handler;
-	
+
 	private float mOldRelativeX, mOldRelativeY;
-	
+
 	private PlayerModeManager mPlayerModeManager;
 
 	public Player(Handler handler, float x, float y) {
@@ -38,11 +39,13 @@ public class Player extends ControlableHuman implements Serializable {
 		this.handler = handler;
 
 		inventory = false;
-		
+
 		IOffensiveBehavior offensiveBehavior = new OffensiveBehavior(this);
 		IPlayerMovementBehavior localMoveBehavior = new LocalPlayerMovementBehavior(this);
-		LocalPlayerAttackBehavior localPlayerAttackBehavior = new LocalPlayerAttackBehavior(this, offensiveBehavior, handler);
-		IModeControl localPlayerControl = new LocalPlayerControl(this, localMoveBehavior, localPlayerAttackBehavior, handler.getKeyManager());
+		LocalPlayerAttackBehavior localPlayerAttackBehavior = new LocalPlayerAttackBehavior(this, offensiveBehavior,
+				handler);
+		IModeControl localPlayerControl = new LocalPlayerControl(this, localMoveBehavior, localPlayerAttackBehavior,
+				handler.getKeyManager());
 		mPlayerModeManager = new PlayerModeManager(this, localPlayerControl, EPlayerMode.LOCAL_PLAYER_MODE);
 
 		applyResources();
@@ -53,7 +56,7 @@ public class Player extends ControlableHuman implements Serializable {
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 		mPlayerModeManager.update(gameTime);
-		
+
 		handler.getGameCamera().centerOnEntity(this);
 
 		talk(false);
@@ -64,9 +67,9 @@ public class Player extends ControlableHuman implements Serializable {
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1], Assets.player_up[1],
-				Assets.player_down[1]));
-		
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.player_left[1], Assets.player_right[1],
+				Assets.player_up[1], Assets.player_down[1]));
+
 		renderTalkNotification(g);
 
 	}
@@ -128,20 +131,20 @@ public class Player extends ControlableHuman implements Serializable {
 
 		this.inventory = inventory;
 	}
-	
-	public void setOldX(float newPosX){
+
+	public void setOldX(float newPosX) {
 		mOldRelativeX = newPosX;
 	}
-	
-	public void setOldY(float newPosY){
+
+	public void setOldY(float newPosY) {
 		mOldRelativeY = newPosY;
 	}
-	
-	public float getOldX(){
+
+	public float getOldX() {
 		return mOldRelativeX;
 	}
 
-	public float getOldY(){
+	public float getOldY() {
 		return mOldRelativeY;
 	}
 
@@ -150,6 +153,5 @@ public class Player extends ControlableHuman implements Serializable {
 		super.applyResources();
 
 	}
-
 
 }

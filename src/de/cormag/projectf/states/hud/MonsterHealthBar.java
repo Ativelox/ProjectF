@@ -32,7 +32,8 @@ public class MonsterHealthBar extends HUDElement {
 
 		if (seenPlayer || damagedOnce) {
 
-			float healthbarWidthGray = (float) ((enemy.getWidth() / enemy.getMaxLifepoints()) * enemy.getMaxLifepoints());
+			float healthbarWidthGray = (float) ((enemy.getWidth() / enemy.getMaxLifepoints())
+					* enemy.getMaxLifepoints());
 			float healthbarWidthRed = (float) ((enemy.getWidth() / enemy.getMaxLifepoints()) * enemy.getLifepoints());
 
 			g.setColor(Color.gray);

@@ -10,7 +10,7 @@ import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.time.GameTime;
 
-public abstract class Creature extends Entity implements ICanMove, IHaveAnimations{
+public abstract class Creature extends Entity implements ICanMove, IHaveAnimations {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,13 +26,13 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	protected boolean sprinting;
 
 	transient protected BufferedImage steadyAnimation;
-	
+
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
 		speed = DEFAULT_SPEED;
 		sprinting = false;
 		runningSpeed = Creature.DEFAULT_SPEED * 2;
-		
+
 		verticalDirection = 0;
 		horizontalDirection = 0;
 
@@ -41,24 +41,23 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 		getBounds().width = width / 3;
 		getBounds().height = 2 * height / 3;
 	}
-	
-	public void render(Graphics g, final GameTime gameTime, BufferedImage image){
-		g.drawImage(image, (int) getX(), (int) getY(), getWidth(), getHeight(), null); 
+
+	public void render(Graphics g, final GameTime gameTime, BufferedImage image) {
+		g.drawImage(image, (int) getX(), (int) getY(), getWidth(), getHeight(), null);
 		super.render(g, gameTime);
 
-		
 	}
-	
+
 	@Override
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
 
 	}
-	
+
 	@Override
-	public BufferedImage getCurrentAnimationFrame(BufferedImage steadyLeft, BufferedImage steadyRight, BufferedImage steadyUp,
-			BufferedImage steadyDown){
-		
+	public BufferedImage getCurrentAnimationFrame(BufferedImage steadyLeft, BufferedImage steadyRight,
+			BufferedImage steadyUp, BufferedImage steadyDown) {
+
 		if (sprinting) {
 
 			if (horizontalDirection == -1) {
@@ -103,28 +102,24 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 				return getSteadyAnimation();
 			}
 		}
-		
+
 	}
-	
 
 	@Override
 	public void setSteadyAnimation(BufferedImage imageToSet) {
 		steadyAnimation = imageToSet;
-		
+
 	}
-	
+
 	@Override
 	public BufferedImage getSteadyAnimation() {
 		return steadyAnimation;
 
 	}
-	
 
 	public boolean collisionWithTile(int x, int y) {
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
-
-
 
 	@Override
 	public float getMovementSpeed() {
@@ -134,7 +129,7 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	@Override
 	public void setMovementSpeed(float amount) {
 		this.speed = amount;
-		
+
 	}
 
 	@Override
@@ -145,9 +140,9 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	@Override
 	public void setRunningSpeed(float amount) {
 		runningSpeed = amount;
-		
+
 	}
-	
+
 	@Override
 	public int getHorizontalDirection() {
 		return horizontalDirection;
@@ -156,7 +151,7 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	@Override
 	public void setHorizontalDirection(int direction) {
 		horizontalDirection = direction;
-		
+
 	}
 
 	@Override
@@ -167,14 +162,12 @@ public abstract class Creature extends Entity implements ICanMove, IHaveAnimatio
 	@Override
 	public void setVerticalDirection(int direction) {
 		verticalDirection = direction;
-		
+
 	}
 
 	@Override
 	public boolean isSprinting() {
 		return sprinting;
 	}
-
-	
 
 }

@@ -8,19 +8,18 @@ import java.util.TimerTask;
 
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.Human;
+import de.cormag.projectf.entities.properties.IHaveWeapon;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
-import de.cormag.projectf.entities.properties.offensive.ICanAttack;
-import de.cormag.projectf.entities.statics.skills.weapons.LongRangeSwipe;
+import de.cormag.projectf.entities.statics.weapons.AWeapon;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
-import de.cormag.projectf.entities.statics.weapons.Weapon;
 import de.cormag.projectf.gfx.Animation;
 import de.cormag.projectf.gfx.Assets;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.states.GameOverState;
 import de.cormag.projectf.utils.time.GameTime;
 
-public abstract class ControlableHuman extends Human implements ILively, IAttackable, ICanAttack{
+public abstract class ControlableHuman extends Human implements ILively, IAttackable, IHaveWeapon {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,19 +35,17 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	private boolean leveledUp;
 	private int level;
 	private int experience;
-	
+
 	private float health;
 	private float maxHealth;
 
-	private IronSword ironSword;
+	private AWeapon ironSword;
 
 	private boolean sheathAble;
 
 	private String lastMovement;
 
 	private Handler handler;
-	
-	private LongRangeSwipe longRangeSwipe;
 
 	public ControlableHuman(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -70,8 +67,8 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		sheathAble = true;
 
 		leveledUp = false;
-		
-		longRangeSwipe = new LongRangeSwipe(handler, x, y);
+
+		ironSword = new IronSword(this, handler, getX(), getY(), IronSword.DEFAULT_IRON_SWORD_POWER);
 
 		applyResources();
 	}
@@ -84,12 +81,12 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 		updateStatsIfLeveledUp();
 
-//		checkWeaponSkillUsage();
-		
+		// checkWeaponSkillUsage();
+
 		drawSword(handler.getKeyManager().space);
 
 		checkStaminaUsage();
-		
+
 		checkMagicUsage();
 
 		dieIfDead();
@@ -100,31 +97,10 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
-		
+
 		super.render(g, gameTime, imageToDraw);
 
 		drawLevelUpIfApplicable(g);
-		
-	}
-	
-
-	@SuppressWarnings("unused")
-	private void checkWeaponSkillUsage() {
-
-		if (handler.getKeyManager().one) {
-			if(!handler.getWorld().getEntityManager().contains(longRangeSwipe)){
-				drawSword(true);
-				
-				longRangeSwipe.setX(this.x);
-				longRangeSwipe.setY(this.y);
-				if(magic >= 30){
-					magic -= 30;
-					handler.getWorld().getEntityManager().addEntity(longRangeSwipe);
-					
-				}
-			}
-
-		}
 
 	}
 
@@ -174,12 +150,11 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		}
 
 	}
-	
-	private void checkMagicUsage(){
-		if(magic <= 0){
+
+	private void checkMagicUsage() {
+		if (magic <= 0) {
 			magic = 0;
 
-			
 		}
 
 	}
@@ -188,7 +163,7 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 
 		if (handler.getWorld().getEntityManager() != null) {
 			if (handler.getKeyManager().shift
-					&& !handler.getWorld().getEntityManager().contains(handler.getPlayer().getCurrentWeapon())
+					&& !handler.getWorld().getEntityManager().contains(handler.getPlayer().getWeapon())
 					&& (horizontalDirection != 0 || verticalDirection != 0)) {
 
 				if (stamina == 0 || stamina < 0) {
@@ -244,18 +219,17 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		}
 
 	}
-	
 
 	private void drawSword(boolean key) {
 
-		if (key && handler.getWorld().getEntityManager() != null && !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble
-				&& stamina >= 50) {
+		if (key && handler.getWorld().getEntityManager() != null
+				&& !handler.getWorld().getEntityManager().contains(ironSword) && sheathAble && stamina >= 50) {
 
-			ironSword = new IronSword(handler, handler.getPlayer().getX(), handler.getPlayer().getY());
+			ironSword = new IronSword(this, handler, -200, -200, IronSword.DEFAULT_IRON_SWORD_POWER);
 
 			handler.getWorld().getEntityManager().addEntity(ironSword);
 
-			stamina -= getCurrentWeapon().getStaminaUsage();
+			stamina -= getWeapon().getStaminaUsage();
 
 			sheathAble = false;
 
@@ -315,14 +289,20 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 			}
 		}
 	}
-	
-	public float getAttackPower(){
-		return getCurrentWeapon().getAttackValue();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IHaveWeapon#getWeapon()
+	 */
+	@Override
+	public AWeapon getWeapon() {
+		return ironSword;
 	}
 
-	public Weapon getCurrentWeapon() {
-
-		return ironSword;
+	@Override
+	public void setWeapon(AWeapon weapon) {
+		ironSword = weapon;
 
 	}
 
@@ -378,17 +358,16 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 	}
 
 	@Override
-	public float getLifepoints(){
+	public float getLifepoints() {
 		return health;
-		
+
 	}
-	
 
 	@Override
 	public void setLifepoints(float amount) {
-		if(amount > maxHealth){
+		if (amount > maxHealth) {
 			health = maxHealth;
-		}else{
+		} else {
 			health = amount;
 		}
 	}
@@ -398,20 +377,20 @@ public abstract class ControlableHuman extends Human implements ILively, IAttack
 		return maxHealth;
 	}
 
-	public boolean isAlive(){
-		if(health > 0){
+	public boolean isAlive() {
+		if (health > 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	@Override
-	public void changeLifepoints(final float amount){
-		if(health + amount > maxHealth ){
+	public void changeLifepoints(final float amount) {
+		if (health + amount > maxHealth) {
 			health = maxHealth;
-		}else{
+		} else {
 			health += amount;
 		}
 	}

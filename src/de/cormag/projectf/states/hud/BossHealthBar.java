@@ -69,20 +69,21 @@ public class BossHealthBar extends HUDElement {
 			if (((800 / maxHealth) * (i * 10)) < 800) {
 
 				if (handler.getWorld().getEntityManager()
-						.contains(handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon())) {
+						.contains(handler.getWorld().getEntityManager().getPlayer().getWeapon())) {
 
 					if (damaged) {
 						g.setColor(new Color(255, 255, 255, 255));
 						g.setFont(Assets.OPTIMUS_PRINCEPS.deriveFont(30f));
-						g.drawString(""
-								+ handler.getWorld().getEntityManager().getPlayer().getCurrentWeapon().getAttackValue(),
+						g.drawString(
+								"" + handler.getWorld().getEntityManager().getPlayer().getWeapon().getAttackPower(),
 								860, 620);
 					}
 
 				}
 
 				g.setColor(Color.black);
-				g.drawLine((int) ((800 / maxHealth) * (i * 10)) + 100, 640, (int) (((800 / maxHealth) * (i * 10)) + 100), 659);
+				g.drawLine((int) ((800 / maxHealth) * (i * 10)) + 100, 640,
+						(int) (((800 / maxHealth) * (i * 10)) + 100), 659);
 
 			}
 		}

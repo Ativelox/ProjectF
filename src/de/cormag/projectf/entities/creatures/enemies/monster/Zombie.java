@@ -23,7 +23,6 @@ public class Zombie extends Monster implements Serializable {
 		this.health = 5;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = (int) (Math.random() * 70 + 30);
 
 		speed = 200;
 
@@ -42,7 +41,8 @@ public class Zombie extends Monster implements Serializable {
 	}
 
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.zombie_left[1], Assets.zombie_right[1], Assets.zombie_up[1], Assets.zombie_down[1]));
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.zombie_left[1], Assets.zombie_right[1],
+				Assets.zombie_up[1], Assets.zombie_down[1]));
 	}
 
 	@Override

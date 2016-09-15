@@ -20,15 +20,12 @@ public class LoadingScreen extends World {
 
 	private int countRenderTicks;
 
-	
 	public LoadingScreen(World queuedWorld, Handler handler, float spawnX, float spawnY) {
 		super(null);
 
 		loadWorld("LoadingScreen.pflf");
 		countRenderTicks = 0;
-		
 
-		
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 
@@ -66,7 +63,7 @@ public class LoadingScreen extends World {
 
 			@Override
 			public void run() {
-					
+
 				handler.getPlayer().setRelativeX(spawnX);
 				handler.getPlayer().setRelativeY(spawnY);
 
@@ -111,7 +108,9 @@ public class LoadingScreen extends World {
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.cormag.projectf.worlds.World#render(java.awt.Graphics, de.cormag.projectf.utils.time.GameTime)
+	 * 
+	 * @see de.cormag.projectf.worlds.World#render(java.awt.Graphics,
+	 * de.cormag.projectf.utils.time.GameTime)
 	 */
 	@Override
 	public void render(final Graphics g, final GameTime gameTime) {
@@ -145,6 +144,7 @@ public class LoadingScreen extends World {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
 	 */
 	@Override

@@ -24,7 +24,6 @@ public class VikingBoss extends Boss {
 		this.health = 10;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 5;
 
 		awardedExp = 100;
 
@@ -48,8 +47,8 @@ public class VikingBoss extends Boss {
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.mattiBoss_left[1], Assets.mattiBoss_right[1], Assets.mattiBoss_up[1],
-				Assets.mattiBoss_down[1]));
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.mattiBoss_left[1], Assets.mattiBoss_right[1],
+				Assets.mattiBoss_up[1], Assets.mattiBoss_down[1]));
 
 	}
 

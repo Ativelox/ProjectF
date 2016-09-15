@@ -29,7 +29,7 @@ public interface IMoveBehavior extends IUpdateable {
 	 *            Y-coordinate absolute in the world to move to
 	 */
 	public void moveTo(final float x, final float y);
-	
+
 	/**
 	 * Follows the given target indefinitely.
 	 * 
@@ -37,7 +37,7 @@ public interface IMoveBehavior extends IUpdateable {
 	 *            A move-able object to follow.
 	 */
 	public void follow(final ICanMove target);
-	
+
 	/**
 	 * Makes the object randomly move around.
 	 */

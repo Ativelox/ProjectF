@@ -1,8 +1,8 @@
 package de.cormag.projectf.logic.offensive;
 
+import de.cormag.projectf.entities.properties.IHaveWeapon;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
 import de.cormag.projectf.entities.properties.offensive.ICanAttack;
-import de.cormag.projectf.entities.properties.offensive.ICanOffensive;
 import de.cormag.projectf.entities.properties.offensive.IOffensiveable;
 import de.cormag.projectf.logic.modes.UnsupportedModeException;
 import de.cormag.projectf.utils.time.GameTime;
@@ -50,9 +50,9 @@ public final class OffensiveBehavior implements IOffensiveBehavior {
 	 * @param parent
 	 *            Object to cast offensive actions with
 	 */
-	public OffensiveBehavior(final ICanOffensive parent) {
-		if (parent instanceof ICanAttack) {
-			ICanAttack parentAsCanAttack = (ICanAttack) parent;
+	public OffensiveBehavior(final IHaveWeapon parent) {
+		if (parent.getWeapon() instanceof ICanAttack) {
+			ICanAttack parentAsCanAttack = (ICanAttack) parent.getWeapon();
 			mMode = OffensiveMode.ATTACK;
 			mAttackBehavior = new AttackBehavior(parentAsCanAttack);
 		} else {

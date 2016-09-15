@@ -58,7 +58,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 		g.setFont(new Font(Font.DIALOG_INPUT, 1, 15));
 		g.fillRect(100, 35, (int) (9999 / playerMaxHealth * (playerHealth / 30)), 15);
 		g.setColor(Color.red);
-		g.drawString(((int)playerHealth) + "/" + ((int)playerMaxHealth), 105, 46);
+		g.drawString(((int) playerHealth) + "/" + ((int) playerMaxHealth), 105, 46);
 		g.drawRect(99, 34, (int) ((9999 / playerMaxHealth * (playerMaxHealth) / 30)) + 1, 16);
 
 		g.setColor(new Color(0, 127, 0, 180));
@@ -76,10 +76,7 @@ public class PlayerHealthBar extends HUDElement implements Serializable {
 		g.setColor(Color.black);
 		g.drawRoundRect(10, 10, 80, 80, 10, 10);
 
-
 		g.drawImage(Assets.avatar_standard, 10, 10, 80, 80, null);
-
-		
 
 	}
 

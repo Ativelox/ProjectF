@@ -13,4 +13,11 @@ public interface ICanAttack extends ICanOffensive {
 	 * @return The attack power of this object as DPS (damage per second)
 	 */
 	public float getAttackPower();
+
+	/**
+	 * Gets the stamina usage of the weapon used.
+	 * 
+	 * @return the stamina usage
+	 */
+	public int getStaminaUsage();
 }

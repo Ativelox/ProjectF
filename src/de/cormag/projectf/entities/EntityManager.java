@@ -82,10 +82,10 @@ public class EntityManager implements Serializable, IUpdateable, IRenderable {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public List<Entity> getEntityList(){
+
+	public List<Entity> getEntityList() {
 		return entities;
-		
+
 	}
 
 	public Iterator<Entity> getEntities() {
@@ -96,7 +96,9 @@ public class EntityManager implements Serializable, IUpdateable, IRenderable {
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.Graphics, de.cormag.projectf.utils.time.GameTime)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IRenderable#render(java.awt.
+	 * Graphics, de.cormag.projectf.utils.time.GameTime)
 	 */
 	@Override
 	public void render(final Graphics g, final GameTime gameTime) {
@@ -116,7 +118,9 @@ public class EntityManager implements Serializable, IUpdateable, IRenderable {
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.projectf.utils.time.GameTime)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.
+	 * projectf.utils.time.GameTime)
 	 */
 	@Override
 	public void update(final GameTime gameTime) {

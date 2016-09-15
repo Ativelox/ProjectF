@@ -8,9 +8,11 @@ import java.awt.image.BufferedImage;
 
 import de.cormag.projectf.entities.creatures.Creature;
 import de.cormag.projectf.entities.creatures.humans.controlable.Player;
+import de.cormag.projectf.entities.properties.IHaveWeapon;
 import de.cormag.projectf.entities.properties.ILively;
 import de.cormag.projectf.entities.properties.offensive.IAttackable;
-import de.cormag.projectf.entities.properties.offensive.ICanAttack;
+import de.cormag.projectf.entities.statics.weapons.AWeapon;
+import de.cormag.projectf.entities.statics.weapons.Hand;
 import de.cormag.projectf.entities.statics.weapons.IronSword;
 import de.cormag.projectf.logic.modes.AModeManager;
 import de.cormag.projectf.logic.modes.IModeControl;
@@ -25,12 +27,12 @@ import de.cormag.projectf.logic.offensive.OffensiveBehavior;
 import de.cormag.projectf.main.Handler;
 import de.cormag.projectf.utils.time.GameTime;
 
-public abstract class Enemy extends Creature implements ILively, IAttackable, ICanAttack{
+public abstract class Enemy extends Creature implements ILively, IAttackable, IHaveWeapon {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final int DEFAULT_HEALTH = 10;
-	
+
 	protected Rectangle visionField;
 	protected boolean seenPlayer;
 	protected boolean damagedOnce;
@@ -40,13 +42,15 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	protected float health;
 	protected float maxHealth;
 	protected boolean damaged;
-	protected int attackValue;
-	
+	private boolean isAdded;
+
+	private AWeapon mHand;
+
 	private AModeManager mModeManager;
 
 	public Enemy(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-		
+
 		health = DEFAULT_HEALTH;
 		maxHealth = DEFAULT_HEALTH;
 		damaged = false;
@@ -55,14 +59,29 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		awardedExp = 0;
 		name = this.getClass().getName();
 		player = handler.getPlayer();
-		
-		IMoveBehavior moveBehavior = new MoveBehavior(this);
+
+		isAdded = false;
+
+		mHand = new Hand(this, handler, x, y, width, height, 200);
+
 		IOffensiveBehavior offensiveBehavior = new OffensiveBehavior(this);
+		IMoveBehavior moveBehavior = new MoveBehavior(this);
 		IModeControl aggresiveControl = new AggressiveControl(this, moveBehavior, offensiveBehavior, handler);
 		IModeControl defensiveControl = new DefensiveControl(this, moveBehavior, offensiveBehavior, handler);
 		mModeManager = new EnemyModeManager(this, aggresiveControl, defensiveControl, EEnemyMode.AGGRESSIVE);
 
 		visionField = new Rectangle((int) (getX()), (int) (getY() + height), width, height);
+
+	}
+
+	public void addWeapon() {
+
+		if (isAdded) {
+			return;
+		}
+
+		handler.getWorld().getEntityManager().addEntity(mHand);
+		isAdded = true;
 
 	}
 
@@ -102,8 +121,10 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	@Override
 	public void update(final GameTime gameTime) {
 		super.update(gameTime);
-		
+
 		mModeManager.update(gameTime);
+
+		addWeapon();
 
 		if (damaged) {
 
@@ -114,6 +135,7 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		if (this.health <= 0) {
 
 			handler.getWorld().getEntityManager().getPlayer().awardExperiencePoints(awardedExp);
+			handler.getWorld().getEntityManager().removeEntity(mHand);
 			handler.getWorld().getEntityManager().removeEntity(this);
 
 		}
@@ -130,55 +152,72 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 	public void render(Graphics g, final GameTime gameTime, BufferedImage imageToDraw) {
 		renderVisionField(g);
 		super.render(g, gameTime, imageToDraw);
-		
+
 	}
-	
-	public Rectangle getVisionField(){
+
+	public Rectangle getVisionField() {
 		return this.visionField;
-		
+
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IHaveWeapon#getWeapon()
+	 */
 	@Override
-	public float getAttackPower(){
-		return attackValue;
-		
+	public AWeapon getWeapon() {
+		return mHand;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.cormag.projectf.entities.properties.IHaveWeapon#setWeapon(de.cormag.
+	 * projectf.entities.statics.weapons.Weapon)
+	 */
 	@Override
-	public float getLifepoints(){
-		return health;
-		
+	public void setWeapon(AWeapon weapon) {
+		mHand = weapon;
+
 	}
 
 	@Override
-	public boolean isAlive(){
-		if(health > 0){
+	public float getLifepoints() {
+		return health;
+
+	}
+
+	@Override
+	public boolean isAlive() {
+		if (health > 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	@Override
-	public void changeLifepoints(final float amount){
-		if(health + amount > maxHealth){
+	public void changeLifepoints(final float amount) {
+		if (health + amount > maxHealth) {
 			health = maxHealth;
-			
-		}else{
+
+		} else {
 			health += amount;
-			
+
 		}
 	}
-	
+
 	@Override
 	public void setLifepoints(float amount) {
-		if(amount > maxHealth){
+		if (amount > maxHealth) {
 			health = maxHealth;
-		}else{
+		} else {
 			health = amount;
 		}
-		
+
 	}
 
 	@Override
@@ -190,10 +229,10 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 
 		return seenPlayer;
 	}
-	
-	public void setSeenPlayer(boolean seen){
+
+	public void setSeenPlayer(boolean seen) {
 		seenPlayer = seen;
-		
+
 	}
 
 	public boolean damagedOnce() {
@@ -207,6 +246,7 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		return name;
 
 	}
+
 	public boolean getDamaged() {
 
 		return damaged;
@@ -217,6 +257,5 @@ public abstract class Enemy extends Creature implements ILively, IAttackable, IC
 		this.damaged = bool;
 
 	}
-
 
 }

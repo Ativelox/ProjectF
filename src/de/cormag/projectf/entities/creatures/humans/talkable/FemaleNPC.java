@@ -16,7 +16,7 @@ public class FemaleNPC extends TalkableHuman {
 		super(handler, x, y, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATURE_HEIGHT);
 
 	}
-	
+
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
 

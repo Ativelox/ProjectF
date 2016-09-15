@@ -13,40 +13,48 @@ import de.cormag.projectf.utils.time.GameTime;
  *
  */
 
-public class PlayerModeManager extends AModeManager{
-	
+public class PlayerModeManager extends AModeManager {
+
 	/**
 	 * the player which is being controlled by this object
 	 */
 	@SuppressWarnings("unused")
 	private final ControlableHuman mParent;
-	
+
 	/**
-	 * The control object for the mode {@link EPlayerMode#LOCAL_PLAYER_MODE LOCAL_PLAYER_MODE}.
+	 * The control object for the mode {@link EPlayerMode#LOCAL_PLAYER_MODE
+	 * LOCAL_PLAYER_MODE}.
 	 */
 	private final IModeControl mLocalPlayerControl;
-	
+
 	/**
 	 * the currently active mode
 	 */
 	private EPlayerMode mCurrentMode;
-	
+
 	/**
-	 * Creates a new player mode manager which manages player modes and forwards events to the currently active mode.
-	 * @param parent	the player which is being controlled by this object
-	 * @param localPlayerControl	the control object for the mode {@link EPlayerMode#LOCAL_PLAYER_MODE LOCAL_PLAYER_MODE}
-	 * @param initialMode	the initial mode to be set for this object
+	 * Creates a new player mode manager which manages player modes and forwards
+	 * events to the currently active mode.
+	 * 
+	 * @param parent
+	 *            the player which is being controlled by this object
+	 * @param localPlayerControl
+	 *            the control object for the mode
+	 *            {@link EPlayerMode#LOCAL_PLAYER_MODE LOCAL_PLAYER_MODE}
+	 * @param initialMode
+	 *            the initial mode to be set for this object
 	 */
-	public PlayerModeManager(final ControlableHuman parent, final IModeControl localPlayerControl, final EPlayerMode initialMode) {
+	public PlayerModeManager(final ControlableHuman parent, final IModeControl localPlayerControl,
+			final EPlayerMode initialMode) {
 		super(parent);
-		
+
 		mParent = parent;
 		mLocalPlayerControl = localPlayerControl;
-		
+
 		mCurrentMode = initialMode;
 		getCurrentModeControl().activate();
 	}
-	
+
 	/**
 	 * Gets the current active mode.
 	 * 
@@ -59,14 +67,14 @@ public class PlayerModeManager extends AModeManager{
 	@Override
 	public void update(GameTime gameTime) {
 		getCurrentModeControl().update(gameTime);
-		
+
 	}
 
 	@Override
 	protected IModeControl getCurrentModeControl() {
-		if(mCurrentMode == EPlayerMode.LOCAL_PLAYER_MODE){
+		if (mCurrentMode == EPlayerMode.LOCAL_PLAYER_MODE) {
 			return mLocalPlayerControl;
-		}else{
+		} else {
 			throw new UnsupportedModeException(ERROR_UNKNOWN_MODE + mCurrentMode);
 		}
 	}

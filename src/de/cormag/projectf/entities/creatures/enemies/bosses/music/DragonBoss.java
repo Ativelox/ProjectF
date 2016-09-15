@@ -25,7 +25,6 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 		this.health = 20;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 500;
 
 		speed = 120;
 
@@ -47,8 +46,8 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.dragonBoss_left[1], Assets.dragonBoss_right[1], Assets.dragonBoss_up[1],
-				Assets.dragonBoss_down[1]));
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.dragonBoss_left[1], Assets.dragonBoss_right[1],
+				Assets.dragonBoss_up[1], Assets.dragonBoss_down[1]));
 	}
 
 	@Override
@@ -69,6 +68,5 @@ public class DragonBoss extends BossWithMusic implements Serializable {
 
 		return bossHealthBar;
 	}
-
 
 }

@@ -23,7 +23,10 @@ public abstract class MusicWorld extends World {
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.cormag.projectf.worlds.World#update(de.cormag.projectf.utils.time.GameTime)
+	 * 
+	 * @see
+	 * de.cormag.projectf.worlds.World#update(de.cormag.projectf.utils.time.
+	 * GameTime)
 	 */
 	@Override
 	public void update(final GameTime gameTime) {

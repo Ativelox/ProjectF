@@ -25,7 +25,6 @@ public class KingBoss extends BossWithMusic implements Serializable {
 		this.health = 10;
 		maxHealth = this.health;
 		damaged = false;
-		attackValue = 1;
 
 		speed = Player.DEFAULT_SPEED / 2;
 
@@ -47,7 +46,8 @@ public class KingBoss extends BossWithMusic implements Serializable {
 
 	@Override
 	public void render(Graphics g, final GameTime gameTime) {
-		super.render(g, gameTime, getCurrentAnimationFrame(Assets.king_left[1], Assets.king_right[1], Assets.king_up[1], Assets.king_down[1]));
+		super.render(g, gameTime, getCurrentAnimationFrame(Assets.king_left[1], Assets.king_right[1], Assets.king_up[1],
+				Assets.king_down[1]));
 	}
 
 	@Override

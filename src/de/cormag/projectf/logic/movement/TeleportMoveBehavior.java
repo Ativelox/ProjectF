@@ -48,7 +48,7 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 
 		mFollowTarget = Optional.empty();
 		mCurrentDestination = Optional.empty();
-		
+
 		mIsMoving = false;
 	}
 
@@ -113,20 +113,20 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 		if (!mIsMoving) {
 			return;
 		}
-		
+
 		if (mFollowTarget.isPresent()) {
 			ICanMove target = mFollowTarget.get();
 			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX(), target.getRelativeY()));
 		}
-		
+
 		if (mCurrentDestination.isPresent()) {
 			Point2D position = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
 			Point2D destination = mCurrentDestination.get();
-			
+
 			// Move to the destination
 			mParent.setRelativeX((float) destination.getX());
 			mParent.setRelativeY((float) destination.getY());
-			
+
 			// Arrival at specific destination
 			if (position.distance(destination) <= ARRIVAL_RADIUS) {
 				stopMovement();
@@ -136,6 +136,6 @@ public final class TeleportMoveBehavior implements IMoveBehavior {
 
 	@Override
 	public void roam(final GameTime gameTime) {
-		
+
 	}
 }

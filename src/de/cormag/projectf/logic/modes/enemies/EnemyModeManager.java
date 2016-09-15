@@ -27,7 +27,7 @@ public final class EnemyModeManager extends AModeManager {
 	 * The control object for the mode {@link EEnemyMode#DEFENSIVE DEFENSIVE}.
 	 */
 	private final IModeControl mDefensiveControl;
-	
+
 	@SuppressWarnings("unused")
 	private final Enemy mParent;
 
@@ -48,7 +48,7 @@ public final class EnemyModeManager extends AModeManager {
 	public EnemyModeManager(final Enemy parent, final IModeControl aggressiveControl,
 			final IModeControl defensiveControl, final EEnemyMode initialMode) {
 		super(parent);
-		
+
 		mParent = parent;
 		mAggressiveControl = aggressiveControl;
 		mDefensiveControl = defensiveControl;
@@ -75,12 +75,13 @@ public final class EnemyModeManager extends AModeManager {
 	public void update(final GameTime gameTime) {
 		getCurrentModeControl().update(gameTime);
 
-//		if(getCurrentMode() != EEnemyMode.AGGRESSIVE && (mParent.seenPlayer() || mParent.damagedOnce())){
-//			getCurrentModeControl.terminate();
-//		    mCurrentMode = EEnemyMode.AGGRESSIVE;
-//			getCurrentModeControl.activate();
-//		}
-		
+		// if(getCurrentMode() != EEnemyMode.AGGRESSIVE && (mParent.seenPlayer()
+		// || mParent.damagedOnce())){
+		// getCurrentModeControl.terminate();
+		// mCurrentMode = EEnemyMode.AGGRESSIVE;
+		// getCurrentModeControl.activate();
+		// }
+
 	}
 
 	/*

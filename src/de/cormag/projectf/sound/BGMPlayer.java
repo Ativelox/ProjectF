@@ -44,7 +44,9 @@ public class BGMPlayer implements IUpdateable {
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.projectf.utils.time.GameTime)
+	 * 
+	 * @see de.cormag.projectf.entities.properties.IUpdateable#update(de.cormag.
+	 * projectf.utils.time.GameTime)
 	 */
 	@Override
 	public void update(final GameTime gameTime) {

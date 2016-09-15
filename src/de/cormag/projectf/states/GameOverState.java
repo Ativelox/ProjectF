@@ -130,6 +130,7 @@ public class GameOverState extends State {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
 	 */
 	@Override

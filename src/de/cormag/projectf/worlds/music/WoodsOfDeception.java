@@ -66,6 +66,7 @@ public class WoodsOfDeception extends MusicWorld {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.cormag.projectf.entities.properties.IRenderable#getLayer()
 	 */
 	@Override

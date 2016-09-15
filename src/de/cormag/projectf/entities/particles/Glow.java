@@ -67,7 +67,7 @@ public final class Glow extends Particle {
 	 * 
 	 * @see de.cormag.projectf.entities.Entity#render(java.awt.Graphics)
 	 */
-	
+
 	@Override
 	public void render(final Graphics g, final GameTime gameTime) {
 		g.setColor(INNER_COLOR);
@@ -86,7 +86,6 @@ public final class Glow extends Particle {
 		super.update(gameTime);
 		mModeManager.update(gameTime);
 	}
-	
 
 	@Override
 	public float getMovementSpeed() {
@@ -105,7 +104,7 @@ public final class Glow extends Particle {
 
 	@Override
 	public void setRunningSpeed(float amount) {
-		
+
 	}
 
 	@Override

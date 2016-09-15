@@ -12,16 +12,18 @@ import de.cormag.projectf.utils.time.GameTime;
 
 /**
  * 
- * The default MoveBehavior which takes collision into account and can follow properly
+ * The default MoveBehavior which takes collision into account and can follow
+ * properly
  * 
  * @author Ativelox
  */
 
-public class MoveBehavior implements IMoveBehavior{
-	
+public class MoveBehavior implements IMoveBehavior {
+
 	/**
-	 * The number of update calls this entity will predict his movement for, if any collision 
-	 * were to occur in the predicted update calls, the object won't move.
+	 * The number of update calls this entity will predict his movement for, if
+	 * any collision were to occur in the predicted update calls, the object
+	 * won't move.
 	 */
 	private final static int PRECAUTIOUS_COLLISION_PADDING = 10;
 	/**
@@ -32,7 +34,7 @@ public class MoveBehavior implements IMoveBehavior{
 	 * Parent object this behavior belongs to.
 	 */
 	private final ICanMove mParent;
-	
+
 	/**
 	 * Parent object this behavior belongs cast to entity.
 	 */
@@ -45,7 +47,7 @@ public class MoveBehavior implements IMoveBehavior{
 	 * Whether the object is currently moving.
 	 */
 	private boolean mIsMoving;
-	
+
 	private double elapsedTime;
 
 	/**
@@ -59,9 +61,9 @@ public class MoveBehavior implements IMoveBehavior{
 		mParentAsCreature = (Creature) parent;
 		mFollowTarget = Optional.empty();
 		mCurrentDestination = Optional.empty();
-		
+
 		elapsedTime = 0.8;
-		
+
 		mIsMoving = false;
 	}
 
@@ -128,89 +130,89 @@ public class MoveBehavior implements IMoveBehavior{
 		if (!mIsMoving) {
 			return;
 		}
-		
+
 		if (mFollowTarget.isPresent()) {
 			ICanMove target = mFollowTarget.get();
 			mCurrentDestination = Optional.of(new Point2D.Float(target.getRelativeX(), target.getRelativeY()));
 		}
-		
-		//got a target to follow or a position to move to
+
+		// got a target to follow or a position to move to
 		if (mCurrentDestination.isPresent()) {
 			Point2D position = new Point2D.Float(mParent.getRelativeX(), mParent.getRelativeY());
 			Point2D destination = mCurrentDestination.get();
 
 			Point2D newPos = Utils.normalizeVector(position, destination);
 			Point2D movementPerCall = new Point2D.Double(newPos.getX(), newPos.getY());
-			
-			if(mParent instanceof IHaveAnimations){
-				
-				if(movementPerCall.getX() > 0){
+
+			if (mParent instanceof IHaveAnimations) {
+
+				if (movementPerCall.getX() > 0) {
 					((IHaveAnimations) mParent).setHorizontalDirection(1);
-					
+
 				}
-				if(movementPerCall.getX() < 0){
+				if (movementPerCall.getX() < 0) {
 					((IHaveAnimations) mParent).setHorizontalDirection(-1);
-					
+
 				}
-				if(movementPerCall.getY() > 0){
+				if (movementPerCall.getY() > 0) {
 					((IHaveAnimations) mParent).setVerticalDirection(1);
-					
+
 				}
-				if(movementPerCall.getY() < 0){
+				if (movementPerCall.getY() < 0) {
 					((IHaveAnimations) mParent).setVerticalDirection(-1);
-					
+
 				}
 			}
-			
-			newPos.setLocation(position.getX() + (newPos.getX() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))),
-					position.getY() + (newPos.getY() * (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))));
 
-			
-			if (!mParentAsCreature.checkEntityCollisions(movementPerCall.getX() * PRECAUTIOUS_COLLISION_PADDING, 0f)){
+			newPos.setLocation(
+					position.getX() + (newPos.getX()
+							* (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))),
+					position.getY() + (newPos.getY()
+							* (mParent.getMovementSpeed() * gameTime.getElapsedTime().get(ChronoUnit.SECONDS))));
+
+			if (!mParentAsCreature.checkEntityCollisions(movementPerCall.getX() * PRECAUTIOUS_COLLISION_PADDING, 0f)) {
 				mParent.setRelativeX((float) newPos.getX());
 
 			}
-			if (!mParentAsCreature.checkEntityCollisions(0f, movementPerCall.getY() * PRECAUTIOUS_COLLISION_PADDING)){
+			if (!mParentAsCreature.checkEntityCollisions(0f, movementPerCall.getY() * PRECAUTIOUS_COLLISION_PADDING)) {
 				mParent.setRelativeY((float) newPos.getY());
 
 			}
-	
+
 		}
 	}
-	
+
 	@Override
 	public void roam(final GameTime gameTime) {
-		if(mFollowTarget.isPresent()){
+		if (mFollowTarget.isPresent()) {
 			mFollowTarget = Optional.empty();
 		}
-		
+
 		elapsedTime += gameTime.getElapsedTime().get(ChronoUnit.SECONDS);
-		
+
 		float newPosX = mParent.getRelativeX();
 		float newPosY = mParent.getRelativeY();
-		
-		if(elapsedTime >= 1){
-			
-			if(Math.round(Math.random()) == 0){
-				//50% chance to move horizontal
+
+		if (elapsedTime >= 1) {
+
+			if (Math.round(Math.random()) == 0) {
+				// 50% chance to move horizontal
 				short horizontalDirection = (short) Math.round(Math.random() * 2 - 1);
 				newPosX = mParent.getRelativeX() * mParent.getMovementSpeed() * horizontalDirection;
-				
-			}else{
-				//50% chance to move vertical
+
+			} else {
+				// 50% chance to move vertical
 				short verticalDirection = (short) Math.round(Math.random() * 2 - 1);
 				newPosY = mParent.getRelativeY() * mParent.getMovementSpeed() * verticalDirection;
-		
+
 			}
-			
+
 			mCurrentDestination = Optional.of(new Point2D.Float(newPosX, newPosY));
-			
+
 			mIsMoving = true;
 			elapsedTime = 0;
 		}
 
 	}
-	
 
 }
-

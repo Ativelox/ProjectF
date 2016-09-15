@@ -8,7 +8,7 @@ package de.cormag.projectf.logic.modes.players;
  */
 
 public enum EPlayerMode {
-	
+
 	/**
 	 * Player input and movement is set to the local mode
 	 */
